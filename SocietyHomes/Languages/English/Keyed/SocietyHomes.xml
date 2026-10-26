@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <SH_Pantry>Household pantry</SH_Pantry>
+  <SH_PantryDesc>Make this the pantry of the household living on this lot (its tenant, or else its owner, and their family who sleep here).\n\nOnly the household may take from it, and only for their own meals: colony haulers, cooks, other colonists, pets and wardens leave it alone, and nothing is hauled into it except by the household. Household members stock it on grocery runs to your for-sale storage, paying the for-sale price, and cook at a stove on the lot if they can.\n\nUse the storage settings to choose what they keep here: meals, raw ingredients or both.</SH_PantryDesc>
+  <SH_PantryInspect>Pantry of {0}'s household</SH_PantryInspect>
+  <SH_PantryInspectVacant>Household pantry (no one lives on this lot)</SH_PantryInspectVacant>
+
+  <SH_SettingDaysOfFood>Food to keep in a pantry: {0} days</SH_SettingDaysOfFood>
+  <SH_SettingDaysOfFoodDesc>Households shop when their pantry drops below 60% of this, and buy enough to fill it back up. Cooking households keep at least half of it as cooked meals.</SH_SettingDaysOfFoodDesc>
+  <SH_SettingPantryBonus>Preference for food from their own pantry: {0}</SH_SettingPantryBonus>
+  <SH_SettingPantryBonusDesc>How many extra cells a hungry household member will walk to eat from their own pantry instead of elsewhere.</SH_SettingPantryBonusDesc>
+  <SH_SettingHomeCooking>Home cooking</SH_SettingHomeCooking>
+  <SH_SettingHomeCookingDesc>Household members who can cook make meals at a stove on their own lot from pantry ingredients. Off: households only buy meals.</SH_SettingHomeCookingDesc>
+  <SH_SettingHomeRec>Recreation at home</SH_SettingHomeRec>
+  <SH_SettingHomeRecDesc>In their free time, household members use recreation buildings (TV, chess, billiards, horseshoes, telescope and the like) and artwork on their own lot before ones elsewhere, even if those are closer. Off: vanilla recreation.</SH_SettingHomeRecDesc>
+  <SH_SettingHomeRecFactor>Pull of recreation at home: x{0}</SH_SettingHomeRecFactor>
+  <SH_SettingHomeRecFactorDesc>How much likelier a household member is to pick a kind of recreation they can do at home (a game on their lot, art on their lot) over other kinds, such as a walk. At x1 they choose what to do as usual, but still do it at home when they can.</SH_SettingHomeRecFactorDesc>
+
+</LanguageData>

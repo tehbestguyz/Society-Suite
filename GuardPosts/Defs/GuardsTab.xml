@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <MainButtonDef>
+    <defName>GP_Guards</defName>
+    <label>guards</label>
+    <description>See your guards and assign them to guard posts or patrol routes.</description>
+    <tabWindowClass>GuardPosts.MainTabWindow_Guards</tabWindowClass>
+    <order>35</order>
+    <closesWorldView>true</closesWorldView>
+  </MainButtonDef>
+
+  <PawnColumnDef>
+    <defName>GP_Assignment</defName>
+    <label>assignment</label>
+    <workerClass>GuardPosts.PawnColumnWorker_GuardAssignment</workerClass>
+    <headerTip>Which guard posts or patrol route this guard uses.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_CombatSkill</defName>
+    <label>combat skill</label>
+    <workerClass>GuardPosts.PawnColumnWorker_CombatSkill</workerClass>
+    <headerTip>Shooting and Melee. The higher one is highlighted: give that guard a ranged or melee weapon to match.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_OnDutyApparel</defName>
+    <label>on-duty apparel</label>
+    <workerClass>GuardPosts.PawnColumnWorker_OnDutyApparel</workerClass>
+    <headerTip>The apparel policy this guard uses on duty. While a policy is chosen here, the Guards tab keeps it set whenever the guard is on duty. "Keep current" leaves their policy alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_OffDutyApparel</defName>
+    <label>off-duty apparel</label>
+    <workerClass>GuardPosts.PawnColumnWorker_OffDutyApparel</workerClass>
+    <headerTip>The apparel policy this guard uses off duty. While a policy is chosen here, the Guards tab keeps it set whenever the guard is off duty. "Keep current" leaves their policy alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <!-- The loadout columns are only added to the table when Combat Extended is active (see GuardStartup). -->
+  <PawnColumnDef>
+    <defName>GP_OnDutyLoadout</defName>
+    <label>on-duty loadout</label>
+    <workerClass>GuardPosts.PawnColumnWorker_OnDutyLoadout</workerClass>
+    <headerTip>The Combat Extended loadout this guard uses on duty. While a loadout is chosen here, the Guards tab keeps it set whenever the guard is on duty. "Keep current" leaves their loadout alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_OffDutyLoadout</defName>
+    <label>off-duty loadout</label>
+    <workerClass>GuardPosts.PawnColumnWorker_OffDutyLoadout</workerClass>
+    <headerTip>The Combat Extended loadout this guard uses off duty, for example non-lethal weapons for peacekeeping. While a loadout is chosen here, the Guards tab keeps it set whenever the guard is off duty. "Keep current" leaves their loadout alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <!-- Militia window -->
+  <PawnColumnDef>
+    <defName>GP_MilitiaMember</defName>
+    <label>militia</label>
+    <workerClass>GuardPosts.PawnColumnWorker_MilitiaMember</workerClass>
+    <headerTip>Militia members are called up with the Call militia button.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_Weapon</defName>
+    <label>weapon</label>
+    <workerClass>GuardPosts.PawnColumnWorker_Weapon</workerClass>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_MilitiaApparel</defName>
+    <label>militia apparel</label>
+    <workerClass>GuardPosts.PawnColumnWorker_MilitiaApparel</workerClass>
+    <headerTip>The apparel policy this member switches to when the militia is called up. Standing down restores the policy they had before. "Keep current" leaves their policy alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <!-- Only added to the militia table when Combat Extended is active (see GuardStartup). -->
+  <PawnColumnDef>
+    <defName>GP_MilitiaLoadout</defName>
+    <label>militia loadout</label>
+    <workerClass>GuardPosts.PawnColumnWorker_MilitiaLoadout</workerClass>
+    <headerTip>The loadout this member switches to when the militia is called up. Standing down restores the loadout they had before. "Keep current" leaves their loadout alone.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_MilitiaStatus</defName>
+    <label>status</label>
+    <workerClass>GuardPosts.PawnColumnWorker_MilitiaStatus</workerClass>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <!-- Guard shifts window -->
+  <PawnColumnDef>
+    <defName>GP_GuardShift</defName>
+    <label>shift</label>
+    <workerClass>GuardPosts.PawnColumnWorker_GuardShift</workerClass>
+    <headerTip>Paint the hours this guard is on shift. During a shift they're on duty and hold their post or walk their route, whatever their schedule says.</headerTip>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_CopyPasteGuardShift</defName>
+    <workerClass>GuardPosts.PawnColumnWorker_CopyPasteGuardShift</workerClass>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_ShiftStatus</defName>
+    <label>now</label>
+    <workerClass>GuardPosts.PawnColumnWorker_ShiftStatus</workerClass>
+  </PawnColumnDef>
+
+  <PawnColumnDef>
+    <defName>GP_Status</defName>
+    <label>current activity</label>
+    <workerClass>GuardPosts.PawnColumnWorker_GuardStatus</workerClass>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+
+  <!-- The Guarding work priority column is inserted after the label at startup, since it's a generated def.
+       With Combat Extended, GP_OnDutyLoadout and GP_OffDutyLoadout are inserted after GP_OffDutyApparel at startup too. -->
+  <PawnTableDef>
+    <defName>GP_Guards</defName>
+    <workerClass>PawnTable_PlayerPawns</workerClass>
+    <minWidth>760</minWidth>
+    <columns>
+      <li>LabelShortWithIcon</li>
+      <li>GapTiny</li>
+      <li>HostilityResponse</li>
+      <li>GapTiny</li>
+      <li>GP_Assignment</li>
+      <li>GapTiny</li>
+      <li>GP_CombatSkill</li>
+      <li>GapTiny</li>
+      <li>GP_OnDutyApparel</li>
+      <li>GapTiny</li>
+      <li>GP_OffDutyApparel</li>
+      <li>GapTiny</li>
+      <li>GP_Status</li>
+      <li>RemainingSpace</li>
+    </columns>
+  </PawnTableDef>
+
+  <PawnTableDef>
+    <defName>GP_Shifts</defName>
+    <workerClass>PawnTable_PlayerPawns</workerClass>
+    <minWidth>640</minWidth>
+    <columns>
+      <li>LabelShortWithIcon</li>
+      <li>GapTiny</li>
+      <li>GP_CopyPasteGuardShift</li>
+      <li>GP_GuardShift</li>
+      <li>GapTiny</li>
+      <li>GP_ShiftStatus</li>
+      <li>RemainingSpace</li>
+    </columns>
+  </PawnTableDef>
+
+  <!-- With Combat Extended, GP_MilitiaLoadout is inserted after GP_MilitiaApparel at startup. -->
+  <PawnTableDef>
+    <defName>GP_Militia</defName>
+    <workerClass>PawnTable_PlayerPawns</workerClass>
+    <minWidth>640</minWidth>
+    <columns>
+      <li>LabelShortWithIcon</li>
+      <li>GapTiny</li>
+      <li>GP_MilitiaMember</li>
+      <li>GapTiny</li>
+      <li>GP_CombatSkill</li>
+      <li>GapTiny</li>
+      <li>GP_Weapon</li>
+      <li>GapTiny</li>
+      <li>GP_MilitiaApparel</li>
+      <li>GapTiny</li>
+      <li>GP_MilitiaStatus</li>
+      <li>RemainingSpace</li>
+    </columns>
+  </PawnTableDef>
+
+</Defs>

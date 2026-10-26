@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ===== Caste markers ===== -->
+
+  <HediffDef>
+    <defName>CM_Artisan</defName>
+    <label>artisan</label>
+    <description>This person is a certified artisan: a master of one craft, recognized by the colony.\n\nArtisans learn their specialty faster, sometimes make items a quality level better, and are inspired more often. In return they expect more from life, want a decent workshop, and dislike menial work.</description>
+    <hediffClass>Commoners.Hediff_Artisan</hediffClass>
+    <defaultLabelColor>(0.55, 0.75, 0.90)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>CM_Scholar</defName>
+    <label>scholar</label>
+    <description>This person is a certified scholar: learned in research, dark study or medicine, and recognized by the colony.\n\nScholars learn their field faster, work better in it, and are inspired more often. In return they expect more from life, want an impressive room to work in, and dislike menial work.</description>
+    <hediffClass>Commoners.Hediff_Scholar</hediffClass>
+    <defaultLabelColor>(0.70, 0.60, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>CM_Soldier</defName>
+    <label>soldier</label>
+    <description>This person serves the colony as a soldier. Soldiers stand with citizens, but expect as little as commoners.\n\nSoldiers learn Shooting and Melee faster, are paid like commoners and pay no taxes. In return their other skills stop improving at a cap, and they dislike skilled labor like crafting, study and doctoring.</description>
+    <hediffClass>Commoners.Hediff_CasteMark</hediffClass>
+    <defaultLabelColor>(0.75, 0.45, 0.40)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>CM_Noble</defName>
+    <label>noble</label>
+    <description>This person belongs to the colony's nobility.\n\nNobles are better traders and negotiators, and a content noble lifts the spirits of lower castes nearby. In return they expect a great deal, need a private and impressive bedroom, refuse menial work, and need their standing upheld.</description>
+    <hediffClass>Commoners.Hediff_Noble</hediffClass>
+    <defaultLabelColor>(0.90, 0.75, 0.30)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+    <stages>
+      <li>
+        <statOffsets>
+          <TradePriceImprovement>0.06</TradePriceImprovement>
+          <NegotiationAbility>0.2</NegotiationAbility>
+          <SocialImpact>0.15</SocialImpact>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- ===== Artisan specialties ===== -->
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Crafting</defName>
+    <label>crafting</label>
+    <skill>Crafting</skill>
+    <statOffsets>
+      <GeneralLaborSpeed>0.1</GeneralLaborSpeed>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Art</defName>
+    <label>art</label>
+    <skill>Artistic</skill>
+    <statOffsets>
+      <WorkSpeedGlobal>0.05</WorkSpeedGlobal>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Construction</defName>
+    <label>construction</label>
+    <skill>Construction</skill>
+    <caresAboutWorkshop>false</caresAboutWorkshop>
+    <statOffsets>
+      <ConstructionSpeed>0.1</ConstructionSpeed>
+      <ConstructSuccessChance>0.05</ConstructSuccessChance>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Cooking</defName>
+    <label>cooking</label>
+    <skill>Cooking</skill>
+    <makesQualityItems>false</makesQualityItems>
+    <caresAboutWorkshop>false</caresAboutWorkshop>
+    <statOffsets>
+      <CookSpeed>0.15</CookSpeed>
+    </statOffsets>
+    <statFactors>
+      <FoodPoisonChance>0.5</FoodPoisonChance>
+    </statFactors>
+  </Commoners.CM_SpecialtyDef>
+
+  <!-- ===== Scholar specialties =====
+       Medicine was an artisan specialty before scholars; the defName is kept so old saves load,
+       and Medicine artisans become doctoring scholars (see ScholarMigration). -->
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Medicine</defName>
+    <label>doctoring</label>
+    <caste>Scholar</caste>
+    <skill>Medicine</skill>
+    <workType>Doctor</workType>
+    <makesQualityItems>false</makesQualityItems>
+    <caresAboutWorkshop>false</caresAboutWorkshop>
+    <statOffsets>
+      <MedicalTendQuality>0.1</MedicalTendQuality>
+      <MedicalSurgerySuccessChance>0.08</MedicalSurgerySuccessChance>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <Commoners.CM_SpecialtyDef>
+    <defName>CM_Specialty_Research</defName>
+    <label>research</label>
+    <caste>Scholar</caste>
+    <skill>Intellectual</skill>
+    <workType>Research</workType>
+    <makesQualityItems>false</makesQualityItems>
+    <caresAboutWorkshop>false</caresAboutWorkshop>
+    <statOffsets>
+      <ResearchSpeed>0.15</ResearchSpeed>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <Commoners.CM_SpecialtyDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>CM_Specialty_DarkStudy</defName>
+    <label>dark study</label>
+    <caste>Scholar</caste>
+    <skill>Intellectual</skill>
+    <workType>DarkStudy</workType>
+    <makesQualityItems>false</makesQualityItems>
+    <caresAboutWorkshop>false</caresAboutWorkshop>
+    <statOffsets>
+      <StudyEfficiency>0.15</StudyEfficiency>
+    </statOffsets>
+  </Commoners.CM_SpecialtyDef>
+
+  <!-- ===== Expectations =====
+       Same stage order as the vanilla Expectations thought: sky-high first down to extremely low,
+       then the noble, royal, elite and supreme stages that titles and roles can raise a pawn to.
+       Artisans sit one step (6 mood) below vanilla, colony nobles two steps (12). -->
+
+  <ThoughtDef>
+    <defName>CM_ExpectationsArtisan</defName>
+    <workerClass>Commoners.ThoughtWorker_ExpectationsCaste</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Artisan</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>sky-high artisan expectations</label>
+        <description>We live in luxury, and I hold everything to the standard of my craft. Nothing here is quite good enough.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+      <li>
+        <label>high artisan expectations</label>
+        <description>We're well off. A craftsman of my standing expects fine tools and a fine life.</description>
+        <baseMoodEffect>0</baseMoodEffect>
+      </li>
+      <li>
+        <label>moderate artisan expectations</label>
+        <description>We're comfortable, but I know what good work and a good life look like.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+      <li>
+        <label>low artisan expectations</label>
+        <description>We have modest means. I can make do, though my craft deserves better.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low artisan expectations</label>
+        <description>We're poor. I expect little, but I still take pride in my work.</description>
+        <baseMoodEffect>18</baseMoodEffect>
+      </li>
+      <li>
+        <label>extremely low artisan expectations</label>
+        <description>We have almost nothing. Anything I make is a small victory.</description>
+        <baseMoodEffect>24</baseMoodEffect>
+      </li>
+      <li>
+        <label>noble artisan expectations</label>
+        <description>My position raises what I expect, and my craft raises it further.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>royal artisan expectations</label>
+        <description>My exalted position, and my craft, demand the very best.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+      <li>
+        <label>elite artisan expectations</label>
+        <description>My position raises what I expect, and my craft raises it further.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>supreme artisan expectations</label>
+        <description>My exalted position, and my craft, demand the very best.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_ExpectationsScholar</defName>
+    <workerClass>Commoners.ThoughtWorker_ExpectationsCaste</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Scholar</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>sky-high scholar expectations</label>
+        <description>We live in luxury, and I've read enough to know it could still be better. Nothing here is quite good enough.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+      <li>
+        <label>high scholar expectations</label>
+        <description>We're well off. A learned person of my standing expects a fine library and a fine life.</description>
+        <baseMoodEffect>0</baseMoodEffect>
+      </li>
+      <li>
+        <label>moderate scholar expectations</label>
+        <description>We're comfortable, but I know how much more a well-run colony could offer.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+      <li>
+        <label>low scholar expectations</label>
+        <description>We have modest means. I can make do, though my studies deserve better.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low scholar expectations</label>
+        <description>We're poor. I expect little, but knowledge is worth having anyway.</description>
+        <baseMoodEffect>18</baseMoodEffect>
+      </li>
+      <li>
+        <label>extremely low scholar expectations</label>
+        <description>We have almost nothing. Anything I learn here is a small victory.</description>
+        <baseMoodEffect>24</baseMoodEffect>
+      </li>
+      <li>
+        <label>noble scholar expectations</label>
+        <description>My position raises what I expect, and my learning raises it further.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>royal scholar expectations</label>
+        <description>My exalted position, and my learning, demand the very best.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+      <li>
+        <label>elite scholar expectations</label>
+        <description>My position raises what I expect, and my learning raises it further.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>supreme scholar expectations</label>
+        <description>My exalted position, and my learning, demand the very best.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_ExpectationsNoble</defName>
+    <workerClass>Commoners.ThoughtWorker_ExpectationsCaste</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Noble</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>sky-high noble expectations</label>
+        <description>Even this opulence is barely fitting for one of my rank.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>high noble expectations</label>
+        <description>We're wealthy, as a noble house should be. I expect to be treated accordingly.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+      <li>
+        <label>moderate noble expectations</label>
+        <description>We're comfortable, but a noble expects more than comfort.</description>
+        <baseMoodEffect>0</baseMoodEffect>
+      </li>
+      <li>
+        <label>low noble expectations</label>
+        <description>This colony is modest. It's hardly fitting for nobility.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low noble expectations</label>
+        <description>We're poor. A noble shouldn't have to live like this, but I'll endure.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+      <li>
+        <label>extremely low noble expectations</label>
+        <description>We have nothing. Even a noble can't expect much from nothing.</description>
+        <baseMoodEffect>18</baseMoodEffect>
+      </li>
+      <li>
+        <label>noble expectations</label>
+        <description>My rank demands the finest of everything.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+      <li>
+        <label>royal noble expectations</label>
+        <description>My rank is exalted, and I expect to be treated so.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+      <li>
+        <label>elite noble expectations</label>
+        <description>My rank demands the finest of everything.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+      <li>
+        <label>supreme noble expectations</label>
+        <description>My rank is exalted, and I expect to be treated so.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Opinion (offsets are overwritten from mod settings at startup) ===== -->
+
+  <ThoughtDef>
+    <defName>CM_Guildmate</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_Guildmate</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>guildmate</label>
+        <baseOpinionOffset>3</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_OurDefender</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_OurDefender</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>our defender</label>
+        <baseOpinionOffset>4</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_FellowNoble</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_FellowNoble</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>fellow noble</label>
+        <baseOpinionOffset>2</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Traits ===== -->
+
+  <ThoughtDef>
+    <defName>CM_ResentsStation</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_ResentsStation</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <requiredTraits>
+      <li>Jealous</li>
+    </requiredTraits>
+    <stages>
+      <li>
+        <label>above my station</label>
+        <baseOpinionOffset>-4</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_Ambition</defName>
+    <workerClass>Commoners.ThoughtWorker_Ambition</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <requiredTraits>
+      <li>Greedy</li>
+    </requiredTraits>
+    <stages>
+      <li>
+        <label>want to rise</label>
+        <description>I deserve more than this station. Others have climbed higher, and so should I.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Artisans ===== -->
+
+  <ThoughtDef>
+    <defName>CM_BeneathMyStation</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <nullifyingTraits>
+      <li>Ascetic</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>menial work</label>
+        <description>I'm a trained artisan, and they have me doing menial chores. That's beneath my station.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_FinestWork</defName>
+    <durationDays>3</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>my finest work</label>
+        <description>I made something truly exceptional. This is what my craft is for.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_PoorWorkshop</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>shabby workshop</label>
+        <description>How am I supposed to do my best work in a place like this? A craftsman needs a proper workshop.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_PoorStudy</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>cramped study</label>
+        <description>How am I supposed to think clearly in a place like this? A scholar needs a proper room to work in.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_NotSoldiersWork</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <nullifyingTraits>
+      <li>Ascetic</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>not a soldier's work</label>
+        <description>I signed up to fight, not to fiddle with benches and books.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Nobles ===== -->
+
+  <ThoughtDef>
+    <defName>CM_Lordship</defName>
+    <workerClass>Commoners.ThoughtWorker_Lordship</workerClass>
+    <stages>
+      <li>
+        <label>sour lord nearby</label>
+        <description>One of our nobles is in a foul mood, and everyone around them feels it.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+      <li>
+        <label>under a noble's eye</label>
+        <description>A noble is nearby, keeping things in order.</description>
+        <baseMoodEffect>1</baseMoodEffect>
+      </li>
+      <li>
+        <label>good lordship</label>
+        <description>A gracious noble is nearby. It feels like someone is looking out for us.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>inspiring lordship</label>
+        <description>A truly inspiring noble is nearby. Working under them makes me proud.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_NobleQuarters</defName>
+    <workerClass>Commoners.ThoughtWorker_NobleQuarters</workerClass>
+    <stages>
+      <li>
+        <label>sleeping among commoners</label>
+        <description>A noble shouldn't share sleeping quarters like a laborer. I need a bedroom of my own.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+      </li>
+      <li>
+        <label>quarters beneath my rank</label>
+        <description>My bedroom is plain. It's no place for a noble.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <NeedDef>
+    <defName>CM_Standing</defName>
+    <needClass>Commoners.Need_Standing</needClass>
+    <label>standing</label>
+    <description>A noble's sense that the colony gives them their due. It drops over time.\n\nIt rises when lower castes talk with the noble, when the noble takes part in rituals (most of all as the organizer), and slowly while the noble owns a fine bedroom. Insults from lower castes lower it.</description>
+    <minIntelligence>Humanlike</minIntelligence>
+    <colonistsOnly>true</colonistsOnly>
+    <developmentalStageFilter>Adult</developmentalStageFilter>
+    <showForCaravanMembers>true</showForCaravanMembers>
+    <listPriority>55</listPriority>
+  </NeedDef>
+
+  <ThoughtDef>
+    <defName>CM_NeedStanding</defName>
+    <workerClass>Commoners.ThoughtWorker_NeedStanding</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>humiliated</label>
+        <description>Nobody in this colony treats me like a noble anymore. It's humiliating.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+      <li>
+        <label>slighted</label>
+        <description>I'm not getting the respect my rank deserves.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+      <li>
+        <label>respected</label>
+        <description>The colony gives me my due. This is how a noble should be treated.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Castes tab ===== -->
+
+  <MainButtonDef>
+    <defName>CM_Castes</defName>
+    <label>castes</label>
+    <description>See every colonist's caste and how many noble seats the colony has, and change castes.</description>
+    <tabWindowClass>Commoners.MainTabWindow_Castes</tabWindowClass>
+    <order>35</order>
+  </MainButtonDef>
+
+</Defs>

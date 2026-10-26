@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>CommonersWages</RootNamespace>
+    <AssemblyName>CommonersWages</AssemblyName>
+    <OutputPath>..\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <Nullable>disable</Nullable>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RimWorldDir>C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldDir>
+    <WorkshopDir>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100</WorkshopDir>
+    <!-- Overridable so the add-on can be built against a Commoners.dll that isn't deployed yet -->
+    <CommonersDll Condition="'$(CommonersDll)' == ''">$(RimWorldDir)\Mods\Commoners\Assemblies\Commoners.dll</CommonersDll>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldDir)\UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(WorkshopDir)\2009463077\1.7\Assemblies\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Commoners">
+      <HintPath>$(CommonersDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Optional: only the dev-mode restaurant check uses it, and only when Gastronomy is loaded -->
+    <Reference Include="Gastronomy">
+      <HintPath>$(WorkshopDir)\3509488152\1.7\Assemblies\Gastronomy.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CashRegister">
+      <HintPath>$(WorkshopDir)\3509487668\1.7\Assemblies\CashRegister.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

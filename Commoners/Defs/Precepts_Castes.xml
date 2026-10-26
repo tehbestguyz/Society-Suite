@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Ideoligion stance on castes. Ideoligions created before this mod have none of these precepts,
+       which behaves like "accepted"; reform the ideoligion to pick one. -->
+
+  <IssueDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes</defName>
+    <label>castes</label>
+    <iconPath>UI/Commoners/Station</iconPath>
+  </IssueDef>
+
+  <!-- ===== Egalitarian ===== -->
+
+  <PreceptDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Egalitarian</defName>
+    <issue>CM_Castes</issue>
+    <label>egalitarian</label>
+    <description>Everyone stands equal. Dividing people into commoners, soldiers, artisans, scholars and nobles is an injustice.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>40</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>0.5</defaultSelectionWeight>
+    <associatedMemes>
+      <li>Collectivist</li>
+    </associatedMemes>
+    <conflictingMemes>
+      <li>Loyalist</li>
+      <li>Supremacist</li>
+    </conflictingMemes>
+    <comps>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Egalitarian_CastesInColony</thought>
+        <description>Castes other than citizen in the colony</description>
+      </li>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Egalitarian_Noble</thought>
+        <description>Opinion of nobles</description>
+      </li>
+    </comps>
+  </PreceptDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Egalitarian_CastesInColony</defName>
+    <workerClass>Commoners.ThoughtWorker_Precept_CastesInColony</workerClass>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>castes in colony</label>
+        <description>We sort people into commoners and nobles here. It's unjust.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Egalitarian_Noble</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_Precept_TowardCaste</workerClass>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Noble</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>lords over us</label>
+        <baseOpinionOffset>-5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Meritocratic ===== -->
+
+  <PreceptDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Meritocratic</defName>
+    <issue>CM_Castes</issue>
+    <label>meritocratic</label>
+    <description>Station should be earned through skill, not bought or inherited. Artisans and scholars deserve respect; nobles have to prove themselves.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>30</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>0.5</defaultSelectionWeight>
+    <associatedMemes>
+      <li>Individualist</li>
+    </associatedMemes>
+    <comps>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Meritocratic_Artisan</thought>
+        <description>Opinion of artisans and scholars</description>
+      </li>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Meritocratic_Noble</thought>
+        <description>Opinion of nobles</description>
+      </li>
+    </comps>
+  </PreceptDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Meritocratic_Artisan</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_Precept_TowardCaste</workerClass>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Artisan</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>earned their station</label>
+        <baseOpinionOffset>5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Meritocratic_Noble</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_Precept_TowardCaste</workerClass>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Noble</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>unearned station</label>
+        <baseOpinionOffset>-5</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Accepted (no effect) ===== -->
+
+  <PreceptDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Accepted</defName>
+    <issue>CM_Castes</issue>
+    <label>accepted</label>
+    <description>Some are commoners, some are nobles. That's simply how the world is.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>20</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>2</defaultSelectionWeight>
+  </PreceptDef>
+
+  <!-- ===== Hierarchical ===== -->
+
+  <PreceptDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Hierarchical</defName>
+    <issue>CM_Castes</issue>
+    <label>hierarchical</label>
+    <description>Every person has a proper station. A colony led by its nobility is a colony in good order.</description>
+    <impact>Low</impact>
+    <displayOrderInIssue>10</displayOrderInIssue>
+    <displayOrderInImpact>1000</displayOrderInImpact>
+    <defaultSelectionWeight>0.5</defaultSelectionWeight>
+    <associatedMemes>
+      <li>Loyalist</li>
+      <li>Supremacist</li>
+    </associatedMemes>
+    <conflictingMemes>
+      <li>Collectivist</li>
+    </conflictingMemes>
+    <comps>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Hierarchical_ProperOrder</thought>
+        <description>The colony has nobility</description>
+      </li>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>CM_Castes_Hierarchical_Higher</thought>
+        <description>Opinion of higher castes</description>
+      </li>
+    </comps>
+  </PreceptDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Hierarchical_ProperOrder</defName>
+    <workerClass>Commoners.ThoughtWorker_Precept_ProperOrder</workerClass>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>proper order</label>
+        <description>Our colony has nobility to lead it. Everyone knows their place.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Castes_Hierarchical_Higher</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_Precept_TowardCaste</workerClass>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <anyHigher>true</anyHigher>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>my better</label>
+        <baseOpinionOffset>3</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

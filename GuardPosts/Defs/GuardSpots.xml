@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingDef Name="GP_SpotBase" ParentName="BuildingBase" Abstract="True">
+    <thingClass>GuardPosts.Building_GuardSpot</thingClass>
+    <drawerType>RealtimeOnly</drawerType>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+    <useHitPoints>false</useHitPoints>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <designationCategory>Security</designationCategory>
+    <passability>Standable</passability>
+    <building>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+      <wakeDormantPawnsOnConstruction>false</wakeDormantPawnsOnConstruction>
+      <artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_SpotBase">
+    <defName>GP_MusterSpot</defName>
+    <label>muster spot</label>
+    <description>Where called-up militia and mustered guards gather once they have their gear, before they're drafted. Pawns go to the nearest muster spot they can reach.</description>
+    <thingClass>GuardPosts.Building_MusterSpot</thingClass>
+    <rotatable>false</rotatable>
+    <graphicData>
+      <texPath>GuardPosts/MusterSpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(1,1)</drawSize>
+      <color>(1,0.62,0.2)</color>
+    </graphicData>
+    <uiOrder>2520</uiOrder>
+  </ThingDef>
+
+  <ThingDef Name="GP_GuardSpotBase" ParentName="GP_SpotBase" Abstract="True">
+    <description>A post for guards to stand at. Rotate it so the arrow points where the guard should face. Assign guards to this color in the Guards tab.</description>
+    <rotatable>true</rotatable>
+    <graphicData>
+      <texPath>GuardPosts/GuardSpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef Name="GP_PatrolSpotBase" ParentName="GP_SpotBase" Abstract="True">
+    <description>A waypoint on a patrol route. All patrol spots of the same color form one route, walked in the order shown on each spot. Assign guards to this route in the Guards tab.</description>
+    <rotatable>false</rotatable>
+    <graphicData>
+      <texPath>GuardPosts/PatrolSpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_GuardSpotBase">
+    <defName>GP_GuardSpot_Red</defName>
+    <label>red guard post</label>
+    <graphicData>
+      <color>(0.92,0.25,0.22)</color>
+    </graphicData>
+    <uiOrder>2500</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Guard</kind>
+        <color>Red</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_PatrolSpotBase">
+    <defName>GP_PatrolSpot_Red</defName>
+    <label>red patrol spot</label>
+    <graphicData>
+      <color>(0.92,0.25,0.22)</color>
+    </graphicData>
+    <uiOrder>2501</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Patrol</kind>
+        <color>Red</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_GuardSpotBase">
+    <defName>GP_GuardSpot_Blue</defName>
+    <label>blue guard post</label>
+    <graphicData>
+      <color>(0.25,0.50,0.95)</color>
+    </graphicData>
+    <uiOrder>2502</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Guard</kind>
+        <color>Blue</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_PatrolSpotBase">
+    <defName>GP_PatrolSpot_Blue</defName>
+    <label>blue patrol spot</label>
+    <graphicData>
+      <color>(0.25,0.50,0.95)</color>
+    </graphicData>
+    <uiOrder>2503</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Patrol</kind>
+        <color>Blue</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_GuardSpotBase">
+    <defName>GP_GuardSpot_Green</defName>
+    <label>green guard post</label>
+    <graphicData>
+      <color>(0.30,0.80,0.30)</color>
+    </graphicData>
+    <uiOrder>2504</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Guard</kind>
+        <color>Green</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_PatrolSpotBase">
+    <defName>GP_PatrolSpot_Green</defName>
+    <label>green patrol spot</label>
+    <graphicData>
+      <color>(0.30,0.80,0.30)</color>
+    </graphicData>
+    <uiOrder>2505</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Patrol</kind>
+        <color>Green</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_GuardSpotBase">
+    <defName>GP_GuardSpot_Yellow</defName>
+    <label>yellow guard post</label>
+    <graphicData>
+      <color>(0.96,0.84,0.22)</color>
+    </graphicData>
+    <uiOrder>2506</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Guard</kind>
+        <color>Yellow</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="GP_PatrolSpotBase">
+    <defName>GP_PatrolSpot_Yellow</defName>
+    <label>yellow patrol spot</label>
+    <graphicData>
+      <color>(0.96,0.84,0.22)</color>
+    </graphicData>
+    <uiOrder>2507</uiOrder>
+    <modExtensions>
+      <li Class="GuardPosts.GuardSpotExtension">
+        <kind>Patrol</kind>
+        <color>Yellow</color>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+</Defs>

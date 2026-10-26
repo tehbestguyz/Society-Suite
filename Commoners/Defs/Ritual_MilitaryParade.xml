@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Military parade ritual, unlocked by the Militarist meme. The C# side is Source/MilitaryParade.cs.
+
+       Stages (durationTicks 5000, about two in-game hours):
+         1. Form up: the speaker goes to the lectern, soldiers line up behind the start marker. Ends when
+            everyone has arrived, or after 20%.
+         2. Speech: the speaker speaks while the soldiers stand at attention. 35%.
+         3. March: soldiers walk slowly to the end marker. Ends when all have arrived, or after 35%.
+         4. Salute: soldiers face the speaker while the speech finishes. 25%.
+       Stages 1 and 3 can end early, so stage 4 sets ignoreDurationToFinishAfterStage; without it the game
+       would call a ritual that finished under its full duration "called off". Stages 2 and 4 alone still last
+       60% of the duration, which keeps spectators over the half-duration presence that participant count needs. -->
+
+  <!-- ===== Route markers ===== -->
+
+  <ThingDef Name="CM_ParadeMarkerBase" ParentName="BuildingBase" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+    <rotatable>false</rotatable>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <passability>Standable</passability>
+    <building>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+      <wakeDormantPawnsOnConstruction>false</wakeDormantPawnsOnConstruction>
+      <artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="CM_ParadeMarkerBase" MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeStart</defName>
+    <label>parade start</label>
+    <description>Where soldiers form up for a military parade. Place it, and a parade end marker, within 18 cells of the ritual spot outdoors, or in the same room.</description>
+    <graphicData>
+      <texPath>Things/Building/Commoners/ParadeStart</texPath>
+    </graphicData>
+    <designationCategory>Ideology</designationCategory>
+    <uiOrder>2010</uiOrder>
+  </ThingDef>
+
+  <ThingDef ParentName="CM_ParadeMarkerBase" MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeEnd</defName>
+    <label>parade end</label>
+    <description>Where a military parade halts. Soldiers march here from the parade start marker. Place it within 18 cells of the ritual spot outdoors, or in the same room.</description>
+    <graphicData>
+      <texPath>Things/Building/Commoners/ParadeEnd</texPath>
+    </graphicData>
+    <designationCategory>Ideology</designationCategory>
+    <uiOrder>2011</uiOrder>
+  </ThingDef>
+
+  <!-- ===== Precept and pattern ===== -->
+
+  <PreceptDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_MilitaryParade</defName>
+    <label>military parade</label>
+    <description>A display of the colony's soldiers. The speaker addresses the crowd while the soldiers form up, then the soldiers march in step from the parade start marker to the parade end marker and salute. Needs both markers near the ritual spot. More marchers make a better parade, and soldiers of the soldier caste count double.</description>
+    <issue>Ritual</issue>
+    <impact>Medium</impact>
+    <preceptClass>Precept_Ritual</preceptClass>
+    <ritualPatternBase>CM_MilitaryParade</ritualPatternBase>
+    <iconPath>UI/Commoners/MilitaryParade</iconPath>
+    <visible>true</visible>
+    <countsTowardsPreceptLimit>true</countsTowardsPreceptLimit>
+    <selectionWeight>1.0</selectionWeight>
+    <requiredMemes>
+      <li>CM_Militarist</li>
+    </requiredMemes>
+  </PreceptDef>
+
+  <RitualPatternDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_MilitaryParade</defName>
+    <shortDescOverride>military parade</shortDescOverride>
+    <descOverride>A display of the colony's soldiers. The speaker addresses the crowd while the soldiers form up, then the soldiers march in step from the parade start marker to the parade end marker and salute.</descOverride>
+    <iconPathOverride>UI/Commoners/MilitaryParade</iconPathOverride>
+    <nameMaker>CM_NamerRitualMilitaryParade</nameMaker>
+    <ritualObligationTargetFilter>AnyIdeoBuildingOrRitualSpot</ritualObligationTargetFilter>
+    <ritualTargetFilter>IdeoBuildingOrRitualSpot</ritualTargetFilter>
+    <ritualBehavior>CM_MilitaryParade</ritualBehavior>
+    <ritualOutcomeEffect>CM_MilitaryParade</ritualOutcomeEffect>
+    <canStartAnytime>true</canStartAnytime>
+    <alwaysStartAnytime>true</alwaysStartAnytime>
+    <ritualOnlyForIdeoMembers>false</ritualOnlyForIdeoMembers>
+  </RitualPatternDef>
+
+  <RulePackDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_NamerRitualMilitaryParade</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_ritualName->[ritNoun] of [keyDeity]</li>
+        <li>r_ritualName->[ritNoun] of [memeConcept]</li>
+        <li>r_ritualName->[memeAdjective] [ritNoun]</li>
+        <li>r_ritualName->[ritNoun]</li>
+
+        <li>ritNoun->parade</li>
+        <li>ritNoun->march</li>
+        <li>ritNoun->review</li>
+        <li>ritNoun->muster</li>
+        <li>ritNoun->procession</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <!-- ===== Behavior ===== -->
+
+  <RitualBehaviorDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_MilitaryParade</defName>
+    <workerClass>Commoners.RitualBehaviorWorker_MilitaryParade</workerClass>
+    <durationTicks>5000</durationTicks>
+    <roles>
+      <!-- The leader speaks; anyone of the ideoligion can stand in. -->
+      <li Class="RitualRoleTag">
+        <label>speaker</label>
+        <id>speaker</id>
+        <tag>Leader</tag>
+        <precept>IdeoRole_Leader</precept>
+        <required>True</required>
+        <substitutable>True</substitutable>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+        <allowChild>false</allowChild>
+        <mustBeAbleToReachTarget>True</mustBeAbleToReachTarget>
+      </li>
+      <li Class="Commoners.RitualRole_ParadeSoldier">
+        <label>soldier</label>
+        <categoryLabel>soldiers</categoryLabel>
+        <id>soldier</id>
+        <required>True</required>
+        <maxCount>20</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+        <allowChild>false</allowChild>
+        <allowOtherIdeos>true</allowOtherIdeos>
+        <mustBeAbleToReachTarget>True</mustBeAbleToReachTarget>
+      </li>
+    </roles>
+    <stages>
+
+      <!-- 1. Form up -->
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="Commoners.StageEndTrigger_AllRolePawnsTagged">
+            <roleIds>
+              <li>speaker</li>
+              <li>soldier</li>
+            </roleIds>
+            <tag>Arrived</tag>
+          </li>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.2</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>speaker</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_BesideThing" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>soldier</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="Commoners.RitualPosition_ParadeFormation" />
+            </customPositions>
+          </li>
+        </roleBehaviors>
+      </li>
+
+      <!-- 2. Speech -->
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.35</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>speaker</roleId>
+            <dutyDef>SpeakOnCell_Leader</dutyDef>
+            <speakerInteraction>CM_Speech_Parade</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_BesideThing" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>soldier</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="Commoners.RitualPosition_ParadeFormation" />
+            </customPositions>
+          </li>
+        </roleBehaviors>
+        <visualEffectDef>Speech</visualEffectDef>
+      </li>
+
+      <!-- 3. March -->
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <endTriggers>
+          <li Class="Commoners.StageEndTrigger_AllRolePawnsTagged">
+            <roleIds>
+              <li>soldier</li>
+            </roleIds>
+            <tag>CM_Marched</tag>
+          </li>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.35</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>speaker</roleId>
+            <dutyDef>SpeakOnCell_Leader</dutyDef>
+            <speakerInteraction>CM_Speech_Parade</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_BesideThing" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>soldier</roleId>
+            <dutyDef>CM_MarchToCell</dutyDef>
+            <jobReportOverride>marching in a parade</jobReportOverride>
+            <customPositions>
+              <li Class="Commoners.RitualPosition_ParadeFormation">
+                <atEnd>true</atEnd>
+              </li>
+            </customPositions>
+          </li>
+        </roleBehaviors>
+        <visualEffectDef>Speech</visualEffectDef>
+      </li>
+
+      <!-- 4. Salute -->
+      <li>
+        <defaultDuty>Spectate</defaultDuty>
+        <ignoreDurationToFinishAfterStage>true</ignoreDurationToFinishAfterStage>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.25</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>speaker</roleId>
+            <dutyDef>SpeakOnCell_Leader</dutyDef>
+            <speakerInteraction>CM_Speech_Parade</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_Lectern">
+                <maxDistanceToFocus>5</maxDistanceToFocus>
+              </li>
+              <li Class="RitualPosition_BesideThing" />
+            </customPositions>
+          </li>
+          <li>
+            <roleId>soldier</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="Commoners.RitualPosition_ParadeFormation">
+                <atEnd>true</atEnd>
+                <faceSpot>true</faceSpot>
+              </li>
+            </customPositions>
+          </li>
+        </roleBehaviors>
+        <visualEffectDef>Speech</visualEffectDef>
+      </li>
+
+    </stages>
+  </RitualBehaviorDef>
+
+  <!-- Vanilla ArriveToCell, at a slow walk and with its own arrival tag. -->
+  <DutyDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_MarchToCell</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_GotoTravelDestination">
+          <exactCell>true</exactCell>
+          <locomotionUrgency>Amble</locomotionUrgency>
+          <ritualTagOnArrival>CM_Marched</ritualTagOnArrival>
+        </li>
+        <li Class="JobGiver_Idle">
+          <ticks>60</ticks>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <InteractionDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Speech_Parade</defName>
+    <label>parade speech</label>
+    <workerClass>InteractionWorker</workerClass>
+    <ignoreTimeSinceLastInteraction>True</ignoreTimeSinceLastInteraction>
+    <symbol>Things/Mote/SpeechSymbols/Speech</symbol>
+    <logRulesInitiator>
+      <include><li>SpeechUtility</li></include>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [spokeof] [speechtopic].</li>
+
+        <li>speechtopic->the courage of the soldiers on parade</li>
+        <li>speechtopic->the battles the colony has survived</li>
+        <li>speechtopic->the fallen and what they died for</li>
+        <li>speechtopic->discipline and duty</li>
+        <li>speechtopic->the enemies at the gates</li>
+        <li>speechtopic->the honor of bearing arms</li>
+        <li>speechtopic->standing together in the line</li>
+        <li>speechtopic->the victories still to come</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <!-- ===== Outcome ===== -->
+
+  <RitualOutcomeEffectDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_MilitaryParade</defName>
+    <description>Depending on ritual quality, participants will get between {MINMOOD} and {MAXMOOD} mood for {MOODDAYS} days.</description>
+    <workerClass>RitualOutcomeEffectWorker_FromQuality</workerClass>
+    <comps>
+      <li Class="Commoners.RitualOutcomeComp_ParadeSoldiers">
+        <label>soldiers marching</label>
+        <casteWeight>2</casteWeight>
+        <curve>
+          <points>
+            <li>(1, 0.05)</li>
+            <li>(4, 0.2)</li>
+            <li>(8, 0.3)</li>
+            <li>(12, 0.35)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="RitualOutcomeComp_ParticipantCount">
+        <label>spectator count</label>
+        <curve>
+          <points>
+            <li>(1, 0.05)</li>
+            <li>(5, 0.15)</li>
+            <li>(10, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="RitualOutcomeComp_PawnStatScaled">
+        <label>{PAWN_labelShort}'s social impact</label>
+        <labelAbstract>speaker's social impact</labelAbstract>
+        <roleId>speaker</roleId>
+        <statDef>SocialImpact</statDef>
+        <curve>
+          <points>
+            <li>(0.2, 0.0)</li>
+            <li>(0.6, 0.1)</li>
+            <li>(1.0, 0.15)</li>
+            <li>(1.5, 0.2)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="RitualOutcomeComp_RolePresentNotSubstituted">
+        <roleId>speaker</roleId>
+        <label>leader speaking</label>
+        <qualityOffset>0.15</qualityOffset>
+      </li>
+      <li Class="RitualOutcomeComp_BuildingOfDefUsed">
+        <def>Lectern</def>
+        <qualityOffset>0.1</qualityOffset>
+        <maxHorDistFromTarget>5</maxHorDistFromTarget>
+      </li>
+    </comps>
+    <outcomeChances>
+      <li>
+        <label>Shambolic</label>
+        <chance>0.05</chance>
+        <memory>CM_ParadeShambolic</memory>
+        <description>The {0} was shambolic! The ranks fell apart, and everyone watching was embarrassed for them.</description>
+        <positivityIndex>-2</positivityIndex>
+      </li>
+      <li>
+        <label>Ragged</label>
+        <chance>0.15</chance>
+        <memory>CM_ParadeRagged</memory>
+        <description>The {0} was ragged. The soldiers were out of step and the speech dragged on.</description>
+        <positivityIndex>-1</positivityIndex>
+      </li>
+      <li>
+        <label>Stirring</label>
+        <chance>0.6</chance>
+        <memory>CM_ParadeStirring</memory>
+        <description>The {0} was stirring. The soldiers marched well, and everyone felt safer for seeing them.</description>
+        <positivityIndex>1</positivityIndex>
+      </li>
+      <li>
+        <label>Glorious</label>
+        <chance>0.2</chance>
+        <memory>CM_ParadeGlorious</memory>
+        <description>The {0} was glorious! The soldiers moved as one, and the crowd cheered them all the way to the end.</description>
+        <positivityIndex>2</positivityIndex>
+      </li>
+    </outcomeChances>
+  </RitualOutcomeEffectDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeShambolic</defName>
+    <thoughtClass>Thought_AttendedRitual</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>shambolic parade</label>
+        <description>That parade was a mess. If that's our army, we're in trouble.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeRagged</defName>
+    <thoughtClass>Thought_AttendedRitual</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>ragged parade</label>
+        <description>The soldiers couldn't keep in step. Not very inspiring.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeStirring</defName>
+    <thoughtClass>Thought_AttendedRitual</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>stirring parade</label>
+        <description>Seeing our soldiers march like that made me proud. We can defend ourselves.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ParadeGlorious</defName>
+    <thoughtClass>Thought_AttendedRitual</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>glorious parade</label>
+        <description>What a parade! The ranks moved as one. Nobody would dare attack us now.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

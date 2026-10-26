@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Caste names -->
+  <CM_Caste_Slave>slave</CM_Caste_Slave>
+  <CM_Caste_Commoner>commoner</CM_Caste_Commoner>
+  <CM_Caste_Citizen>citizen</CM_Caste_Citizen>
+  <CM_Caste_Artisan>artisan</CM_Caste_Artisan>
+  <CM_Caste_Scholar>scholar</CM_Caste_Scholar>
+  <CM_Caste_Soldier>soldier</CM_Caste_Soldier>
+  <CM_Caste_Noble>noble</CM_Caste_Noble>
+  <CM_ArtisanWithSpecialty>artisan ({0})</CM_ArtisanWithSpecialty>
+  <CM_ScholarWithSpecialty>scholar ({0})</CM_ScholarWithSpecialty>
+
+  <!-- Caste gizmo and menu -->
+  <CM_Station>Caste: {0}</CM_Station>
+  <CM_StationDesc>Change {PAWN_nameDef}'s caste.\n\n- Commoners expect less from life, but can't do some elite work, stop learning past a skill cap, and can't hold ideoligion roles or royal titles.\n- Citizens are ordinary colonists.\n- Soldiers stand with citizens but expect as little as commoners. They learn Shooting and Melee faster, but their other skills stop at a cap and they dislike skilled labor. Commoners, citizens and nobles look up to them as the colony's defenders; artisans and scholars look down on them. Anyone capable of violence can enlist.\n- Artisans master one craft: they learn it faster, sometimes make better items, and get inspired more often. They expect more and dislike menial work.\n- Scholars are learned in research, dark study or medicine: they learn their field faster, work better in it, and get inspired more often. They rank with artisans, expect as much, dislike menial work, and want an impressive room to work in.\n- Nobles trade and negotiate better and lift the mood of lower castes nearby. They expect a great deal, need a fine private bedroom, refuse menial work, and need their standing upheld. The colony has one noble seat for every few colonists.\n\nMoving someone down a caste upsets them, unless they only just joined.</CM_StationDesc>
+  <CM_MenuArtisan>artisan: {0} (skill {1})</CM_MenuArtisan>
+  <CM_MenuScholar>scholar: {0} (skill {1})</CM_MenuScholar>
+  <CM_MenuNoble>noble ({0} of {1} seats free)</CM_MenuNoble>
+  <CM_CannotAlready>already in this caste</CM_CannotAlready>
+  <CM_CannotTitle>Holds a royal title, which makes them a noble</CM_CannotTitle>
+  <CM_CannotMustBuy>must be bought with savings</CM_CannotMustBuy>
+  <CM_CannotNoSeat>no free noble seat; one per {0} colonists</CM_CannotNoSeat>
+  <CM_CannotSkillDisabled>can't do {0}</CM_CannotSkillDisabled>
+  <CM_CannotSkillTooLow>needs {0} {1}</CM_CannotSkillTooLow>
+  <CM_DemoteConfirm>Move {PAWN_nameDef} down to {CASTE}?</CM_DemoteConfirm>
+  <CM_DemoteConfirmRole>{PAWN_nameDef} will lose {PAWN_possessive} role as {ROLE}.</CM_DemoteConfirmRole>
+  <CM_DemoteConfirmGrace>{PAWN_nameDef} joined recently, so the change won't upset {PAWN_objective}.</CM_DemoteConfirmGrace>
+  <CM_DemoteConfirmPenalty>{PAWN_nameDef} will be unhappy about it for a while, more so the further {PAWN_pronoun} falls.</CM_DemoteConfirmPenalty>
+  <CM_RecruitAsCommoner>Recruit as commoner</CM_RecruitAsCommoner>
+  <CM_RecruitAsCommonerDesc>Offer this prisoner a place in the colony as a commoner. Their resistance falls faster, and they join as a commoner when recruited.\n\nWardens still need the prisoner's interaction mode set to recruit.</CM_RecruitAsCommonerDesc>
+
+  <!-- Messages -->
+  <CM_MessageDemoted>{PAWN_nameDef} has been moved down to {CASTE}.</CM_MessageDemoted>
+  <CM_MessageScholarMigration>Scholars have joined the caste system. {0} medicine artisans are now doctoring scholars.</CM_MessageScholarMigration>
+  <CM_MessageCasteChanged>{PAWN_nameDef} is now a {CASTE}.</CM_MessageCasteChanged>
+  <CM_CannotNonViolent>incapable of violence</CM_CannotNonViolent>
+  <CM_MessageComeOfAge>{PAWN_nameDef} has come of age as a {CASTE}.</CM_MessageComeOfAge>
+  <CM_MessagePromoted>{PAWN_nameDef} has risen to {CASTE}.</CM_MessagePromoted>
+  <CM_MessageElevated>{WARDEN_nameDef} has freed {PAWN_nameDef} from slavery to live as a commoner.</CM_MessageElevated>
+  <CM_MessageNoHonor>{PAWN_nameDef} is a commoner and can't receive honor.</CM_MessageNoHonor>
+  <CM_MessageRoleLost>{PAWN_nameDef} can no longer be {ROLE} in {PAWN_possessive} new caste.</CM_MessageRoleLost>
+
+  <!-- Requirements and reasons -->
+  <CM_RoleRequirementNotCommoner>Can't be a commoner</CM_RoleRequirementNotCommoner>
+  <CM_RoleRequirementNoble>Must be a noble</CM_RoleRequirementNoble>
+  <CM_WorkDisabledByCaste>Disabled by caste ({CASTE}).</CM_WorkDisabledByCaste>
+
+  <!-- Age 3 letter -->
+  <CM_RaiseAsCitizen>Raise as citizen</CM_RaiseAsCitizen>
+  <CM_RaiseAsCommoner>Raise as commoner</CM_RaiseAsCommoner>
+
+  <!-- Castes tab -->
+  <CM_CastesTitle>Castes</CM_CastesTitle>
+  <CM_CastesSeats>Noble seats: {0} of {1} used ({2} colonists, one seat per {3}). Nobles with an Empire title don't use a seat.</CM_CastesSeats>
+  <CM_CastesChange>Change caste</CM_CastesChange>
+
+  <!-- Settings -->
+  <CM_SettingsWork>Work commoners can't do</CM_SettingsWork>
+  <CM_SettingsSkills>Skill caps (commoners stop learning at this level; 20 means no cap)</CM_SettingsSkills>
+  <CM_SettingsArtisans>Artisans and scholars</CM_SettingsArtisans>
+  <CM_SettingsArtisanMinSkill>Skill level needed in a specialty to become an artisan or scholar: {0}</CM_SettingsArtisanMinSkill>
+  <CM_SettingsArtisanLearn>Learning speed in their specialty: {0}</CM_SettingsArtisanLearn>
+  <CM_SettingsArtisanQuality>Chance of one quality level better (up to masterwork): {0}</CM_SettingsArtisanQuality>
+  <CM_SettingsArtisanInspiration>Inspirations happen this many times as often: {0}</CM_SettingsArtisanInspiration>
+  <CM_SettingsArtisanWorkshop>Workroom impressiveness artisans and scholars expect: {0}</CM_SettingsArtisanWorkshop>
+  <CM_SettingsSoldiers>Soldiers</CM_SettingsSoldiers>
+  <CM_SettingsSoldierLearn>Shooting and Melee learning speed: {0}</CM_SettingsSoldierLearn>
+  <CM_SettingsSoldierCap>Cap on every other skill: {0}</CM_SettingsSoldierCap>
+  <CM_SettingsSkilledWork>Skilled labor soldiers dislike:</CM_SettingsSkilledWork>
+  <CM_SettingsMenial>Menial work (artisans and scholars dislike it, colony nobles can't do it)</CM_SettingsMenial>
+  <CM_SettingsNobles>Nobles</CM_SettingsNobles>
+  <CM_SettingsSeats>Colonists per noble seat: {0}</CM_SettingsSeats>
+  <CM_SettingsHereditary>Nobility is hereditary (a child of a noble is born noble)</CM_SettingsHereditary>
+  <CM_SettingsNobleLeadership>Only nobles can be leader or moral guide</CM_SettingsNobleLeadership>
+  <CM_SettingsNobleBedroom>Bedroom impressiveness nobles expect: {0}</CM_SettingsNobleBedroom>
+  <CM_SettingsLordshipRadius>Distance a noble's mood effect reaches (0 turns it off): {0}</CM_SettingsLordshipRadius>
+  <CM_SettingsSocial>Social</CM_SettingsSocial>
+  <CM_SettingsLookDown>Opinion of someone lower, per caste of difference: {0}</CM_SettingsLookDown>
+  <CM_SettingsFellow>Commoners' opinion of each other: {0}</CM_SettingsFellow>
+  <CM_SettingsGuildmate>Artisans' and scholars' opinion of others with the same specialty: {0}</CM_SettingsGuildmate>
+  <CM_SettingsSoldierRespect>Commoners', citizens' and nobles' opinion of soldiers: {0}</CM_SettingsSoldierRespect>
+  <CM_SettingsFellowNoble>Nobles' opinion of each other: {0}</CM_SettingsFellowNoble>
+  <CM_SettingsRomance>Chance of romance, per caste of difference: {0}</CM_SettingsRomance>
+  <CM_SettingsJoining>Joining</CM_SettingsJoining>
+  <CM_SettingsArrival>Days after joining when demotion causes no mood penalty: {0}</CM_SettingsArrival>
+  <CM_SettingsResistance>Resistance reduction when recruiting as commoner: {0}</CM_SettingsResistance>
+  <CM_SettingsInterface>Interface</CM_SettingsInterface>
+  <CM_SettingsBarIcon>Show caste icons on the colonist bar</CM_SettingsBarIcon>
+  <CM_SettingsReset>Reset to defaults</CM_SettingsReset>
+
+  <!-- Military parade ritual -->
+  <CM_ParadeNeedsMarkers>Needs a parade start and a parade end marker within this spot's gathering area (18 cells outdoors, or the same room indoors).</CM_ParadeNeedsMarkers>
+  <CM_ParadeRouteTooShort>The parade start and end markers must be at least {0} cells apart.</CM_ParadeRouteTooShort>
+  <CM_ParadeSoldierSlave>{PAWN_labelShort} is a slave and can't march as a soldier.</CM_ParadeSoldierSlave>
+  <CM_ParadeSoldierNotViolent>{PAWN_labelShort} is incapable of violence and can't march as a soldier.</CM_ParadeSoldierNotViolent>
+
+</LanguageData>

@@ -1,0 +1,10 @@
+# Build output and IDE files
+obj/
+bin/
+.vs/
+*.user
+*.pdb
+
+# Leftovers from swapping DLLs while the game was running
+*.old
+*.bak

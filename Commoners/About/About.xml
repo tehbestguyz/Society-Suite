@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>cashew.commoners</packageId>
+  <name>Society: Castes</name>
+  <author>Cashew</author>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Ludeon.RimWorld.Royalty</li>
+    <li>Ludeon.RimWorld.Ideology</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>Ludeon.RimWorld.Anomaly</li>
+  </loadAfter>
+  <description>Part of the Society Suite, with Society: Wages and Society: Guards.
+
+A five-tier caste system: slave, commoner, citizen, artisan and noble. Colonists are citizens by default. Each step up makes someone harder to please, but more useful or more privileged.
+
+Commoners expect less from life, with an expectations mood bonus halfway between a colonist's and a slave's. There's no suppression, terror or rebellion. In exchange, they can't do Research, Art or Dark Study, they stop learning at level 6 in most skills (12 for Plants and Animals), and they can't hold ideoligion roles or royal titles.
+
+Artisans master one specialty: crafting, art, construction, cooking or medicine. A citizen with skill 10 in it can be certified. Artisans learn their specialty faster, sometimes make items one quality level better, get inspired more often, and get stat bonuses in their craft. They expect more from life, want a decent workshop, and dislike menial work.
+
+Nobles trade and negotiate better, and a content noble lifts the mood of lower castes nearby. They expect a great deal, need a private, impressive bedroom, refuse menial work (hauling, cleaning, cutting plants and mining by default), and have a "standing" need. Standing rises when lower castes talk with them, when they take part in rituals, and when they own a fine bedroom. The colony has one noble seat for every 10 colonists. Pawns with an Empire title count as nobles without using a seat, and keep their title's own rules.
+
+Society:
+- People think less of those below them, more so the bigger the gap. Commoners like other commoners, artisans like guildmates, nobles like other nobles. Kind pawns don't look down on anyone.
+- Romance is less likely across castes.
+- Jealous pawns resent those above them; Greedy pawns want to rise.
+- Nobility is hereditary (configurable). Children of commoners are commoners. The age 3 letter lets you choose.
+- Ideology: a new "castes" issue with egalitarian, meritocratic, accepted and hierarchical precepts. Optionally, only nobles can be leader or moral guide. A "militarist" meme unlocks the shooting and melee specialist roles and the gladiator duel.
+
+Use the caste button on a colonist, or the Castes tab, to move people between castes. Moving someone down upsets them, unless they only just joined. Prisoners can be recruited as commoners, and slaves can be elevated to commoners.
+
+Works without any DLC. Royalty, Ideology, Biotech and Anomaly features turn on when those DLCs are active. Every number is configurable in the mod settings.</description>
+</ModMetaData>

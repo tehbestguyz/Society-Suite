@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Payroll toggle and target funds on every cash register building, including
+       reskins such as Progression: Hospitality's merchant box -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThingDef[thingClass="CashRegister.Building_CashRegister"]/comps</xpath>
+    <value>
+      <li Class="CommonersWages.CompProperties_Payroll" />
+    </value>
+  </Operation>
+
+  <!-- Wage ledger lives on the commoner marker, so it follows the pawn and goes away on promotion -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/HediffDef[defName="CM_Commoner"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/HediffDef[defName="CM_Commoner"]</xpath>
+      <value>
+        <comps>
+          <li Class="CommonersWages.HediffCompProperties_Wages" />
+        </comps>
+      </value>
+    </nomatch>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/HediffDef[defName="CM_Commoner"]/comps</xpath>
+      <value>
+        <li Class="CommonersWages.HediffCompProperties_Wages" />
+      </value>
+    </match>
+  </Operation>
+
+  <!-- Collecting wages competes with needs, recreation and work like any other colonist behavior -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThinkTreeDef[defName="MainColonistBehaviorCore"]/thinkRoot/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes</xpath>
+    <value>
+      <li Class="CommonersWages.JobGiver_CollectWages" />
+      <li Class="CommonersWages.JobGiver_TendSavings" />
+    </value>
+  </Operation>
+
+  <!-- Lot zones sit with the other zones on the Zone menu, right after growing zones
+       (or at the end, if another mod has taken growing zones out) -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses/li[text()="Designator_ZoneAdd_Growing"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>/Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses/li[text()="Designator_ZoneAdd_Growing"]</xpath>
+      <order>Append</order>
+      <value>
+        <li>CommonersWages.Designator_ZoneAdd_Lot</li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses</xpath>
+      <value>
+        <li>CommonersWages.Designator_ZoneAdd_Lot</li>
+      </value>
+    </nomatch>
+  </Operation>
+
+</Patch>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Grocery runs and home cooking compete with needs, recreation and work like Wages' payday jobs -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThinkTreeDef[defName="MainColonistBehaviorCore"]/thinkRoot/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes</xpath>
+    <value>
+      <li Class="SocietyHomes.JobGiver_GroceryRun" />
+      <li Class="SocietyHomes.JobGiver_HomeCooking" />
+    </value>
+  </Operation>
+
+</Patch>

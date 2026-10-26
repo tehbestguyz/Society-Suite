@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Castes tab button and window -->
+  <SE_ColonyManagement>Colony management</SE_ColonyManagement>
+  <SE_ColonyManagementTip>Tell your royals what the colony needs and what it can spare. They act on your behalf: when a merchant visits, a royal walks over, sells the surplus and buys what's needed with the colony's silver.</SE_ColonyManagementTip>
+  <SE_TabNeeds>Colony needs</SE_TabNeeds>
+  <SE_TabSells>Colony sells</SE_TabSells>
+
+  <!-- Colony needs tab -->
+  <SE_SearchHint>Search items...</SE_SearchHint>
+  <SE_ClickToAdd>Click to add {0} to the colony's needs.</SE_ClickToAdd>
+  <SE_OnlyHeld>Only items we have</SE_OnlyHeld>
+  <SE_OnlyHeldTip>Show only items the colony has on this map, counted the way a merchant counts your goods: stored, or lying in the home area. The number on the right is how many.</SE_OnlyHeldTip>
+  <SE_ClickToAddSale>Click to add {0} to what the colony sells.</SE_ClickToAddSale>
+  <SE_AlreadyOnNeeds>Already on the Colony needs list. An item can't be both bought and sold.</SE_AlreadyOnNeeds>
+  <SE_AlreadyOnSells>Already on the Colony sells list. An item can't be both bought and sold.</SE_AlreadyOnSells>
+  <SE_Reserve>Silver reserve:</SE_Reserve>
+  <SE_ReserveTip>Royals never spend the colony's silver below this amount.</SE_ReserveTip>
+  <SE_ColonySilver>Colony silver on this map: {0} (royals can spend {1}).</SE_ColonySilver>
+  <SE_ColItem>Item</SE_ColItem>
+  <SE_ColHave>Have</SE_ColHave>
+  <SE_ColHaveTip>How many the colony has on this map: stored, or lying in the home area. Things colonists carry or wear don't count. This is how a visiting merchant counts your goods too.</SE_ColHaveTip>
+  <SE_ColKeep>Keep on hand</SE_ColKeep>
+  <SE_ColKeepTip>Royals buy enough to bring the colony back up to this many.</SE_ColKeepTip>
+  <SE_ColKeepSell>Keep at least</SE_ColKeepSell>
+  <SE_ColKeepSellTip>Royals hold on to this many and sell anything above it. Set 0 to sell all of it.</SE_ColKeepSellTip>
+  <SE_ColFloor>Price floor</SE_ColFloor>
+  <SE_ColFloorTip>Tick to set the least a royal will accept per item, as a percentage of what that item is worth (its quality and condition count). Merchants usually pay well under market value, more when a royal with good Social skill haggles. Unticked, any price is fine.</SE_ColFloorTip>
+  <SE_ColCap>Price cap</SE_ColCap>
+  <SE_ColCapTip>Tick to set the most a royal will pay per item, as a percentage of its market value. Merchants usually charge somewhat more than market value, less when a royal with good Social skill haggles. Unticked, any price is fine.</SE_ColCapTip>
+  <SE_PercentOfValue>% of value</SE_PercentOfValue>
+  <SE_MoveUp>Move up: bought earlier when silver is short.</SE_MoveUp>
+  <SE_MoveDown>Move down: bought later when silver is short.</SE_MoveDown>
+  <SE_MoveUpSell>Move up: sold earlier when the merchant's silver runs short.</SE_MoveUpSell>
+  <SE_MoveDownSell>Move down: sold later when the merchant's silver runs short.</SE_MoveDownSell>
+  <SE_Remove>Remove from the list.</SE_Remove>
+  <SE_NoNeeds>Nothing on the list yet. Search for an item on the left and click it to add it.</SE_NoNeeds>
+  <SE_NoSales>Nothing for sale yet. Search for an item on the left and click it to add it.</SE_NoSales>
+  <SE_SellsFooter>When a trade caravan visits that buys something on this list, the free royal with the best trade prices walks over and sells whatever the colony has above "keep at least", cheapest pieces first so the best stay home. Lines higher on the list are sold first while the merchant still has silver, and sales happen before purchases, so the silver they bring in can pay for what the colony needs.</SE_SellsFooter>
+  <SE_NeedsFooter>When a trade caravan visits and carries something the colony is short of, the free royal with the best trade prices walks over and buys enough to bring it back up to "keep on hand". Lines higher on the list are bought first, and colony silver is never spent below the reserve.</SE_NeedsFooter>
+
+  <!-- Buying -->
+  <SE_MessageNothingBought>{0} spoke with {1}, but they couldn't agree on anything to buy or sell at an acceptable price.</SE_MessageNothingBought>
+  <SE_LetterBoughtLabel>Royal purchase</SE_LetterBoughtLabel>
+  <SE_LetterSoldLabel>Royal sale</SE_LetterSoldLabel>
+  <SE_LetterTradedLabel>Royal trade</SE_LetterTradedLabel>
+  <SE_LetterTradeIntro>{0} traded with {1} ({2}) on the colony's behalf.</SE_LetterTradeIntro>
+  <SE_LetterSoldSection>Sold:\n{0}\nEarned: {1}.</SE_LetterSoldSection>
+  <SE_LetterBoughtSection>Bought:\n{0}\nSpent: {1}.</SE_LetterBoughtSection>
+  <SE_LetterSilverLeft>Colony silver on this map now: {0}.</SE_LetterSilverLeft>
+  <SE_LetterLine>{0} x {1} for {2}</SE_LetterLine>
+  <!-- Used by builds before Colony sells; kept so an older DLL still finds its text. -->
+  <SE_AlreadyListed>Already on the list.</SE_AlreadyListed>
+  <SE_LetterBoughtText>{0} bought what the colony needs from {1} ({2}):\n\n{3}\n\nTotal: {4}. Colony silver left on this map: {5}.</SE_LetterBoughtText>
+
+</LanguageData>

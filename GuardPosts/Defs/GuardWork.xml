@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <WorkTypeDef>
+    <defName>GP_Guarding</defName>
+    <labelShort>guard</labelShort>
+    <pawnLabel>Guard</pawnLabel>
+    <gerundLabel>guarding</gerundLabel>
+    <description>Stand watch at guard posts or walk patrol routes, and engage hostiles that come near. Assign posts and routes in the Guards tab.</description>
+    <verb>Guard</verb>
+    <naturalPriority>1120</naturalPriority>
+    <alwaysStartActive>false</alwaysStartActive>
+    <requireCapableColonist>true</requireCapableColonist>
+    <relevantSkills>
+      <li>Shooting</li>
+      <li>Melee</li>
+    </relevantSkills>
+    <workTags>
+      <li>Violent</li>
+    </workTags>
+  </WorkTypeDef>
+
+  <WorkGiverDef>
+    <defName>GP_Guard</defName>
+    <label>guard posts and patrol routes</label>
+    <giverClass>GuardPosts.WorkGiver_Guard</giverClass>
+    <workType>GP_Guarding</workType>
+    <verb>guard</verb>
+    <gerund>guarding</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Moving</li>
+      <li>Sight</li>
+    </requiredCapacities>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+  </WorkGiverDef>
+
+  <JobDef>
+    <defName>GP_GuardPost</defName>
+    <driverClass>GuardPosts.JobDriver_GuardPost</driverClass>
+    <reportString>guarding post.</reportString>
+    <alwaysShowWeapon>true</alwaysShowWeapon>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>true</suspendable>
+  </JobDef>
+
+  <JobDef>
+    <defName>GP_Patrol</defName>
+    <driverClass>GuardPosts.JobDriver_Patrol</driverClass>
+    <reportString>patrolling.</reportString>
+    <alwaysShowWeapon>true</alwaysShowWeapon>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>true</suspendable>
+  </JobDef>
+
+</Defs>

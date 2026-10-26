@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>cashew.society.homes</packageId>
+  <name>Society: Homes</name>
+  <author>Cashew</author>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>cashew.commoners</packageId>
+      <displayName>Society: Castes</displayName>
+    </li>
+    <li>
+      <packageId>cashew.commoners.wages</packageId>
+      <displayName>Society: Wages</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>cashew.commoners</li>
+    <li>cashew.commoners.wages</li>
+    <li>Orion.CashRegister</li>
+    <li>Orion.Gastronomy</li>
+    <li>CETeam.CombatExtended</li>
+  </loadAfter>
+  <description>Part of the Society suite. Colonists who own or rent a lot (Society: Wages) keep house: they stock a home pantry, cook at home and eat at home.
+
+Pantry: on a lot, mark a shelf, fridge or stockpile as the household pantry. The household is whoever lives on the lot (the tenant, or else the owner) and their family who sleep there. Only they may take from the pantry, and only for their own meals: colony haulers, cooks, other colonists, pets and wardens leave it alone, and nothing is hauled into it except by the household.
+
+Grocery runs: when the pantry runs low, an adult household member goes shopping at your for-sale storage and pays the usual for-sale price from their savings (nobles shop free). Children never shop. Households that can cook at home buy ingredients; the rest buy meals. Groceries are carried in hand, never in inventory, so Combat Extended loadouts don't drop them.
+
+Home cooking: a household member who can cook makes meals at a stove on their own lot from pantry ingredients, outside your colony bills. The best meal their skill allows goes into the pantry.
+
+Eating: hungry household members prefer food from their own pantry (and so eat at the table at home). Family share it. A meal from their own pantry gives a +6 "home-cooked meal" mood boost for a day.
+
+Recreation: in their free time, household members use recreation buildings and artwork on their own lot before ones elsewhere, and are likelier to pick something they can do at home.
+
+Everyone without a home, and every lot without a pantry, keeps vanilla behavior.</description>
+</ModMetaData>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>cashew.commoners.wages</packageId>
+  <name>Society: Wages</name>
+  <author>Cashew</author>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>cashew.commoners</packageId>
+      <displayName>Society: Castes</displayName>
+    </li>
+    <li>
+      <packageId>Orion.CashRegister</packageId>
+      <displayName>Cash Register (Continued)</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3509487668</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>cashew.commoners</li>
+    <li>Orion.CashRegister</li>
+    <li>Orion.Gastronomy</li>
+    <li>CETeam.CombatExtended</li>
+  </loadAfter>
+  <description>Part of the Society Suite. An internal economy for the Society: Castes caste system.
+
+Payday: every 5 days by default (the first, sixth and eleventh day of each quadrum), commoners (25 silver a day by default), citizens (40) and artisans (60) are paid their daily wage for each day since the last payday. Nobles aren't paid, since they own the colony. Colonists walk to a payroll register to collect their pay in silver, which they keep in their pocket. Their savings are theirs: they won't haul them to a stockpile, unload them after a caravan, or drop them for a Combat Extended loadout. Artisans also earn a commission for each excellent, masterwork or legendary item in their specialty.
+
+Payroll: mark any cash register (or Progression: Hospitality merchant box) as a payroll register. Payday starts once you have one. Haulers keep it stocked from your stockpiles up to a target amount, and Cash Register won't empty it. If it runs dry, colonists go unpaid and they will be unhappy about it.
+
+Spending (upgrades, never survival):
+- Food: with Gastronomy, paid colonists pay for restaurant meals out of their savings. Free food elsewhere is unchanged. Nobles eat free.
+- Housing: set a daily rent on any bed. Paid colonists pay rent from their wages and savings, and those with enough saved move up into better rented rooms. Nobles sleep free. A colonist who can't pay is evicted.
+- Citizenship: a commoner who saves 1500 silver can buy citizenship.
+- Nobility: any paid colonist who saves 5000 silver can buy a noble seat, if one is free. Their leftover savings go to the colony.
+
+Money circulates: wages come out of the payroll register, restaurant meals pay into the restaurant's register, and rent, citizenship and noble seats go back into payroll.</description>
+</ModMetaData>

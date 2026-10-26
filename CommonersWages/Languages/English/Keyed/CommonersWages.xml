@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Payroll register -->
+  <CW_PayrollToggle>Payroll register</CW_PayrollToggle>
+  <CW_PayrollToggleDesc>Commoners, soldiers, citizens, artisans and scholars collect their wages here, and pay rent, citizenship and noble seats here. It pulls stored silver from inside its radius up to the target amount, and haulers bring silver from further away. It won't be emptied.\n\nPayday only starts once the colony has at least one payroll register.</CW_PayrollToggleDesc>
+  <CW_PayrollTarget>Payroll target: {0}</CW_PayrollTarget>
+  <CW_PayrollTargetDesc>How much silver haulers keep in this payroll register.</CW_PayrollTargetDesc>
+  <CW_PayrollInspect>Payroll register (target {0})</CW_PayrollInspect>
+
+  <!-- Pawn ledger -->
+  <CW_PurseInspect>Savings: {0}</CW_PurseInspect>
+  <CW_OwedInspect>Wages owed: {0}</CW_OwedInspect>
+  <CW_StashInspect>({0} in strongbox)</CW_StashInspect>
+  <CW_CommissionMote>+{0} commission</CW_CommissionMote>
+  <CW_BuyCitizenship>Buy citizenship</CW_BuyCitizenship>
+  <CW_BuyCitizenshipDesc>{PAWN_nameDef} pays {PRICE} at a payroll register to become a citizen. Citizens are paid too, so {PAWN_pronoun} keeps any savings left over.
+
+{PAWN_nameDef} must own or rent a lot first. (Enlisting as a soldier doesn't need one.)</CW_BuyCitizenshipDesc>
+  <CW_BuyNobility>Buy a noble seat</CW_BuyNobility>
+  <CW_BuyNobilityDesc>{PAWN_nameDef} pays {PRICE} at a payroll register to join the colony's nobility. The colony has one noble seat for every {2} colonists, and one has to be free.\n\nNobles aren't paid wages: any savings left over and any unpaid wages go back to the colony.</CW_BuyNobilityDesc>
+  <CW_BuyNeedMore>Needs {0} more silver (has {1})</CW_BuyNeedMore>
+  <CW_NoPayrollRegister>No reachable payroll register</CW_NoPayrollRegister>
+
+  <!-- Strongbox -->
+  <CW_StrongboxEmpty>No savings stored.</CW_StrongboxEmpty>
+  <CW_StrongboxContents>Savings stored: {0} ({1})</CW_StrongboxContents>
+  <CW_MessageStrongboxRemoved>A strongbox was removed. Its silver goes to the colony, and its owners are owed the same amount from payroll.</CW_MessageStrongboxRemoved>
+
+  <!-- Castes tab payroll view -->
+  <CW_ColWage>Wage</CW_ColWage>
+  <CW_ColRent>Rent</CW_ColRent>
+  <CW_ColOwed>Owed</CW_ColOwed>
+  <CW_ColOwedTip>Unpaid for {0} days</CW_ColOwedTip>
+  <CW_ColSavings>Savings</CW_ColSavings>
+  <CW_ColSavingsTip>Pocket: {0}\nStrongbox: {1}</CW_ColSavingsTip>
+  <CW_ColLastPaid>Last paid</CW_ColLastPaid>
+  <CW_ColRentLandlordTip>Paid to {PAWN_nameDef}, the landowner</CW_ColRentLandlordTip>
+  <CW_ColRentHomeTip>Lives free on {PAWN_nameDef}'s lot (family)</CW_ColRentHomeTip>
+  <CW_ColHome>Home</CW_ColHome>
+  <CW_ColHomeOwnedTip>Owns {0}. Rent collected so far: {1}.</CW_ColHomeOwnedTip>
+  <CW_ColHomeFamilyTip>Lives free on {PAWN_nameDef}'s lot</CW_ColHomeFamilyTip>
+  <CW_SummaryLots>Lots: {0} ({1} owned, {2} for sale, cheapest {3}).</CW_SummaryLots>
+  <CW_SummaryLandlordRent>Another {0} a day goes to landowners.</CW_SummaryLandlordRent>
+  <CW_HoursAgo>{0}h ago</CW_HoursAgo>
+  <CW_DaysAgo>{0}d ago</CW_DaysAgo>
+  <CW_SummaryNoPayroll>Payroll: not started. Mark a cash register as a payroll register to start paying {0} a day.</CW_SummaryNoPayroll>
+  <CW_SummaryPayroll>Payroll: {0} a day for {1} paid colonists. Rent brings back {2} a day.</CW_SummaryPayroll>
+  <CW_SummaryNextPayday>Paid every {0} days; next payday {1}.</CW_SummaryNextPayday>
+  <CW_PaydayToday>today at {0}:00</CW_PaydayToday>
+  <CW_PaydayInDays>in {0} days</CW_PaydayInDays>
+  <CW_PaydayTomorrow>tomorrow</CW_PaydayTomorrow>
+  <CW_SummaryFunds>In payroll registers: {0} (about {1} days of wages). Owed but not yet collected: {2}.</CW_SummaryFunds>
+
+  <!-- Rent -->
+  <CW_SetRent>Rent: {0}</CW_SetRent>
+  <CW_SetRentFree>Rent: free</CW_SetRentFree>
+  <CW_SetRentDesc>Daily rent for commoners, soldiers, citizens, artisans and scholars who sleep here, taken out of their wages and savings on payday. Nobles sleep here for free.\n\nColonists with enough savings will move into the best rented bed they can afford.\n\nOn an owned lot, rent goes to the landowner instead, and the owner's family sleeps free. A rent-free bed on an owned lot is private to the family.</CW_SetRentDesc>
+  <CW_RentInspect>Rent: {0} per day (nobles free)</CW_RentInspect>
+  <CW_RentInspectLandlord>Rent: {0} per day, paid to {PAWN_nameDef} (free for {PAWN_possessive} family and nobles)</CW_RentInspectLandlord>
+  <CW_RentInspectPrivate>Private: {PAWN_nameDef}'s home. Only {PAWN_possessive} family sleeps here unless rent is set.</CW_RentInspectPrivate>
+  <CW_PerDay>{0} per day</CW_PerDay>
+  <CW_SetRentSoldiers>Rent: soldiers</CW_SetRentSoldiers>
+  <CW_RentSoldiersOption>Soldiers only (free)</CW_RentSoldiersOption>
+  <CW_RentInspectSoldiers>Soldiers' bed: free, and only soldiers may sleep here</CW_RentInspectSoldiers>
+  <CW_SoldiersBedOnly>Soldiers only</CW_SoldiersBedOnly>
+  <CW_RentInspectShared>Shared with partner (free): {PAWN_nameDef} sleeps here free, since {PARTNER_nameDef} pays the rent</CW_RentInspectShared>
+  <CW_ColRentShared>Shared</CW_ColRentShared>
+  <CW_ColRentSharedTip>Shared with partner (free): {PARTNER_nameDef} pays the {1} rent on this bed.</CW_ColRentSharedTip>
+  <CW_MessageMovedInWithPartner>{PAWN_nameDef} has moved into {PARTNER_nameDef}'s bed.</CW_MessageMovedInWithPartner>
+  <CW_MessageMovedInTogether>{PAWN_nameDef} and {PARTNER_nameDef} have moved into a double bed together.</CW_MessageMovedInTogether>
+  <CW_MessageMovedSoldiers>{PAWN_nameDef} has moved into a free bed in the soldiers' quarters.</CW_MessageMovedSoldiers>
+  <CW_MessageSoldiersBedLeft>{PAWN_nameDef} isn't a soldier, so {PAWN_pronoun} gave up {PAWN_possessive} bed in the soldiers' quarters.</CW_MessageSoldiersBedLeft>
+
+  <!-- Lots -->
+  <CW_LotBaseName>Lot</CW_LotBaseName>
+  <CW_LotDesignator>Lot</CW_LotDesignator>
+  <CW_LotDesignatorDesc>Mark out a lot the colony can sell to a citizen, artisan or noble, or grant to anyone.\n\nPaint at least one floor cell of each room you want included, joining rooms through their doorways: any indoor room the lot touches belongs to it, walls and furniture included. Outdoor cells only count where painted.\n\nThe owner and their family (partner, parents and children) sleep free in any bed on the lot, and its rent-free beds are private to them. Anyone else sleeping there pays the bed's rent into the owner's savings instead of payroll.
+
+A lot can also be rented out whole, by the colony or by its owner.</CW_LotDesignatorDesc>
+  <CW_LotRoomTaken>That room is already part of {0}</CW_LotRoomTaken>
+  <CW_LotForSale>For sale</CW_LotForSale>
+  <CW_LotForSaleDesc>Offer this lot for sale. Citizens, soldiers, artisans, scholars and nobles can buy it with their savings. If autonomous buying is on in the mod settings, paid colonists buy the best lot they can afford on payday.\n\nThe price is paid into a payroll register.
+
+While the lot is vacant and for sale, nobody sleeps in its rent-free beds. Beds with a rent set can still be rented one at a time.</CW_LotForSaleDesc>
+  <CW_LotPrice>Price: {0}</CW_LotPrice>
+  <CW_LotPriceAuto>Price: {0} (appraised)</CW_LotPriceAuto>
+  <CW_LotPriceAutoOption>Appraised value (now {0})</CW_LotPriceAutoOption>
+  <CW_LotPriceDesc>Set the asking price. The appraised value is the land (a price per cell, set in the mod settings) plus the market value of the colony's buildings and furniture on the lot. It changes as the lot does.</CW_LotPriceDesc>
+  <CW_LotSellTo>Sell to...</CW_LotSellTo>
+  <CW_LotSellToDesc>Choose a colonist to buy this lot now, at its asking price. They walk to a payroll register to pay. The lot doesn't need to be marked for sale.</CW_LotSellToDesc>
+  <CW_LotGrant>Grant to...</CW_LotGrant>
+  <CW_LotGrantDesc>Give this lot to a colonist for free. Unlike buying, any caste can be granted a lot, children included.</CW_LotGrantDesc>
+  <CW_LotRepossess>Repossess...</CW_LotRepossess>
+  <CW_LotRepossessDesc>Take this lot back from {PAWN_nameDef}. The colony can buy it back at its asking price, paid from payroll into {PAWN_possessive} savings, or seize it without paying, which {PAWN_nameDef} won't take well.\n\nDeleting an owned lot counts as seizing it.</CW_LotRepossessDesc>
+  <CW_LotBuyBack>Buy back for {0}</CW_LotBuyBack>
+  <CW_LotPayrollShort>only {0} in payroll</CW_LotPayrollShort>
+  <CW_LotSeize>Seize without paying</CW_LotSeize>
+  <CW_LotSeizeConfirm>Seize {LOT} from {PAWN_nameDef} without paying? {PAWN_nameDef} will be very upset.</CW_LotSeizeConfirm>
+  <CW_LotNoBuyers>No colonists here</CW_LotNoBuyers>
+  <CW_LotInspectSize>Size: {0} cells, {1} rooms, {2} beds</CW_LotInspectSize>
+  <CW_LotInspectOwner>Owned by {PAWN_nameDef} for {1} days</CW_LotInspectOwner>
+  <CW_LotInspectRent>Rent collected: {0}</CW_LotInspectRent>
+  <CW_LotInspectForSale>For sale: {0}</CW_LotInspectForSale>
+  <CW_LotInspectNotForSale>Owned by the colony, not for sale</CW_LotInspectNotForSale>
+  <CW_LotInspectValue>Appraised value: {0} (land {1}, buildings {2})</CW_LotInspectValue>
+  <CW_LotCasteTooLow>Only citizens and above can buy land</CW_LotCasteTooLow>
+  <CW_LotNotAdult>Children can't buy land</CW_LotNotAdult>
+  <CW_LotOwned>Already owned by {PAWN_nameDef}</CW_LotOwned>
+  <CW_LotNotForSale>Not for sale</CW_LotNotForSale>
+  <CW_LotNoBed>No bed on this lot</CW_LotNoBed>
+  <CW_NoLotsForSale>No lots for sale on this map</CW_NoLotsForSale>
+  <CW_LotBuyOption>{0}: {1} ({2} beds)</CW_LotBuyOption>
+  <CW_BuyLot>Buy a lot</CW_BuyLot>
+  <CW_BuyLotDesc>{PAWN_nameDef} buys a lot that's for sale with {PAWN_possessive} savings, paid at a payroll register. {PAWN_nameDef} and {PAWN_possessive} family will sleep there for free, and rent from anyone else sleeping there goes to {PAWN_objective}.</CW_BuyLotDesc>
+
+  <!-- Messages and letters -->
+  <CW_MessageMovedHome>{PAWN_nameDef} has moved into the family home on {LOT}.</CW_MessageMovedHome>
+  <CW_MessageLotMovedOut>{PAWN_nameDef} had to give up {PAWN_possessive} bed: {LOT} is now {OWNER_nameDef}'s private home.</CW_MessageLotMovedOut>
+  <CW_MessageBoughtLot>{PAWN_nameDef} has bought {LOT} for {PRICE}.</CW_MessageBoughtLot>
+  <CW_MessageCantBuyLot>{PAWN_nameDef} couldn't buy {LOT}: {REASON}.</CW_MessageCantBuyLot>
+  <CW_MessageGrantedLot>{PAWN_nameDef} has been granted {LOT}.</CW_MessageGrantedLot>
+  <CW_MessageLotSeized>{LOT} has been seized from {PAWN_nameDef}.</CW_MessageLotSeized>
+  <CW_MessageLotDeleted>{LOT} was deleted, taking {PAWN_nameDef}'s home from {PAWN_objective}.</CW_MessageLotDeleted>
+  <CW_MessageLotBoughtBack>The colony bought {LOT} back from {PAWN_nameDef} for {PRICE}.</CW_MessageLotBoughtBack>
+  <CW_MessageLotReverts>{PAWN_nameDef} is no longer part of the colony, so {LOT} goes back to the colony.</CW_MessageLotReverts>
+  <CW_MessageLotNoHeir>{PAWN_nameDef} left no family in the colony, so {LOT} goes back to the colony.</CW_MessageLotNoHeir>
+  <CW_LetterInheritedLabel>Inheritance</CW_LetterInheritedLabel>
+  <CW_LetterInheritedText>{HEIR_nameDef} has inherited {LOT} from {PAWN_nameDef}.\n\n{HEIR_nameDef}'s family now sleeps there for free, and any rent from the lot goes to {HEIR_objective}.</CW_LetterInheritedText>
+  <CW_LetterCanBuyLotLabel>Home affordable</CW_LetterCanBuyLotLabel>
+  <CW_LetterCanBuyLotText>{PAWN_nameDef} has saved enough to buy a home: {LOT} is for sale for {PRICE}.\n\nSelect {PAWN_objective} and use "Buy a lot" when you're ready.</CW_LetterCanBuyLotText>
+  <CW_MessageMovedIn>{PAWN_nameDef} has rented a better room.</CW_MessageMovedIn>
+  <CW_MessageMovedDown>{PAWN_nameDef} has moved to a cheaper room to pay off {PAWN_possessive} tax debt.</CW_MessageMovedDown>
+  <CW_MessageEvicted>{PAWN_nameDef} couldn't pay rent and has been evicted.</CW_MessageEvicted>
+  <CW_MessageBoughtCitizenship>{PAWN_nameDef} has bought citizenship.</CW_MessageBoughtCitizenship>
+  <CW_MessageBoughtNobility>{PAWN_nameDef} has bought a noble seat and joined the nobility.</CW_MessageBoughtNobility>
+  <CW_MessageNoSeat>{PAWN_nameDef} couldn't buy a noble seat: {REASON}.</CW_MessageNoSeat>
+  <CW_LetterCanBuyLabel>Citizenship affordable</CW_LetterCanBuyLabel>
+  <CW_LetterCanBuyText>{PAWN_nameDef} has saved {PRICE} and can now buy citizenship.\n\nSelect {PAWN_objective} and use "Buy citizenship" when you're ready. As a citizen, {PAWN_nameDef} will lose the commoner expectations bonus but can do any work and hold any position.</CW_LetterCanBuyText>
+  <CW_LetterCanBuyNobilityLabel>Noble seat affordable</CW_LetterCanBuyNobilityLabel>
+  <CW_LetterCanBuyNobilityText>{PAWN_nameDef} has saved {PRICE}, enough to buy a noble seat.\n\nSelect {PAWN_objective} and use "Buy a noble seat" when you're ready. As a noble, {PAWN_nameDef} will trade and negotiate better and lift the mood of lower castes nearby, but will expect much more, need a fine private bedroom, refuse menial work, and stop earning wages.</CW_LetterCanBuyNobilityText>
+  <CW_LetterNoSeat>There's no free noble seat right now. The colony has one for every {0} colonists.</CW_LetterNoSeat>
+
+  <!-- Renting out lots -->
+  <CW_LotForRent>For rent</CW_LotForRent>
+  <CW_LotForRentDesc>Offer this whole lot for rent instead of for sale. A commoner, soldier, citizen, artisan or scholar who rents it lives there with their family: every bed on the lot is free and private to them.
+
+Rent is due every {0} days, taken from the tenant's unpaid wages and savings, and paid into a payroll register. The first period is paid when the lease is signed. If the tenant is {1} days late, they're evicted.
+
+While the lot is vacant, nobody sleeps in its rent-free beds. Beds with a rent set can still be rented one at a time until someone takes the whole lot.
+
+Turning this off stops new tenants; a current lease carries on until you end it.</CW_LotForRentDesc>
+  <CW_LotForRentOwnedDesc>Let {PAWN_nameDef} rent out this whole lot. The tenant and their family live there instead: everyone else, {PAWN_nameDef} included, gives up their bed on the lot when the lease is signed.
+
+Rent is due every {1} days and goes into {PAWN_nameDef}'s savings. The first period is paid when the lease is signed. If the tenant is {2} days late, they're evicted, and {PAWN_nameDef} moves back in.
+
+Turning this off stops new tenants; a current lease carries on until you end it.</CW_LotForRentOwnedDesc>
+  <CW_LotRent>Rent: {0}</CW_LotRent>
+  <CW_LotRentAuto>Rent: {0} (appraised)</CW_LotRentAuto>
+  <CW_LotRentAutoOption>Share of appraised value (now {0})</CW_LotRentAutoOption>
+  <CW_LotRentDesc>Set the rent for the whole lot, due every {0} days. By default it's {1}% of the lot's appraised value (set in the mod settings), and it changes as the lot does.</CW_LotRentDesc>
+  <CW_LotRentTo>Rent to...</CW_LotRentTo>
+  <CW_LotRentToDesc>Choose a colonist to rent this lot now. They pay the first period's rent straight away. The lot doesn't need to be marked for rent.</CW_LotRentToDesc>
+  <CW_LotEndLease>End lease</CW_LotEndLease>
+  <CW_LotEndLeaseDesc>Evict {PAWN_nameDef}. {PAWN_possessive} family gives up their beds on the lot, and rent already paid isn't refunded.</CW_LotEndLeaseDesc>
+  <CW_LotEndLeaseConfirm>Evict {PAWN_nameDef} from {LOT}? {PAWN_nameDef} will be upset.</CW_LotEndLeaseConfirm>
+  <CW_LotInspectTenant>Rented by {PAWN_nameDef}: {RENT} every {DAYS} days</CW_LotInspectTenant>
+  <CW_LotInspectRentDue>Next rent due in {0} days</CW_LotInspectRentDue>
+  <CW_LotInspectRentLate>Rent is late: eviction in {0} days unless paid</CW_LotInspectRentLate>
+  <CW_LotInspectForRent>For rent: {0} every {1} days</CW_LotInspectForRent>
+  <CW_LotRentOption>{0}: {1} every {2} days ({3} beds)</CW_LotRentOption>
+  <CW_RentInspectTenant>Private: part of {LOT}, rented by {PAWN_nameDef}</CW_RentInspectTenant>
+  <CW_RentInspectVacant>Private: {LOT} is vacant and on the market. Nobody sleeps here until it's bought or rented, unless you set a rent on the bed.</CW_RentInspectVacant>
+  <CW_MessageLotVacantMovedOut>{PAWN_nameDef} had to give up {PAWN_possessive} bed: {LOT} is on the market, and its rent-free beds are kept for the buyer or tenant.</CW_MessageLotVacantMovedOut>
+  <CW_RentLot>Rent a lot</CW_RentLot>
+  <CW_RentLotDesc>{PAWN_nameDef} rents a whole lot that's for rent, paying the first period now from {PAWN_possessive} wages and savings. {PAWN_nameDef} and {PAWN_possessive} family sleep there without paying bed rent.
+
+Rent is due every {1} days. If {PAWN_nameDef} is {2} days late, {PAWN_pronoun} is evicted.</CW_RentLotDesc>
+  <CW_NoLotsForRent>No lots for rent on this map</CW_NoLotsForRent>
+  <CW_LeaseAlready>Already renting it</CW_LeaseAlready>
+  <CW_LeaseTaken>Already rented by {PAWN_nameDef}</CW_LeaseTaken>
+  <CW_LeaseNotForRent>Not for rent</CW_LeaseNotForRent>
+  <CW_LeaseOwnFamily>Family of the owner, already lives free</CW_LeaseOwnFamily>
+  <CW_CitizenNeedsHome>must own or rent a lot first</CW_CitizenNeedsHome>
+  <CW_MessageCantBuyCitizenship>{PAWN_nameDef} couldn't buy citizenship: {REASON}.</CW_MessageCantBuyCitizenship>
+  <CW_LeaseNotPaid>Only adult commoners, soldiers, citizens, artisans and scholars rent lots</CW_LeaseNotPaid>
+  <CW_LeaseOtherMap>Not on this map</CW_LeaseOtherMap>
+  <CW_MessageRentedLot>{PAWN_nameDef} has rented {LOT} for {RENT} every {DAYS} days.</CW_MessageRentedLot>
+  <CW_MessageLotMovedOutTenant>{PAWN_nameDef} had to give up {PAWN_possessive} bed: {LOT} has been rented out to {TENANT_nameDef}.</CW_MessageLotMovedOutTenant>
+  <CW_MessageRentLate>{PAWN_nameDef} can't pay the {RENT} rent on {LOT}. If it isn't paid within {DAYS} days, {PAWN_pronoun} will be evicted.</CW_MessageRentLate>
+  <CW_MessageLateRentPaid>{PAWN_nameDef} has paid the late rent on {LOT}.</CW_MessageLateRentPaid>
+  <CW_MessageLeaseEvicted>{PAWN_nameDef} didn't pay the rent on {LOT} and has been evicted.</CW_MessageLeaseEvicted>
+  <CW_MessageLeaseEvictedByOrder>{PAWN_nameDef} has been evicted from {LOT}.</CW_MessageLeaseEvictedByOrder>
+  <CW_MessageLeaseMovedOn>{PAWN_nameDef} has given up the lease on {LOT}.</CW_MessageLeaseMovedOn>
+  <CW_MessageLeaseEndedLeft>{PAWN_nameDef} is no longer part of the colony, so the lease on {LOT} has ended.</CW_MessageLeaseEndedLeft>
+  <CW_MessageLeaseEndedDeleted>{LOT} was deleted, ending {PAWN_nameDef}'s lease.</CW_MessageLeaseEndedDeleted>
+  <CW_ColHomeRented>{0} (rented)</CW_ColHomeRented>
+  <CW_ColHomeRentedTip>Rents {0} for {1} every {2} days. Next rent due in {3} days.</CW_ColHomeRentedTip>
+  <CW_ColHomeRentedLateTip>Rents {0} for {1} every {2} days. The rent is late: eviction in {3} days unless paid.</CW_ColHomeRentedLateTip>
+  <CW_ColRentLeaseTip>Covered by the lease on {0}</CW_ColRentLeaseTip>
+  <CW_SummaryLotsRented>{0} rented, {1} for rent; the colony's own lots bring in {2} every {3} days.</CW_SummaryLotsRented>
+
+  <!-- Goods for sale -->
+  <CW_ForSale>For sale</CW_ForSale>
+  <CW_ForSaleDesc>Sell what's kept here. Colonists buy items stored here when they take them for themselves: food and drink, drugs from their drug policy, and clothes their outfit policy wants. Each costs {0}% of its market value (set in the mod settings), paid from their savings into a payroll register when they eat it or put it on.
+
+Commoners, soldiers, citizens, artisans and scholars pay. Nobles and the colony's children take things free. Slaves, prisoners, guests and animals can't take anything. A colonist who can't afford something goes without, except that a starving colonist still eats. Pawns won't pack food or fill CE loadouts from here. Hauling, cooking and crafting still use what's stored here as usual.</CW_ForSaleDesc>
+  <CW_ForSaleInspect>For sale at {0}% of market value</CW_ForSaleInspect>
+
+  <!-- Taxes -->
+  <CW_MessageTaxDay>Tax day: {0} collected from {1} colonists.</CW_MessageTaxDay>
+  <CW_MessageTaxDayShort>{0} couldn't pay in full and owe {1} between them.</CW_MessageTaxDayShort>
+  <CW_MessageTaxDebtCleared>{PAWN_nameDef} has paid off {PAWN_possessive} tax debt.</CW_MessageTaxDebtCleared>
+  <CW_TaxDebtInspect>Tax debt: {0}</CW_TaxDebtInspect>
+  <CW_ColTax>Tax</CW_ColTax>
+  <CW_ColTaxOwes>owes {0}</CW_ColTaxOwes>
+  <CW_ColTaxTip>Paid every {0} days on tax day. Part of each payday's wage is held back for it ({1} of {2} so far); the rest comes from unpaid wages, then savings.</CW_ColTaxTip>
+  <CW_SummaryTax>Taxes: {0} per quadrum from {1} taxpayers. Next tax day in {2} days.</CW_SummaryTax>
+  <CW_SummaryTaxDebt>Unpaid tax: {0}.</CW_SummaryTaxDebt>
+  <CW_ForgiveTax>Forgive</CW_ForgiveTax>
+  <CW_ForgiveTaxTip>Forgive {PAWN_nameDef}'s tax debt of {1}. The debt is cleared, and {PAWN_nameDef} gets a mood boost.</CW_ForgiveTaxTip>
+  <CW_ForgiveCasteTaxes>Forgive taxes ({0})</CW_ForgiveCasteTaxes>
+  <CW_ForgiveAllTaxes>Forgive all taxes ({0})</CW_ForgiveAllTaxes>
+  <CW_ForgiveTaxesTip>Forgive the tax debt of {0} colonists. Their debts are cleared, and each gets a mood boost.</CW_ForgiveTaxesTip>
+  <CW_ForgiveTaxesConfirm>Forgive {0} of tax debt owed by {1} colonists?\n\n{2}</CW_ForgiveTaxesConfirm>
+  <CW_MessageTaxesForgiven>Forgave {0} of tax debt for {1} colonists.</CW_MessageTaxesForgiven>
+
+  <!-- Money log (one entry: {0} is the amount, {1} who or what it was with) -->
+  <CW_Log_Wage>{0} wage {1}</CW_Log_Wage>
+  <CW_LogDays>for {0} days</CW_LogDays>
+  <CW_Log_Commission>{0} commission ({1})</CW_Log_Commission>
+  <CW_Log_Collected>collected {0}</CW_Log_Collected>
+  <CW_Log_TaxHeld>{0} held for tax</CW_Log_TaxHeld>
+  <CW_Log_TaxHeldReturned>{0} held for tax given back</CW_Log_TaxHeldReturned>
+  <CW_Log_Tax>{0} tax</CW_Log_Tax>
+  <CW_Log_TaxDebtPaid>{0} tax debt</CW_Log_TaxDebtPaid>
+  <CW_Log_TaxForgiven>{0} tax debt forgiven</CW_Log_TaxForgiven>
+  <CW_Log_Rent>{0} rent</CW_Log_Rent>
+  <CW_Log_RentLetOff>{0} rent let off</CW_Log_RentLetOff>
+  <CW_Log_RentToLandlord>{0} rent to {1}</CW_Log_RentToLandlord>
+  <CW_Log_RentReceived>{0} rent from {1}</CW_Log_RentReceived>
+  <CW_Log_LotRent>{0} rent for {1}</CW_Log_LotRent>
+  <CW_Log_LotRentToLandlord>{0} lot rent to {1}</CW_Log_LotRentToLandlord>
+  <CW_Log_LotRentReceived>{0} lot rent from {1}</CW_Log_LotRentReceived>
+  <CW_Log_Purchase>{0} bought {1}</CW_Log_Purchase>
+  <CW_Log_Citizenship>{0} citizenship</CW_Log_Citizenship>
+  <CW_Log_Nobility>{0} noble seat</CW_Log_Nobility>
+  <CW_Log_NobilityForfeit>{0} savings and wages left to the colony</CW_Log_NobilityForfeit>
+  <CW_Log_LotBought>{0} bought {1}</CW_Log_LotBought>
+  <CW_Log_LotBoughtBack>{0} {1} bought back by the colony</CW_Log_LotBoughtBack>
+  <CW_Log_StrongboxReturned>strongbox removed: {0} added to wages owed</CW_Log_StrongboxReturned>
+  <CW_Log_Dev>{0} (dev tool)</CW_Log_Dev>
+  <CW_ColSavingsRecent>Recent payments:</CW_ColSavingsRecent>
+
+  <!-- Economy summary -->
+  <CW_SummaryEconomy>Last {0} days: {1} in, {2} out, net {3}.</CW_SummaryEconomy>
+  <CW_EconomyButton>Economy</CW_EconomyButton>
+  <CW_LetterEconomyLabel>Quadrum economy report</CW_LetterEconomyLabel>
+  <CW_ReportPeriod>The colony's money over the last {0} days:</CW_ReportPeriod>
+  <CW_ReportIn>Money in: {0}</CW_ReportIn>
+  <CW_ReportRent>Bed rent: {0}</CW_ReportRent>
+  <CW_ReportLotRent>Lot rent: {0}</CW_ReportLotRent>
+  <CW_ReportTax>Taxes: {0}</CW_ReportTax>
+  <CW_ReportSales>Goods for sale: {0}</CW_ReportSales>
+  <CW_ReportPurchases>Citizenship, noble seats and lots: {0}</CW_ReportPurchases>
+  <CW_ReportOut>Money out: {0}</CW_ReportOut>
+  <CW_ReportWages>Wages and commissions: {0}</CW_ReportWages>
+  <CW_ReportBuyBack>Lots bought back: {0}</CW_ReportBuyBack>
+  <CW_ReportNet>Net: {0}</CW_ReportNet>
+  <CW_ReportLandlordRent>Rent tenants paid to landowners (between colonists, not counted above): {0}</CW_ReportLandlordRent>
+  <CW_ReportForgiven>Tax debt forgiven: {0}</CW_ReportForgiven>
+  <CW_ReportNotCounted>Wages count when they're earned on payday, not when they're collected. Gastronomy restaurant meals aren't counted, because they're paid into the restaurant's own register.</CW_ReportNotCounted>
+
+  <!-- Wage and tax buttons on the Castes tab -->
+  <CW_WageTaxLabel>Wage {0} · tax {1}</CW_WageTaxLabel>
+  <CW_WageLabel>Wage {0}</CW_WageLabel>
+  <CW_TaxLabel>Tax {0}</CW_TaxLabel>
+  <CW_WageTaxTip>The daily wage and quadrum tax for {0}. Click to change them. This edits the mod settings, so it applies to every save.</CW_WageTaxTip>
+  <CW_SetWage>Daily wage: {0}</CW_SetWage>
+  <CW_SetTax>Tax every {1} days: {0}</CW_SetTax>
+  <CW_PresetCurrent>{0} (current)</CW_PresetCurrent>
+
+  <!-- Settings -->
+  <CW_SettingsWageCommoner>Commoners' daily wage: {0}</CW_SettingsWageCommoner>
+  <CW_SettingsWageCitizen>Citizens' daily wage (0 means unpaid): {0}</CW_SettingsWageCitizen>
+  <CW_SettingsWageArtisan>Artisans' daily wage: {0}</CW_SettingsWageArtisan>
+  <CW_SettingsWageScholar>Scholars' daily wage (no commissions): {0}</CW_SettingsWageScholar>
+  <CW_SettingsWageSoldier>Soldiers' daily wage (they pay no tax): {0}</CW_SettingsWageSoldier>
+  <CW_SettingsCommissionExcellent>Artisan commission for an excellent item: {0}</CW_SettingsCommissionExcellent>
+  <CW_SettingsCommissionMasterwork>Artisan commission for a masterwork item: {0}</CW_SettingsCommissionMasterwork>
+  <CW_SettingsCommissionLegendary>Artisan commission for a legendary item: {0}</CW_SettingsCommissionLegendary>
+  <CW_SettingsPaydayHour>Payday hour: {0}</CW_SettingsPaydayHour>
+  <CW_SettingsPaydayInterval>Payday every {0} days (the first day of each {1}-day quadrum is always a payday). Each payday pays the daily wage, and charges the daily rent, for every day since the last one.</CW_SettingsPaydayInterval>
+  <CW_SettingsDefaultTarget>Default payroll target for new payroll registers: {0}</CW_SettingsDefaultTarget>
+  <CW_SettingsCitizenship>Citizenship price: {0}</CW_SettingsCitizenship>
+  <CW_SettingsNobility>Noble seat price: {0}</CW_SettingsNobility>
+  <CW_SettingsRentBuffer>Days of rent a colonist wants saved before moving into a rented room: {0}</CW_SettingsRentBuffer>
+  <CW_SettingsPocketMoney>Pocket money kept out of the strongbox: {0}</CW_SettingsPocketMoney>
+  <CW_SettingsLandPrice>Land price per cell, for appraising lots: {0}</CW_SettingsLandPrice>
+  <CW_SettingsBuildingValue>Buildings count for {0}% of their market value in lot appraisals</CW_SettingsBuildingValue>
+  <CW_SettingsAutoBuyLots>Colonists buy lots for sale on their own</CW_SettingsAutoBuyLots>
+  <CW_SettingsAutoBuyLotsDesc>On payday, a paid citizen, soldier, artisan or scholar who owns no land buys the best lot for sale they can afford, if it's at least as good as their current room. With this off, you get a letter instead and order the purchase yourself.</CW_SettingsAutoBuyLotsDesc>
+  <CW_SettingsLotRent>Lot rent: {0}% of the appraised value every {1} days</CW_SettingsLotRent>
+  <CW_SettingsAutoRentLots>Colonists rent lots for rent on their own</CW_SettingsAutoRentLots>
+  <CW_SettingsAutoRentLotsDesc>On payday, a paid colonist with no home of their own rents the best lot for rent that's better than their current room, if they can pay the first period now and their wages cover the rent.</CW_SettingsAutoRentLotsDesc>
+  <CW_SettingsCitizenNeedsHome>Commoners must own or rent a lot to rise in caste</CW_SettingsCitizenNeedsHome>
+  <CW_SettingsCitizenNeedsHomeDesc>An adult commoner can only become a citizen, artisan, scholar or noble, by purchase or by your choice, while they own or rent a lot. Enlisting as a soldier doesn't need one. Losing the lot later doesn't demote them.</CW_SettingsCitizenNeedsHomeDesc>
+  <CW_SettingsFoodMarkup>Goods in for-sale storage cost {0}% of their market value</CW_SettingsFoodMarkup>
+  <CW_SettingsTaxCommoner>Commoners' tax each quadrum (15 days): {0}</CW_SettingsTaxCommoner>
+  <CW_SettingsTaxCitizen>Citizens' tax each quadrum: {0}</CW_SettingsTaxCitizen>
+  <CW_SettingsTaxArtisan>Artisans' tax each quadrum: {0}</CW_SettingsTaxArtisan>
+  <CW_SettingsTaxScholar>Scholars' tax each quadrum: {0}</CW_SettingsTaxScholar>
+  <CW_SettingsTaxNoble>Nobles' tax each quadrum: {0}</CW_SettingsTaxNoble>
+  <CW_SettingsDebtorsMoveDown>Tax debtors move to cheaper rooms</CW_SettingsDebtorsMoveDown>
+  <CW_SettingsDebtorsMoveDownDesc>On payday, a pawn in tax debt whose rent leaves too little of their wage to cover their tax moves to a cheaper room, if one is free. Pawns in debt never move up, buy or lease a lot, or buy food for sale until it's paid off.</CW_SettingsDebtorsMoveDownDesc>
+  <CW_SettingsPullSilver>Payroll registers pull stored silver from inside their radius</CW_SettingsPullSilver>
+  <CW_SettingsGastronomy>Commoners, soldiers, citizens, artisans and scholars pay for Gastronomy restaurant meals</CW_SettingsGastronomy>
+  <CW_SettingsStockForSale>Restaurant stock is for sale only</CW_SettingsStockForSale>
+  <CW_SettingsStockForSaleDesc>Meals stocked for a Gastronomy restaurant can only be had by dining there. Colonists, prisoners and animals won't take them off the restaurant's shelves for free, even while it's closed. A starving pawn still will.</CW_SettingsStockForSaleDesc>
+  <CW_SettingsReset>Reset to defaults</CW_SettingsReset>
+
+</LanguageData>

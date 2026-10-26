@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ===== Caste status ===== -->
+
+  <HediffDef>
+    <defName>CM_Commoner</defName>
+    <label>commoner</label>
+    <description>This person belongs to the commoner caste: a free member of the colony who has accepted a lower station.\n\nCommoners expect less from life, but they can't do certain elite work, their skills only grow so far, and they can't hold ideoligion roles or royal titles.</description>
+    <hediffClass>Commoners.Hediff_Commoner</hediffClass>
+    <defaultLabelColor>(0.80, 0.70, 0.45)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+    <scenarioCanAdd>true</scenarioCanAdd>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>CM_CommonerOffer</defName>
+    <label>offered commoner status</label>
+    <description>This prisoner has been offered a place in the colony as a commoner. Since less is asked of them, their resistance falls faster, and they'll join as a commoner when recruited.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.80, 0.70, 0.45)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+  </HediffDef>
+
+  <!-- ===== Mood ===== -->
+
+  <ThoughtDef>
+    <defName>CM_ExpectationsCommoner</defName>
+    <workerClass>Commoners.ThoughtWorker_ExpectationsCommoner</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>extremely low commoner expectations</label>
+        <description>I'm a commoner in a destitute colony. I expect almost nothing.</description>
+        <baseMoodEffect>38</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low commoner expectations</label>
+        <description>I'm a commoner in a poor colony. I expect very little.</description>
+        <baseMoodEffect>32</baseMoodEffect>
+      </li>
+      <li>
+        <label>low commoner expectations</label>
+        <description>I'm a commoner in a colony of modest means. I expect little.</description>
+        <baseMoodEffect>26</baseMoodEffect>
+      </li>
+      <li>
+        <label>moderate commoner expectations</label>
+        <description>I'm a commoner. A roof, a meal and honest work are enough for me.</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+      <li>
+        <label>high commoner expectations</label>
+        <description>I'm a commoner in a wealthy colony. I expect a decent life, but not luxury.</description>
+        <baseMoodEffect>17</baseMoodEffect>
+      </li>
+      <li>
+        <label>sky-high commoner expectations</label>
+        <description>I'm a commoner in a very rich colony. I expect to live well, but I know my place.</description>
+        <baseMoodEffect>14</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_ExpectationsSoldier</defName>
+    <workerClass>Commoners.ThoughtWorker_ExpectationsCommoner</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <modExtensions>
+      <li Class="Commoners.CasteThoughtExtension">
+        <caste>Soldier</caste>
+      </li>
+    </modExtensions>
+    <stages>
+      <li>
+        <label>extremely low soldier expectations</label>
+        <description>I'm a soldier in a destitute colony. A dry bunk and a full magazine are all I ask.</description>
+        <baseMoodEffect>38</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low soldier expectations</label>
+        <description>I'm a soldier in a poor colony. I've slept in worse places.</description>
+        <baseMoodEffect>32</baseMoodEffect>
+      </li>
+      <li>
+        <label>low soldier expectations</label>
+        <description>I'm a soldier in a colony of modest means. It's better than the field.</description>
+        <baseMoodEffect>26</baseMoodEffect>
+      </li>
+      <li>
+        <label>moderate soldier expectations</label>
+        <description>I'm a soldier. A roof, a meal and something worth defending are enough for me.</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+      <li>
+        <label>high soldier expectations</label>
+        <description>I'm a soldier in a wealthy colony. I expect decent quarters, but not luxury.</description>
+        <baseMoodEffect>17</baseMoodEffect>
+      </li>
+      <li>
+        <label>sky-high soldier expectations</label>
+        <description>I'm a soldier in a very rich colony. Plenty worth defending here.</description>
+        <baseMoodEffect>14</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_Demoted</defName>
+    <durationDays>20</durationDays>
+    <stackLimit>1</stackLimit>
+    <nullifyingTraits>
+      <li>Ascetic</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>lost my station</label>
+        <description>I've been moved down a caste. I used to stand higher in this colony.</description>
+        <baseMoodEffect>-12</baseMoodEffect>
+      </li>
+      <li>
+        <label>fell far in station</label>
+        <description>I've been brought down two castes. Everyone saw it happen.</description>
+        <baseMoodEffect>-18</baseMoodEffect>
+      </li>
+      <li>
+        <label>cast down from my station</label>
+        <description>I've lost everything I was. From the top of this colony to the bottom.</description>
+        <baseMoodEffect>-24</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_Promoted</defName>
+    <durationDays>10</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>made a full citizen</label>
+        <description>I'm a full citizen of this colony now. My work was noticed.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+      <li>
+        <label>certified as an artisan</label>
+        <description>My craft has been recognized. I'm a certified artisan.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+      <li>
+        <label>raised to the nobility</label>
+        <description>I've been raised to the nobility. This colony is mine to guide now.</description>
+        <baseMoodEffect>15</baseMoodEffect>
+      </li>
+      <li>
+        <label>certified as a scholar</label>
+        <description>My learning has been recognized. I'm a certified scholar.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+      <li>
+        <label>enlisted as a soldier</label>
+        <description>I've taken up arms for this colony. I'm no commoner now; I'm a soldier.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_RaisedFromSlavery</defName>
+    <durationDays>10</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>raised from slavery</label>
+        <description>I'm not a slave anymore. I'm a commoner now, and my life is my own again.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Opinion (fellow offsets are overwritten from mod settings at startup) ===== -->
+
+  <!-- Looking down on a lower caste. The stage names the other pawn's caste; the offset per tier comes from settings. -->
+  <ThoughtDef>
+    <defName>CM_LowerStation</defName>
+    <thoughtClass>Commoners.Thought_LowerStation</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_LowerStation</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <nullifyingTraits>
+      <li>Kind</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>commoner</label>
+        <baseOpinionOffset>-3</baseOpinionOffset>
+      </li>
+      <li>
+        <label>citizen</label>
+        <baseOpinionOffset>-3</baseOpinionOffset>
+      </li>
+      <li>
+        <label>artisan</label>
+        <baseOpinionOffset>-3</baseOpinionOffset>
+      </li>
+      <li>
+        <label>scholar</label>
+        <baseOpinionOffset>-3</baseOpinionOffset>
+      </li>
+      <li>
+        <label>soldier</label>
+        <baseOpinionOffset>-3</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CM_FellowCommoner</defName>
+    <thoughtClass>Thought_SituationalSocial</thoughtClass>
+    <workerClass>Commoners.ThoughtWorker_FellowCommoner</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>fellow commoner</label>
+        <baseOpinionOffset>3</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Slave elevation (Ideology) ===== -->
+
+  <SlaveInteractionModeDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ElevateToCommoner</defName>
+    <label>elevate to commoner</label>
+    <listOrder>31</listOrder>
+    <description>A warden will free this slave and welcome them into the colony as a commoner.</description>
+  </SlaveInteractionModeDef>
+
+  <WorkGiverDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ElevateSlave</defName>
+    <label>elevate slaves to commoners</label>
+    <giverClass>Commoners.WorkGiver_Warden_ElevateSlave</giverClass>
+    <workType>Warden</workType>
+    <verb>elevate</verb>
+    <gerund>elevating</gerund>
+    <priorityInType>105</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <JobDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_ElevateSlave</defName>
+    <driverClass>Commoners.JobDriver_ElevateSlave</driverClass>
+    <reportString>elevating TargetA to commoner.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+
+</Defs>

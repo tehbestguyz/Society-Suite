@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <JobDef>
+    <defName>SE_TradeForColony</defName>
+    <driverClass>SocietyEstates.JobDriver_TradeForColony</driverClass>
+    <reportString>buying for the colony from TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+</Defs>

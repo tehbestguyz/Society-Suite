@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- The patch loader ignores MayRequire on <Operation> nodes, so these are gated with
+       PatchOperationFindMod instead. Without Ideology the target precepts don't exist,
+       and Defs/Memes_Militarist.xml skips the meme through its own MayRequire. -->
+
+  <!-- Unlock the shooting and melee specialist roles, the gladiator duel and the
+       Corpses: don't care precept. requiredMemes
+       is "any of", so this adds Militarist alongside Raider, Supremacist and the rest.
+       The conditional leaves a precept alone if another mod removed its requiredMemes
+       (which would mean it's already allowed for every ideoligion). -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Ideology</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/PreceptDef[defName="IdeoRole_ShootingSpecialist"]/requiredMemes</xpath>
+          <success>Always</success>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/PreceptDef[defName="IdeoRole_ShootingSpecialist"]/requiredMemes</xpath>
+            <value>
+              <li>CM_Militarist</li>
+            </value>
+          </match>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/PreceptDef[defName="IdeoRole_MeleeSpecialist"]/requiredMemes</xpath>
+          <success>Always</success>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/PreceptDef[defName="IdeoRole_MeleeSpecialist"]/requiredMemes</xpath>
+            <value>
+              <li>CM_Militarist</li>
+            </value>
+          </match>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/PreceptDef[defName="GladiatorDuel"]/requiredMemes</xpath>
+          <success>Always</success>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/PreceptDef[defName="GladiatorDuel"]/requiredMemes</xpath>
+            <value>
+              <li>CM_Militarist</li>
+            </value>
+          </match>
+        </li>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/PreceptDef[defName="Corpses_DontCare"]/requiredMemes</xpath>
+          <success>Always</success>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/PreceptDef[defName="Corpses_DontCare"]/requiredMemes</xpath>
+            <value>
+              <li>CM_Militarist</li>
+            </value>
+          </match>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!-- "Death: don't care" comes from Vanilla Ideology Expanded - Memes and Structures
+       (VME_Death_DontCare), not vanilla. When it's loaded, require it as a second
+       requireOne group; without it, Militarist only requires the execution stance. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Vanilla Ideology Expanded - Memes and Structures</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/MemeDef[defName="CM_Militarist"]/requireOne</xpath>
+      <value>
+        <li>
+          <li>VME_Death_DontCare</li>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

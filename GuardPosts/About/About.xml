@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>cashew.guardposts</packageId>
+  <name>Society: Guards</name>
+  <author>Cashew</author>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <description>Part of the Society Suite, but works on its own.
+
+Adds a Guard work type. Guards hold guard posts or walk patrol routes, and they fight hostiles that come near.
+
+- Guard posts and patrol spots in four colors (red, blue, green, yellow), found under Architect > Security.
+- Guard posts can be rotated; the guard faces the arrow's direction.
+- Patrol spots of one color form a route. Reorder it from the spot's buttons, and choose loop or back-and-forth.
+- The Guards tab lists your guards. Use it to assign each one to a post color or a patrol route, and to show or hide all spots.
+
+Guarding counts as work, so set its priority in the Work tab (or in the Guards tab) and schedule guards' work hours. Pawns who can't do violence can't guard.</description>
+</ModMetaData>

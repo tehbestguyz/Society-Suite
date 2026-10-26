@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>SocietyHomes</RootNamespace>
+    <AssemblyName>SocietyHomes</AssemblyName>
+    <OutputPath>..\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <Nullable>disable</Nullable>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RimWorldDir>C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldDir>
+    <WorkshopDir>C:\Program Files (x86)\Steam\steamapps\workshop\content\294100</WorkshopDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldDir)\UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(WorkshopDir)\2009463077\1.7\Assemblies\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Commoners">
+      <HintPath>$(RimWorldDir)\Mods\Commoners\Assemblies\Commoners.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CommonersWages">
+      <HintPath>$(RimWorldDir)\Mods\CommonersWages\Assemblies\CommonersWages.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CashRegister">
+      <HintPath>$(WorkshopDir)\3509487668\1.7\Assemblies\CashRegister.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

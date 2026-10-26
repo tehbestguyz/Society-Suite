@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <GP_Color_Red>red</GP_Color_Red>
+  <GP_Color_Blue>blue</GP_Color_Blue>
+  <GP_Color_Green>green</GP_Color_Green>
+  <GP_Color_Yellow>yellow</GP_Color_Yellow>
+
+  <GP_AssignAnyPost>Any guard post</GP_AssignAnyPost>
+  <GP_AssignPost>Guard {0} posts</GP_AssignPost>
+  <GP_AssignPatrol>Patrol {0} route</GP_AssignPatrol>
+
+  <GP_ReportGuarding>guarding {0} post.</GP_ReportGuarding>
+  <GP_ReportPatrolling>patrolling {0} route.</GP_ReportPatrolling>
+
+  <GP_ShowSpots>Show guard spots</GP_ShowSpots>
+  <GP_ShowSpotsDesc>Show or hide all guard posts and patrol spots on the map. Hidden spots still work. They show while selected or while you're placing new ones.</GP_ShowSpotsDesc>
+  <GP_OnlyShowGuards>Only show guards</GP_OnlyShowGuards>
+  <GP_OnlyShowGuardsDesc>List only colonists who have the Guard work type turned on. Turn this off to list every colonist, so you can enable guarding from here.</GP_OnlyShowGuardsDesc>
+  <GP_SpotCountTip>{0}: {1} guard posts, {2} patrol spots</GP_SpotCountTip>
+  <GP_NoGuards>No colonists have Guard work turned on. Turn it on in the Work tab, or untick "Only show guards".</GP_NoGuards>
+  <GP_TabHint>Guarding is work. Guards keep their post until a need, their schedule or higher-priority work pulls them away. Build posts and patrol spots under Architect > Security.</GP_TabHint>
+
+  <GP_IncapableOfGuarding>Incapable of violence</GP_IncapableOfGuarding>
+  <GP_StatusNotGuard>Guard work is off</GP_StatusNotGuard>
+  <GP_StatusNoPosts>No {0} guard posts built</GP_StatusNoPosts>
+  <GP_StatusNoRoute>No {0} patrol spots built</GP_StatusNoRoute>
+  <GP_StatusNoAnyPosts>No guard posts built</GP_StatusNoAnyPosts>
+
+  <GP_SkillDisabled>incapable</GP_SkillDisabled>
+  <GP_BestShooting>Better at shooting: give a ranged weapon.</GP_BestShooting>
+  <GP_BestMelee>Better at melee: give a melee weapon.</GP_BestMelee>
+  <GP_BestEither>Equally good at both.</GP_BestEither>
+
+  <GP_OnDuty>On duty</GP_OnDuty>
+  <GP_OffDuty>Off duty</GP_OffDuty>
+  <GP_AutoDuty>Auto duty</GP_AutoDuty>
+  <GP_DutyDesc>Click to choose on duty, off duty or auto duty.\n\nAuto duty follows each guard's schedule: on duty in work and "anything" hours, off duty in recreation hours. Sleep hours don't change it.\n\nEach guard uses the on-duty or off-duty apparel policy and loadout chosen for them: for example, non-lethal weapons and light clothes for peacekeeping off duty. Guards change gear the next time they look for something to do.</GP_DutyDesc>
+  <GP_StatusOffDuty>Off duty: {0}</GP_StatusOffDuty>
+  <GP_OffDutyNone>Keep current</GP_OffDutyNone>
+  <GP_SwitchedOffDuty>{0} guards switched to their off-duty gear.</GP_SwitchedOffDuty>
+  <GP_SwitchedOnDuty>{0} guards switched back to their duty gear.</GP_SwitchedOnDuty>
+
+  <GP_MusterGuards>Muster guards</GP_MusterGuards>
+  <GP_DismissGuards>Dismiss guards</GP_DismissGuards>
+  <GP_MusterGuardsDesc>Muster the guard: every guard drops what they're doing, switches to their on-duty apparel and loadout, gears up, gathers at the nearest muster spot (Architect > Security) if there is one, then gets drafted. Nothing interrupts them while they gear up and gather.\n\nClick again to dismiss them: they're undrafted and go back to what their schedule and duty setting say.</GP_MusterGuardsDesc>
+  <GP_GuardsMustered>Guards mustered: {0} guards are gearing up.</GP_GuardsMustered>
+  <GP_GuardsDismissed>The guards have been dismissed.</GP_GuardsDismissed>
+  <GP_MusterNoGuards>There are no guards to muster. Turn on Guard work for some colonists first.</GP_MusterNoGuards>
+  <GP_StatusMustered>Mustered: {0}</GP_StatusMustered>
+  <GP_StatusMusterGearing>Mustered, gearing up: {0}</GP_StatusMusterGearing>
+  <GP_StatusMusterGathering>Mustered, gathering: {0}</GP_StatusMusterGathering>
+  <GP_GuardsDrafted>Guards ready: {0} drafted.</GP_GuardsDrafted>
+
+  <GP_ShiftsButton>Shifts</GP_ShiftsButton>
+  <GP_ShiftsButtonDesc>Open the Guard Shifts window: set the hours each guard is on shift.</GP_ShiftsButtonDesc>
+  <GP_ShiftsTitle>Guard shifts</GP_ShiftsTitle>
+  <GP_ShiftBrushOn>Guard shift</GP_ShiftBrushOn>
+  <GP_ShiftBrushOff>Off shift</GP_ShiftBrushOff>
+  <GP_ShiftsNoGuards>No colonists have Guard work turned on.</GP_ShiftsNoGuards>
+  <GP_ShiftsHint>During a shift, a guard is on duty whatever their schedule says: they gear up in their on-duty apparel and loadout, then hold their post or walk their route until the shift ends. They still eat or sleep when they really must. Musters, the militia and drafting come first.</GP_ShiftsHint>
+  <GP_ShiftStatusNone>No shifts</GP_ShiftStatusNone>
+  <GP_ShiftStatusOff>Off shift</GP_ShiftStatusOff>
+  <GP_ShiftStatusOn>On shift</GP_ShiftStatusOn>
+  <GP_ShiftStatusGearing>On shift, gearing up</GP_ShiftStatusGearing>
+  <GP_StatusOnShift>On shift: {0}</GP_StatusOnShift>
+  <GP_StatusShiftGearing>On shift, gearing up: {0}</GP_StatusShiftGearing>
+
+  <GP_MilitiaButton>Militia</GP_MilitiaButton>
+  <GP_MilitiaButtonDesc>Open the Militia window: choose which colonists are in the militia and the gear they switch to when it's called up.</GP_MilitiaButtonDesc>
+  <GP_MilitiaTitle>Militia</GP_MilitiaTitle>
+  <GP_MilitiaMembers>{0} members</GP_MilitiaMembers>
+  <GP_MilitiaMemberTip>Click to add or remove this colonist from the militia.</GP_MilitiaMemberTip>
+  <GP_MilitiaHint>When called up, members switch to their militia apparel and loadout, gear up (up to three hours; anything they're already fetching, they finish), gather at the nearest muster spot if there is one (up to an hour), then get drafted.</GP_MilitiaHint>
+  <GP_CallMilitia>Call militia</GP_CallMilitia>
+  <GP_StandDownMilitia>Stand down</GP_StandDownMilitia>
+  <GP_CallMilitiaDesc>Call up the militia: members drop what they're doing, switch to their militia apparel policy and loadout, go and get their gear, gather at the nearest muster spot (Architect > Security) if there is one, then get drafted.\n\nClick again to stand them down: they're undrafted and go back to the gear they had before.</GP_CallMilitiaDesc>
+  <GP_MilitiaCalled>Militia called up: {0} members are gearing up.</GP_MilitiaCalled>
+  <GP_MilitiaNoMembers>The militia has no members. Add some in the Militia window.</GP_MilitiaNoMembers>
+  <GP_MilitiaDrafted>Militia ready: {0} drafted.</GP_MilitiaDrafted>
+  <GP_MilitiaStoodDown>The militia has stood down.</GP_MilitiaStoodDown>
+  <GP_MilitiaStatusStandingBy>Standing by</GP_MilitiaStatusStandingBy>
+  <GP_MilitiaStatusGearing>Gearing up</GP_MilitiaStatusGearing>
+  <GP_MilitiaStatusGathering>Gathering</GP_MilitiaStatusGathering>
+  <GP_MilitiaStatusDrafted>Drafted</GP_MilitiaStatusDrafted>
+  <GP_MilitiaStatusCalled>Called up</GP_MilitiaStatusCalled>
+  <GP_MilitiaStatusAway>Away</GP_MilitiaStatusAway>
+  <GP_NoWeapon>None</GP_NoWeapon>
+
+  <GP_InspectPatrolStop>Stop {0} of {1} on the {2} route ({3})</GP_InspectPatrolStop>
+  <GP_InspectPostHeldBy>Guarded by {0}</GP_InspectPostHeldBy>
+  <GP_InspectPostEmpty>Unguarded</GP_InspectPostEmpty>
+
+  <GP_MoveEarlier>Move earlier</GP_MoveEarlier>
+  <GP_MoveEarlierDesc>Visit this stop one step earlier on its patrol route.</GP_MoveEarlierDesc>
+  <GP_MoveLater>Move later</GP_MoveLater>
+  <GP_MoveLaterDesc>Visit this stop one step later on its patrol route.</GP_MoveLaterDesc>
+  <GP_AlreadyFirst>This is already the first stop.</GP_AlreadyFirst>
+  <GP_AlreadyLast>This is already the last stop.</GP_AlreadyLast>
+  <GP_RouteLoop>loop</GP_RouteLoop>
+  <GP_RoutePingPong>back and forth</GP_RoutePingPong>
+  <GP_RouteModeDesc>Click to switch how guards walk the {0} route: in a loop (last stop back to the first), or back and forth (first to last, then back again).</GP_RouteModeDesc>
+
+</LanguageData>

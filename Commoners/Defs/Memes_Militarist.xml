@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Militarist meme. The specialist roles and the gladiator duel are unlocked by
+       Patches/Militarist.xml, which adds CM_Militarist to those precepts' requiredMemes.
+       With Vanilla Ideology Expanded - Memes and Structures, the same patch file also
+       requires Death: Don't care. -->
+
+  <MemeDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>CM_Militarist</defName>
+    <label>militarist</label>
+    <description>War is the highest calling. Our people train for battle, honor those who bear arms, and settle disputes with steel. Unlocks the gladiator duel and military parade rituals.</description>
+    <iconPath>UI/Commoners/Militarist</iconPath>
+    <groupDef>Misc</groupDef>
+    <impact>1</impact>
+    <renderOrder>72</renderOrder>
+    <requireOne>
+      <li>
+        <li>Execution_Required</li>
+        <li>Execution_RespectedIfGuilty</li>
+        <li>Execution_DontCare</li>
+      </li>
+    </requireOne>
+    <agreeableTraits>
+      <li>Bloodlust</li>
+    </agreeableTraits>
+    <disagreeableTraits>
+      <li>Wimp</li>
+    </disagreeableTraits>
+    <generalRules>
+      <rulesStrings>
+        <li>memeAdjective->martial</li>
+        <li>memeAdjective->iron</li>
+        <li>memeAdjective->steel</li>
+        <li>memeAdjective->warlike</li>
+        <li>memeCreed->army</li>
+        <li>memeCreed->legion</li>
+        <li>memeCreed->host</li>
+        <li>memeHyphenPrefix->war</li>
+        <li>memeHyphenPrefix->battle</li>
+        <li>memeConcept->war</li>
+        <li>memeConcept->discipline</li>
+        <li>memeConcept->valor</li>
+        <li>memeConcept->conquest</li>
+        <li>memeLeaderNoun->warlord</li>
+        <li>memeLeaderNoun->marshal</li>
+        <li>memeLeaderNoun->general</li>
+        <li>memeLeaderNoun->commander</li>
+        <li>memeMoralist->drillmaster</li>
+        <li>memeMoralist->war chaplain</li>
+      </rulesStrings>
+    </generalRules>
+    <descriptionMaker>
+      <rules>
+        <rulesStrings>
+          <!-- theist myth -->
+          <li>creation(tag=meme_CM_Militarist)        ->[deity0_name] was born on a battlefield, and the first sound [deity0_pronoun] heard was the clash of steel.</li>
+          <li>episode(uses=1,tag=meme_CM_Militarist)  ->[deity0_name] gathered the bravest of the [memberNamePlural] and drilled them until they moved as one, and no enemy could stand before them.</li>
+          <!-- theist founder -->
+          <li>intro(tag=meme_CM_Militarist)           ->The [place_summary] [place_name] was a garrison town, and [deity0_name] was the patron of its soldiers.</li>
+          <li>conflict(tag=meme_CM_Militarist)        ->A [foeLeader] disbanded the garrison of [place_name] and left its people defenseless.</li>
+          <li>founderJoin(tag=meme_CM_Militarist)     ->A veteran named [founderName] gathered the disbanded soldiers and swore them to [deity0_name].</li>
+          <li>victory(tag=meme_CM_Militarist)         ->[founderName]'s army marched on the [foeLeader] and broke the [foeSoldiers] in a single battle.</li>
+          <!-- ideological founder -->
+          <li>setup(tag=meme_CM_Militarist)           ->[founderName] served in a dozen wars, and saw that only the disciplined survive.</li>
+          <li>story(uses=1,tag=meme_CM_Militarist)    ->When raiders struck [founder_possessive] village, [founderName] alone stood firm, and the others rallied around [founder_objective].</li>
+          <!-- ideological lesson -->
+          <li>lessonIntro(tag=meme_CM_Militarist)         ->An old sergeant once told me</li>
+          <li>lesson(tag=meme_CM_Militarist)              ->peace is only the time between wars</li>
+          <li>lesson(tag=meme_CM_Militarist)              ->a people who will not fight will not last</li>
+          <li>lessonReinforcement(tag=meme_CM_Militarist) ->So keep your weapon clean and your ranks tight.</li>
+          <!-- archist -->
+          <li>archistBasis(tag=meme_CM_Militarist)    ->The archotechs were forged in humanity's wars, and they respect only strength.</li>
+          <li>archistFact(tag=meme_CM_Militarist)     ->The archotechs wage wars beyond our sight, and they choose champions among those who fight well.</li>
+          <li>archistProphecy(tag=meme_CM_Militarist) ->[inTheEnd], an army of [memberNamePlural] bearing the relic [relic0_name] will win the last war.</li>
+          <!-- animist -->
+          <li>animistFact(tag=meme_CM_Militarist)     ->The spirits of fallen warriors live on in their weapons, and lend their strength to those who wield them.</li>
+          <li>animistProphecy(tag=meme_CM_Militarist) ->When the last battle is fought, every warrior spirit will rise to stand with the victors.</li>
+        </rulesStrings>
+      </rules>
+    </descriptionMaker>
+    <symbolPacks>
+      <li>
+        <ideoName>Militarism</ideoName>
+        <theme>war</theme>
+        <adjective>militarist</adjective>
+        <member>militarist</member>
+      </li>
+      <li>
+        <ideoName>Martialism</ideoName>
+        <theme>martial virtue</theme>
+        <adjective>martial</adjective>
+        <member>martialist</member>
+      </li>
+      <li>
+        <ideoName>Legionism</ideoName>
+        <theme>the legion</theme>
+        <adjective>legionary</adjective>
+        <member>legionary</member>
+      </li>
+    </symbolPacks>
+  </MemeDef>
+
+</Defs>

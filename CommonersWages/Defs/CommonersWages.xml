@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ===== Jobs ===== -->
+
+  <JobDef>
+    <defName>CW_CollectWages</defName>
+    <driverClass>CommonersWages.JobDriver_CollectWages</driverClass>
+    <reportString>collecting wages at TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>CW_BuyCitizenship</defName>
+    <driverClass>CommonersWages.JobDriver_BuyCitizenship</driverClass>
+    <reportString>buying citizenship at TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>CW_BuyNobility</defName>
+    <driverClass>CommonersWages.JobDriver_BuyNobility</driverClass>
+    <reportString>buying a noble seat at TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>CW_DepositSavings</defName>
+    <driverClass>CommonersWages.JobDriver_TendSavings</driverClass>
+    <reportString>putting savings in TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>CW_WithdrawSavings</defName>
+    <driverClass>CommonersWages.JobDriver_TendSavings</driverClass>
+    <reportString>taking pocket money from TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>CW_BuyLot</defName>
+    <driverClass>CommonersWages.JobDriver_BuyLot</driverClass>
+    <reportString>buying a lot at TargetA.</reportString>
+  </JobDef>
+
+  <!-- ===== Strongbox ===== -->
+
+  <ThingDef ParentName="FurnitureBase">
+    <defName>CW_Strongbox</defName>
+    <label>strongbox</label>
+    <description>A small iron lockbox for personal savings. It links to nearby beds like an end table does. Anyone with savings (commoners, citizens, artisans, and nobles or landowners collecting rent) who owns a linked bed keeps their savings in it, apart from a little pocket money for meals. Rent paid to a landowner goes straight into their strongbox.\n\nIt isn't storage: haulers leave its contents alone. If it's removed, the silver inside goes to the colony and its owners are owed the same amount from payroll instead.</description>
+    <thingClass>CommonersWages.Building_Strongbox</thingClass>
+    <tickerType>Rare</tickerType>
+    <graphicData>
+      <texPath>Things/Building/CW_Strongbox</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.5, 0.4, 0.4)</volume>
+      </shadowData>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.3</fillPercent>
+    <rotatable>false</rotatable>
+    <surfaceType>Item</surfaceType>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>1200</WorkToBuild>
+      <Mass>12</Mass>
+      <Flammability>0</Flammability>
+      <Beauty>0</Beauty>
+    </statBases>
+    <costList>
+      <Steel>30</Steel>
+    </costList>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>1</maxSimultaneous>
+        <maxDistance>6</maxDistance>
+      </li>
+    </comps>
+    <designationCategory>Furniture</designationCategory>
+    <uiOrder>2065</uiOrder>
+  </ThingDef>
+
+  <WorkGiverDef>
+    <defName>CW_StockPayroll</defName>
+    <label>stock payroll registers</label>
+    <giverClass>CommonersWages.WorkGiver_StockPayroll</giverClass>
+    <workType>Hauling</workType>
+    <verb>stock</verb>
+    <gerund>stocking payroll at</gerund>
+    <priorityInType>15</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- ===== Mood ===== -->
+
+  <ThoughtDef>
+    <defName>CW_Payday</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>payday</label>
+        <description>I collected my wages. Honest pay for honest work.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_WagesOwed</defName>
+    <workerClass>CommonersWages.ThoughtWorker_WagesOwed</workerClass>
+    <stages>
+      <li>
+        <label>wages late</label>
+        <description>I haven't been paid yet. It's probably just a delay.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+      <li>
+        <label>wages unpaid</label>
+        <description>I've gone days without my wages. I work hard for this colony.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+      <li>
+        <label>wages long unpaid</label>
+        <description>Nobody has paid me in a long time. Am I working for nothing?</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_BoughtCitizenship</defName>
+    <durationDays>15</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>bought my citizenship</label>
+        <description>I saved every coin, and now I'm a full citizen. I earned this.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_BoughtNobility</defName>
+    <durationDays>20</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>bought my noble seat</label>
+        <description>Years of wages, saved coin by coin, and now I sit among the nobility.</description>
+        <baseMoodEffect>15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_Evicted</defName>
+    <durationDays>5</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>evicted</label>
+        <description>I couldn't make rent, so I lost my room.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== Land ownership ===== -->
+
+  <ThoughtDef>
+    <defName>CW_TaxDebt</defName>
+    <workerClass>CommonersWages.ThoughtWorker_TaxDebt</workerClass>
+    <stages>
+      <li>
+        <label>in tax debt</label>
+        <description>I still owe the colony my taxes. It's hanging over me.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_TaxesForgiven</defName>
+    <durationDays>6</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>taxes forgiven</label>
+        <description>The colony let me off the taxes I owed. That's a weight off my shoulders.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_Homeowner</defName>
+    <workerClass>CommonersWages.ThoughtWorker_Homeowner</workerClass>
+    <stages>
+      <li>
+        <label>homeowner</label>
+        <description>This land is mine. Nobody can charge me to sleep under my own roof.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_BoughtHome</defName>
+    <durationDays>15</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>bought my own home</label>
+        <description>I paid for this place with my own savings. It's mine, for good.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_GrantedHome</defName>
+    <durationDays>15</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>granted a home</label>
+        <description>The colony gave me land of my own. I won't forget that.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_HomeSeized</defName>
+    <durationDays>20</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>my home was seized</label>
+        <description>They took my home from me without paying a coin. What was it all for?</description>
+        <baseMoodEffect>-15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>
