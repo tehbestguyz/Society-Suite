@@ -39,6 +39,9 @@ namespace Commoners
         public static readonly List<CastesTabButton> GroupButtons = new List<CastesTabButton>();
         public static readonly List<CastesTabButton> TopButtons = new List<CastesTabButton>();
 
+        // A second row under the title buttons, also right-aligned (Commoners' "day off").
+        public static readonly List<CastesTabButton> TopButtonsBelow = new List<CastesTabButton>();
+
         // Draws buttons right to left, ending at `right`. Returns the x the leftmost one starts at.
         public static float DrawButtons(List<CastesTabButton> buttons, List<Pawn> pawns, float right, float y, float height)
         {
@@ -97,6 +100,7 @@ namespace Commoners
             Text.Font = GameFont.Small;
             CastesTabExtensions.DrawButtons(CastesTabExtensions.TopButtons, pawns, inRect.xMax - 26f, y + 2f, 28f);
             y += 36f;
+            CastesTabExtensions.DrawButtons(CastesTabExtensions.TopButtonsBelow, pawns, inRect.xMax - 26f, y, 28f);
             string seats = "CM_CastesSeats".Translate(CasteUtility.NobleSeatsUsed(), CasteUtility.NobleSeats(), pawns.Count, CommonersMod.Settings.colonistsPerNobleSeat);
             Widgets.Label(new Rect(inRect.x, y, inRect.width, LineHeight), seats);
             y += LineHeight;

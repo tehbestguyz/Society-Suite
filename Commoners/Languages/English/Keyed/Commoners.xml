@@ -90,6 +90,14 @@
   <CM_SettingsBarIcon>Show caste icons on the colonist bar</CM_SettingsBarIcon>
   <CM_SettingsReset>Reset to defaults</CM_SettingsReset>
 
+  <!-- Day off -->
+  <CM_DayOff>Day off</CM_DayOff>
+  <CM_DayOffEnd>End day off</CM_DayOffEnd>
+  <CM_DayOffTip>Set every colonist's schedule to Anything until midnight, then put it back. Hours you change in the meantime keep your change.</CM_DayOffTip>
+  <CM_DayOffEndTip>Put everyone's schedule back now.</CM_DayOffEndTip>
+  <CM_MessageDayOff>{0} colonists have the day off until midnight.</CM_MessageDayOff>
+  <CM_MessageDayOffOver>The day off is over. Schedules are back to normal.</CM_MessageDayOffOver>
+
   <!-- Military parade ritual -->
   <CM_ParadeNeedsMarkers>Needs a parade start and a parade end marker within this spot's gathering area (18 cells outdoors, or the same room indoors).</CM_ParadeNeedsMarkers>
   <CM_ParadeRouteTooShort>The parade start and end markers must be at least {0} cells apart.</CM_ParadeRouteTooShort>

@@ -194,3 +194,9 @@ The user's calls: placeable route markers (`CM_ParadeStart`, `CM_ParadeEnd`, fre
 - **Arrival trigger:** vanilla `StageEndTrigger_RolesArrived` fires when one pawn of a role has the tag, so `StageEndTrigger_AllRolePawnsTagged` waits for all of them (skipping downed pawns and pawns that left).
 - **Outcome:** `RitualOutcomeEffectWorker_FromQuality`, moods −6/−2/+6/+10 for 6 days. Quality from soldiers (custom comp, curve to 12 weighted), spectators (vanilla participant count, which excludes speaker and soldiers), speaker social impact, leader speaking, and a lectern within 5 cells.
 - **Not done:** soldiers walk to their own end cells independently, so a column with mixed move speeds spreads out rather than marching in lockstep.
+
+## Day off button (2026-10-25, not tested in-game)
+
+`Source/DayOff.cs`. A "Day off" button in a new second row of Castes tab title buttons (`CastesTabExtensions.TopButtonsBelow`, right-aligned under Estates' "Colony management"). It sets every colony member's 24 timetable hours to Anything and saves the old ones in the `DayOff` GameComponent. Each pawn's schedule goes back at that pawn's next local midnight (`GenLocalDate.DayPercent(pawn)`). While a day off is active the button reads "End day off" and restores everything at once. Restoring only touches hours that are still Anything, so the player's edits during the day survive. Pressing it twice keeps the first saved schedule.
+
+Performance: the schedule is written twice (click, midnight). `GameComponentTick` is one comparison against the earliest restore tick. A Harmony patch on `Pawn_TimetableTracker.CurrentAssignment` was rejected: that getter runs constantly. Custom Schedules only swaps allowed areas and never writes `times`, so it doesn't conflict. With Sleep On Schedule's default, Anything counts as sleep time, so pawns on a day off can nap whenever they're tired.

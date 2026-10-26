@@ -2,7 +2,11 @@
 
 A set of RimWorld 1.7 mods by Cashew about how a colony is organised: who belongs to which class, how people are paid, where they live, who guards the walls and who runs the estates.
 
-Each mod is its own folder in this repository, laid out the way RimWorld expects (`About/`, `Assemblies/`, `Defs/`, `Languages/`, `Patches/`, `Textures/`, plus the C# project in `Source/`). To use one, copy its folder into `RimWorld/Mods/`.
+Each mod is its own folder in this repository, laid out the way RimWorld expects (`About/`, `Assemblies/`, `Defs/`, `Languages/`, `Patches/`, `Textures/`, plus the C# project in `Source/`).
+
+## Download
+
+Get `SocietySuite.zip` from the [latest release](https://github.com/tehbestguyz/Society-Suite/releases/latest) and extract it into your `RimWorld/Mods/` folder. It has all five mods; turn on the ones you want in the mod list. Remember to subscribe to Harmony, and to Cash Register (Continued) if you use Society: Wages.
 
 Most features have not been tested in-game yet.
 
@@ -28,6 +32,7 @@ A caste system: slave, commoner, citizen, soldier, artisan, scholar and noble. C
 - Nobles trade better, lift the mood of lower castes nearby, need impressive bedrooms and a "standing" need, and refuse menial work. One noble seat per 10 colonists; Empire titles count as nobility.
 - Opinion and romance across castes, inherited caste for children, an Ideology "castes" issue, a Militarist meme and a military parade ritual.
 - A Castes main tab for moving people between castes. Other Society mods add their own columns and buttons to it.
+- A "Day off" button on the Castes tab sets everyone's schedule to Anything until their local midnight, then puts it back.
 
 Works without DLCs; Royalty, Ideology, Biotech and Anomaly features turn on when those DLCs are active.
 
