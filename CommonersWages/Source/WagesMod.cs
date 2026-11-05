@@ -25,6 +25,7 @@ namespace CommonersWages
         public int defaultPayrollTarget = 500;
         public int citizenshipPrice = 1500;
         public int nobilityPrice = 5000;
+        public int pensionPrice = 3000;
         public int rentBufferDays = 5;
         public bool gastronomyPays = true;
         public bool registersPullSilver = true;
@@ -74,6 +75,7 @@ namespace CommonersWages
             defaultPayrollTarget = 500;
             citizenshipPrice = 1500;
             nobilityPrice = 5000;
+            pensionPrice = 3000;
             rentBufferDays = 5;
             gastronomyPays = true;
             registersPullSilver = true;
@@ -109,6 +111,7 @@ namespace CommonersWages
             Scribe_Values.Look(ref defaultPayrollTarget, "defaultPayrollTarget", 500);
             Scribe_Values.Look(ref citizenshipPrice, "citizenshipPrice", 1500);
             Scribe_Values.Look(ref nobilityPrice, "nobilityPrice", 5000);
+            Scribe_Values.Look(ref pensionPrice, "pensionPrice", 3000);
             Scribe_Values.Look(ref rentBufferDays, "rentBufferDays", 5);
             Scribe_Values.Look(ref gastronomyPays, "gastronomyPays", true);
             Scribe_Values.Look(ref registersPullSilver, "registersPullSilver", true);
@@ -162,6 +165,7 @@ namespace CommonersWages
             Settings.defaultPayrollTarget = Money(list, "CW_SettingsDefaultTarget", Settings.defaultPayrollTarget, 50, 5000, 50);
             Settings.citizenshipPrice = Money(list, "CW_SettingsCitizenship", Settings.citizenshipPrice, 100, 10000, 100);
             Settings.nobilityPrice = Money(list, "CW_SettingsNobility", Settings.nobilityPrice, 500, 30000, 250);
+            Settings.pensionPrice = Money(list, "CW_SettingsPension", Settings.pensionPrice, 250, 30000, 250);
             Settings.rentBufferDays = Mathf.RoundToInt(list.SliderLabeled("CW_SettingsRentBuffer".Translate(Settings.rentBufferDays), Settings.rentBufferDays, 1f, 30f));
             Settings.pocketMoney = Money(list, "CW_SettingsPocketMoney", Settings.pocketMoney, 0, 500, 10);
             list.Gap();
@@ -204,6 +208,7 @@ namespace CommonersWages
         public static JobDef CW_CollectWages;
         public static JobDef CW_BuyCitizenship;
         public static JobDef CW_BuyNobility;
+        public static JobDef CW_BuyPension;
         public static JobDef CW_DepositSavings;
         public static JobDef CW_WithdrawSavings;
         public static JobDef CW_BuyLot;
@@ -211,6 +216,8 @@ namespace CommonersWages
         public static ThoughtDef CW_Payday;
         public static ThoughtDef CW_BoughtCitizenship;
         public static ThoughtDef CW_BoughtNobility;
+        public static ThoughtDef CW_Retired;
+        public static ThoughtDef CW_BoughtPension;
         public static ThoughtDef CW_Evicted;
         public static ThoughtDef CW_BoughtHome;
         public static ThoughtDef CW_GrantedHome;

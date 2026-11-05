@@ -36,7 +36,9 @@ namespace CommonersWages
             {
                 yield break;
             }
-            yield return MarketUtility.ForSaleToggle(() => forSale, v => forSale = v);
+            yield return MarketUtility.ForSaleToggle(() => forSale, v => forSale = v,
+                () => parent.Destroyed ? null : (parent as ISlotGroupParent)?.GetSlotGroup()?.HeldThings ?? Enumerable.Empty<Thing>(),
+                parent.LabelCap);
         }
 
         public override string CompInspectStringExtra()
@@ -107,15 +109,18 @@ namespace CommonersWages
 
         private static readonly Dictionary<Pawn, Sale> pending = new Dictionary<Pawn, Sale>();
 
-        public static Command_Toggle ForSaleToggle(System.Func<bool> get, System.Action<bool> set)
+        // `contents` gives what's stored there (null once it's gone), for the right-click Prices window.
+        public static Command_Toggle ForSaleToggle(System.Func<bool> get, System.Action<bool> set, System.Func<IEnumerable<Thing>> contents, string containerLabel)
         {
-            return new Command_Toggle
+            return new Command_ForSale
             {
                 defaultLabel = "CW_ForSale".Translate(),
                 defaultDesc = "CW_ForSaleDesc".Translate(WagesMod.Settings.foodMarkupPercent),
                 icon = WagesTextures.ForSale,
                 isActive = get,
-                toggleAction = () => set(!get())
+                toggleAction = () => set(!get()),
+                contents = contents,
+                containerLabel = containerLabel
             };
         }
 
@@ -138,7 +143,19 @@ namespace CommonersWages
             }
         }
 
+        // What one of this item costs: the custom price set in the Prices window, or else the normal price.
         public static int UnitPrice(Thing t)
+        {
+            PriceList prices = PriceList.Get();
+            if (prices != null && prices.TryGet(t, out int price))
+            {
+                return price;
+            }
+            return MarkupPrice(t);
+        }
+
+        // The normal price: market value times the markup in the mod settings.
+        public static int MarkupPrice(Thing t)
         {
             return Mathf.Max(0, Mathf.RoundToInt(t.MarketValue * WagesMod.Settings.foodMarkupPercent / 100f));
         }
@@ -146,7 +163,7 @@ namespace CommonersWages
         // Nobles and the colony's children take goods for sale free.
         public static bool TakesFree(Pawn pawn)
         {
-            return CasteUtility.IsColonyMember(pawn) && (CasteUtility.IsNoble(pawn) || !pawn.DevelopmentalStage.Adult());
+            return CasteUtility.IsColonyMember(pawn) && (CasteUtility.IsNoble(pawn) || !pawn.DevelopmentalStage.Adult() || WageUtility.IsRetired(pawn));
         }
 
         // Whether the pawn may take this for-sale item for themselves (outside a starving food search).
@@ -304,7 +321,9 @@ namespace CommonersWages
             MarketMapComponent market = zone.Map?.GetComponent<MarketMapComponent>();
             if (market != null)
             {
-                yield return MarketUtility.ForSaleToggle(() => market.IsForSale(zone), v => market.SetForSale(zone, v));
+                yield return MarketUtility.ForSaleToggle(() => market.IsForSale(zone), v => market.SetForSale(zone, v),
+                    () => zone.Map == null ? null : zone.GetSlotGroup()?.HeldThings ?? Enumerable.Empty<Thing>(),
+                    zone.label);
             }
         }
     }

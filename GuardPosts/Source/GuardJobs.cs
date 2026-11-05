@@ -13,7 +13,13 @@ namespace GuardPosts
 
         public override bool ShouldSkip(Pawn pawn, bool forced = false)
         {
-            return !pawn.Spawned || pawn.WorkTagIsDisabled(WorkTags.Violent) || !GuardUtility.AllSpots(pawn.Map).Any();
+            if (!pawn.Spawned || pawn.WorkTagIsDisabled(WorkTags.Violent) || !GuardUtility.AllSpots(pawn.Map).Any())
+            {
+                return true;
+            }
+            // Scheduled duty: off-shift guards get on with their other work.
+            GuardAssignment assignment = GameComponent_Guards.Instance?.GetAssignment(pawn);
+            return assignment != null && DutyUtility.IsOffScheduledDuty(pawn, assignment);
         }
 
         public override Job NonScanJob(Pawn pawn)

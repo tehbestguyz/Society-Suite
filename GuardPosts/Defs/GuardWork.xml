@@ -45,6 +45,14 @@
   </JobDef>
 
   <JobDef>
+    <defName>GP_MusterWait</defName>
+    <driverClass>GuardPosts.JobDriver_MusterWait</driverClass>
+    <reportString>waiting for orders.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+  <JobDef>
     <defName>GP_Patrol</defName>
     <driverClass>GuardPosts.JobDriver_Patrol</driverClass>
     <reportString>patrolling.</reportString>

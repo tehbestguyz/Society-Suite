@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Landed titles: the colony's own nobility ladder (Ideology only; see Source/LandedTitles.cs).
+       prestige is the running total a noble needs. unique titles have one living holder at a time.
+       declaresIndependence titles make the Empire permanently hostile while a holder lives.
+       The ladder and links in each description are added in code. -->
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_Landless</defName>
+    <label>Landless</label>
+    <description>A noble of the colony who holds no land of their own yet. Prestige earned by leading ceremonies, defending the colony and ruling well raises a noble through the landed titles.</description>
+    <prestige>0</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_Chief</defName>
+    <label>Chief</label>
+    <description>The first landed title. A chief speaks for a household or a small band, and the colony has begun to look to them.</description>
+    <prestige>1</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_HighChief</defName>
+    <label>High-Chief</label>
+    <description>A chief among chiefs, whose word settles disputes between households.</description>
+    <prestige>7</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_LocalLord</defName>
+    <label>Local-Lord</label>
+    <labelFemale>Local-Lady</labelFemale>
+    <description>A lord with land of their own and the people who work it.</description>
+    <prestige>14</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_Duke</defName>
+    <label>Duke</label>
+    <labelFemale>Duchess</labelFemale>
+    <description>A great lord who rules over lesser lords and can raise vassals of their own.</description>
+    <prestige>20</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_GrandDuke</defName>
+    <label>Grand-Duke</label>
+    <labelFemale>Grand-Duchess</labelFemale>
+    <description>The highest of the dukes, a ruler in all but name.</description>
+    <prestige>26</prestige>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_PettyKing</defName>
+    <label>Petty-King</label>
+    <labelFemale>Petty-Queen</labelFemale>
+    <description>A crowned ruler of a small realm. Claiming a crown is a challenge to the Empire, which will never forgive it.</description>
+    <prestige>31</prestige>
+    <declaresIndependence>true</declaresIndependence>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_King</defName>
+    <label>King</label>
+    <labelFemale>Queen</labelFemale>
+    <description>The crowned ruler of the realm. There can be only one.</description>
+    <prestige>37</prestige>
+    <unique>true</unique>
+    <declaresIndependence>true</declaresIndependence>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_HighKing</defName>
+    <label>High-King</label>
+    <labelFemale>High-Queen</labelFemale>
+    <description>A king over kings, to whom lesser crowns swear fealty. There can be only one.</description>
+    <prestige>43</prestige>
+    <unique>true</unique>
+    <declaresIndependence>true</declaresIndependence>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_GrandRegent</defName>
+    <label>Grand-Regent</label>
+    <description>The keeper of the realm, ruling in the name of an empire still to come. There can be only one.</description>
+    <prestige>49</prestige>
+    <unique>true</unique>
+    <declaresIndependence>true</declaresIndependence>
+  </Commoners.LandedTitleDef>
+
+  <Commoners.LandedTitleDef>
+    <defName>CM_Title_LordEmperor</defName>
+    <label>Lord-Emperor</label>
+    <labelFemale>Lady-Empress</labelFemale>
+    <description>The founder of a new empire, answerable to no one. There can be only one.</description>
+    <prestige>55</prestige>
+    <unique>true</unique>
+    <declaresIndependence>true</declaresIndependence>
+  </Commoners.LandedTitleDef>
+
+</Defs>

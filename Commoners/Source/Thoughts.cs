@@ -296,7 +296,7 @@ namespace Commoners
             {
                 return false;
             }
-            return CasteUtility.ColonyMembers().Any(m => CasteUtility.HasCommonerMark(m) || CasteUtility.HasArtisanMark(m) || CasteUtility.HasScholarMark(m) || CasteUtility.HasSoldierMark(m) || CasteUtility.IsColonyNoble(m));
+            return CasteUtility.ColonyHasRankedCaste();
         }
     }
 
@@ -309,7 +309,7 @@ namespace Commoners
             {
                 return false;
             }
-            return CasteUtility.ColonyMembers().Any(CasteUtility.IsNoble);
+            return CasteUtility.ColonyHasNoble();
         }
     }
 

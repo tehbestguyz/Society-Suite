@@ -35,7 +35,8 @@
   <GP_OnDuty>On duty</GP_OnDuty>
   <GP_OffDuty>Off duty</GP_OffDuty>
   <GP_AutoDuty>Auto duty</GP_AutoDuty>
-  <GP_DutyDesc>Click to choose on duty, off duty or auto duty.\n\nAuto duty follows each guard's schedule: on duty in work and "anything" hours, off duty in recreation hours. Sleep hours don't change it.\n\nEach guard uses the on-duty or off-duty apparel policy and loadout chosen for them: for example, non-lethal weapons and light clothes for peacekeeping off duty. Guards change gear the next time they look for something to do.</GP_DutyDesc>
+  <GP_ScheduledDuty>Scheduled duty</GP_ScheduledDuty>
+  <GP_DutyDesc>Click to choose on duty, off duty, auto duty or scheduled duty.\n\nAuto duty follows each guard's schedule: on duty in work and "anything" hours, off duty in recreation hours. Sleep hours don't change it.\n\nScheduled duty puts guards on duty only during the shifts set in the Shifts window. The rest of the time they're off duty and skip Guard work, so they do their other jobs.\n\nEach guard uses the on-duty or off-duty apparel policy and loadout chosen for them: for example, non-lethal weapons and light clothes for peacekeeping off duty. Guards change gear the next time they look for something to do.</GP_DutyDesc>
   <GP_StatusOffDuty>Off duty: {0}</GP_StatusOffDuty>
   <GP_OffDutyNone>Keep current</GP_OffDutyNone>
   <GP_SwitchedOffDuty>{0} guards switched to their off-duty gear.</GP_SwitchedOffDuty>
@@ -58,13 +59,24 @@
   <GP_ShiftBrushOn>Guard shift</GP_ShiftBrushOn>
   <GP_ShiftBrushOff>Off shift</GP_ShiftBrushOff>
   <GP_ShiftsNoGuards>No colonists have Guard work turned on.</GP_ShiftsNoGuards>
-  <GP_ShiftsHint>During a shift, a guard is on duty whatever their schedule says: they gear up in their on-duty apparel and loadout, then hold their post or walk their route until the shift ends. They still eat or sleep when they really must. Musters, the militia and drafting come first.</GP_ShiftsHint>
+  <GP_ShiftsHint>During a shift, a guard is on duty whatever their schedule says: they gear up in their on-duty apparel and loadout, then hold their post or walk their route until the shift ends. They still eat or sleep when they really must. Musters, the militia and drafting come first. In scheduled duty, guards only guard during their shifts.</GP_ShiftsHint>
   <GP_ShiftStatusNone>No shifts</GP_ShiftStatusNone>
   <GP_ShiftStatusOff>Off shift</GP_ShiftStatusOff>
   <GP_ShiftStatusOn>On shift</GP_ShiftStatusOn>
   <GP_ShiftStatusGearing>On shift, gearing up</GP_ShiftStatusGearing>
   <GP_StatusOnShift>On shift: {0}</GP_StatusOnShift>
   <GP_StatusShiftGearing>On shift, gearing up: {0}</GP_StatusShiftGearing>
+
+  <GP_MissingGear>{0} finished gearing up without: {1}</GP_MissingGear>
+  <GP_MissingGearLine>{0} x{1} ({2})</GP_MissingGearLine>
+  <GP_MissingNoneOnMap>none on the map</GP_MissingNoneOnMap>
+  <GP_MissingForbidden>all forbidden</GP_MissingForbidden>
+  <GP_MissingUnreachable>can't reach any</GP_MissingUnreachable>
+  <GP_MissingInUse>all reserved by others</GP_MissingInUse>
+  <GP_MissingCantEquip>not allowed to use it</GP_MissingCantEquip>
+  <GP_MissingCantEquipReason>can't use it: {0}</GP_MissingCantEquipReason>
+  <GP_MissingNoRoom>no room to carry it: needs {0} bulk and {1} kg, has {2} bulk and {3} kg free</GP_MissingNoRoom>
+  <GP_MissingUnknown>CE didn't take the {0} {1} tiles away; reason unknown</GP_MissingUnknown>
 
   <GP_MilitiaButton>Militia</GP_MilitiaButton>
   <GP_MilitiaButtonDesc>Open the Militia window: choose which colonists are in the militia and the gear they switch to when it's called up.</GP_MilitiaButtonDesc>

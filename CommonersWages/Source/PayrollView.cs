@@ -17,7 +17,18 @@ namespace CommonersWages
             CastesTabExtensions.Columns.Add(new CastesTabColumn
             {
                 label = "CW_ColWage".Translate(),
-                value = p => WageUtility.EarnsWages(p) ? WageUtility.DailyWage(p).ToStringMoney() : None
+                value = p => WageUtility.EarnsWages(p) ? WageUtility.DailyWage(p).ToStringMoney()
+                    : WageUtility.IsRetired(p) ? "CW_ColWageRetired".Translate().ToString() : None,
+                tooltip = p =>
+                {
+                    if (WageUtility.IsRetired(p))
+                    {
+                        return "CW_ColWageRetiredTip".Translate(p.Named("PAWN")).ToString();
+                    }
+                    return WageUtility.EarnsWages(p) && (WageUtility.WagesComp(p)?.pensionBought ?? false)
+                        ? "CW_ColWagePensionTip".Translate(p.Named("PAWN")).ToString()
+                        : null;
+                }
             });
             CastesTabExtensions.Columns.Add(new CastesTabColumn
             {
@@ -111,6 +122,16 @@ namespace CommonersWages
                 tooltip = pawns => "CW_ForgiveTaxTip".Translate(pawns[0].Named("PAWN"), TaxUtility.TotalDebt(pawns).ToStringMoney()).ToString(),
                 action = TaxUtility.Forgive
             });
+            if (ModsConfig.IdeologyActive)
+            {
+                CastesTabExtensions.RowButtons.Add(new CastesTabButton
+                {
+                    width = 80f,
+                    label = pawns => Patronage.CanOffer(pawns[0]) ? "CW_Patronage".Translate().ToString() : null,
+                    tooltip = pawns => Patronage.Tip(pawns[0]),
+                    action = pawns => Patronage.Buy(pawns[0])
+                });
+            }
             CastesTabExtensions.GroupButtons.Add(ForgiveAllButton("CW_ForgiveCasteTaxes", 170f));
             CastesTabExtensions.GroupButtons.Add(new CastesTabButton
             {

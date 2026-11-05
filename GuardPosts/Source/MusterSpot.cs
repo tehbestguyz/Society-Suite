@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -49,7 +51,7 @@ namespace GuardPosts
         public static bool AnySpot(Map map) => map != null && map.listerBuildings.AllBuildingsColonistOfClass<Building_MusterSpot>().Any();
 
         // Moves the pawn on to its next step. Returns true when it's geared up and gathered (or timed out).
-        public static bool Step(Pawn pawn, ref bool gathering, ref int stepStartTick, ref Job current, bool gather)
+        public static bool Step(Pawn pawn, ref bool gathering, ref int stepStartTick, ref Job current, bool gather, bool reportMissing = true)
         {
             int now = Find.TickManager.TicksGame;
             if (current != null && pawn.CurJob == current)
@@ -69,6 +71,10 @@ namespace GuardPosts
                 gathering = true;
                 stepStartTick = now;
                 timedOut = false;
+                if (reportMissing)
+                {
+                    ReportMissingGear(pawn);
+                }
             }
             if (!gather || timedOut)
             {
@@ -92,6 +98,19 @@ namespace GuardPosts
             return false;
         }
 
+        // Tells the player (and the log) what a pawn's loadout still wanted when they finished gearing up, and why.
+        private static void ReportMissingGear(Pawn pawn)
+        {
+            List<string> reasons = CeLoadouts.MissingGearReasons(pawn);
+            if (reasons.Count == 0)
+            {
+                return;
+            }
+            string text = "GP_MissingGear".Translate(pawn.LabelShort, string.Join("; ", reasons));
+            Messages.Message(text, pawn, MessageTypeDefOf.CautionInput, historical: true);
+            Log.Message("[Guard Posts] " + text);
+        }
+
         private static bool Finish(Pawn pawn, ref Job current)
         {
             current = null;
@@ -108,7 +127,8 @@ namespace GuardPosts
             current = job;
             pawn.jobs.ClearQueuedJobs();
             pawn.jobs.StartJob(job, JobCondition.InterruptForced);
-            Job wait = JobMaker.MakeJob(JobDefOf.Wait);
+            // Guard Posts' own wait job: vanilla Wait gets hooked by other mods (Allow Tool's party hunt threw on load).
+            Job wait = JobMaker.MakeJob(GuardDefOf.GP_MusterWait);
             wait.expiryInterval = WaitTicks;
             wait.checkOverrideOnExpire = false;
             wait.playerForced = true;
@@ -127,10 +147,115 @@ namespace GuardPosts
             {
                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
             }
-            else if (pawn.CurJobDef == JobDefOf.Wait && pawn.CurJob.playerForced && !pawn.Drafted)
+            else if (pawn.CurJobDef == GuardDefOf.GP_MusterWait)
             {
                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
             }
+        }
+
+        private static bool wagesInit;
+        private static MethodInfo wagesProtectedSilver;
+
+        // Silver that is the pawn's own savings under Society: Wages (read by reflection, so Wages stays optional).
+        private static int SavingsSilver(Pawn pawn)
+        {
+            if (!wagesInit)
+            {
+                wagesInit = true;
+                wagesProtectedSilver = GenTypes.GetTypeInAnyAssembly("CommonersWages.WageUtility")
+                    ?.GetMethod("ProtectedSilver", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(Pawn) }, null);
+            }
+            if (wagesProtectedSilver == null)
+            {
+                return 0;
+            }
+            try
+            {
+                return (int)wagesProtectedSilver.Invoke(null, new object[] { pawn });
+            }
+            catch (Exception e)
+            {
+                Log.ErrorOnce("[Guard Posts] Couldn't read " + pawn + "'s savings: " + (e.InnerException ?? e).Message, 0x5C0DC ^ pawn.thingIDNumber);
+                return int.MaxValue;
+            }
+        }
+
+        // When a muster or call-up starts: drops everything in the pawn's inventory except their savings, what their
+        // CE loadout calls for (counting their equipped weapon), and Simple Sidearms weapons (those count as equipped).
+        // Worn apparel and the equipped weapon aren't inventory, so they're never touched.
+        public static void DropUnneededInventory(Pawn pawn)
+        {
+            ThingOwner<Thing> inventory = pawn?.inventory?.innerContainer;
+            if (inventory == null || inventory.Count == 0 || !pawn.Spawned)
+            {
+                return;
+            }
+            List<CeLoadouts.LoadoutSlotInfo> slots = null;
+            try
+            {
+                slots = CeLoadouts.LoadoutSlots(pawn);
+            }
+            catch (Exception e)
+            {
+                Log.ErrorOnce("[Guard Posts] Couldn't read " + pawn + "'s CE loadout: " + (e.InnerException ?? e).Message, 0x5C0DD ^ pawn.thingIDNumber);
+                // Without the loadout, dropping could throw away what they need: keep everything.
+                return;
+            }
+            slots ??= new List<CeLoadouts.LoadoutSlotInfo>();
+            int[] remaining = slots.Select(s => s.count).ToArray();
+            ThingWithComps primary = pawn.equipment?.Primary;
+            if (primary != null)
+            {
+                Take(slots, remaining, primary.def, 1);
+            }
+            int savings = SavingsSilver(pawn);
+            bool keepSidearms = ModsConfig.IsActive("PeteTimesSix.SimpleSidearms");
+            List<(Thing thing, int count)> drops = new List<(Thing, int)>();
+            foreach (Thing thing in inventory.ToList())
+            {
+                int keep = 0;
+                if (thing.def == ThingDefOf.Silver && savings > 0)
+                {
+                    keep = Mathf.Min(thing.stackCount, savings);
+                    savings -= keep;
+                }
+                if (keepSidearms && thing.def.IsWeapon)
+                {
+                    keep = thing.stackCount;
+                }
+                keep += Take(slots, remaining, thing.GetInnerIfMinified().def, thing.stackCount - keep);
+                if (keep < thing.stackCount)
+                {
+                    drops.Add((thing, thing.stackCount - keep));
+                }
+            }
+            if (drops.Count == 0)
+            {
+                return;
+            }
+            // CE would otherwise fetch back items the player had told them to hold.
+            CeLoadouts.ClearHeldItems(pawn);
+            foreach ((Thing thing, int count) in drops)
+            {
+                inventory.TryDrop(thing, pawn.Position, pawn.Map, ThingPlaceMode.Near, count, out Thing _);
+            }
+        }
+
+        // Fills loadout slots matching def with up to count items; returns how many it took.
+        private static int Take(List<CeLoadouts.LoadoutSlotInfo> slots, int[] remaining, ThingDef def, int count)
+        {
+            int taken = 0;
+            for (int i = 0; i < slots.Count && taken < count; i++)
+            {
+                if (remaining[i] <= 0 || !slots[i].matches(def))
+                {
+                    continue;
+                }
+                int take = Mathf.Min(remaining[i], count - taken);
+                remaining[i] -= take;
+                taken += take;
+            }
+            return taken;
         }
 
         // Apparel the pawn had forced before the muster, so standing down only unforces what the muster forced.
@@ -162,7 +287,21 @@ namespace GuardPosts
 
         private static void ClearWait(Pawn pawn)
         {
-            pawn.jobs?.jobQueue?.RemoveAll(pawn, j => j.def == JobDefOf.Wait && j.playerForced);
+            pawn.jobs?.jobQueue?.RemoveAll(pawn, j => j.def == GuardDefOf.GP_MusterWait);
+        }
+    }
+
+    // A muster pawn standing by for their next step. Only the muster hands these out; it ends on its own after a few seconds.
+    public class JobDriver_MusterWait : JobDriver
+    {
+        public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+
+        protected override IEnumerable<Toil> MakeNewToils()
+        {
+            Toil wait = ToilMaker.MakeToil("MusterWait");
+            wait.initAction = () => pawn.pather?.StopDead();
+            wait.defaultCompleteMode = ToilCompleteMode.Never;
+            yield return wait;
         }
     }
 }

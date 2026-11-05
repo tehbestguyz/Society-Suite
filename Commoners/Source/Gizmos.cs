@@ -13,6 +13,7 @@ namespace Commoners
         public static readonly Texture2D Artisan = ContentFinder<Texture2D>.Get("UI/Commoners/Artisan");
         public static readonly Texture2D Scholar = ContentFinder<Texture2D>.Get("UI/Commoners/Scholar");
         public static readonly Texture2D Soldier = ContentFinder<Texture2D>.Get("UI/Commoners/Soldier");
+        public static readonly Texture2D Investiture = ContentFinder<Texture2D>.Get("UI/Commoners/Investiture");
         public static readonly Texture2D Noble = ContentFinder<Texture2D>.Get("UI/Commoners/Noble");
         public static readonly Texture2D Station = ContentFinder<Texture2D>.Get("UI/Commoners/Station");
         public static readonly Texture2D Promote = ContentFinder<Texture2D>.Get("UI/Commoners/Promote");
@@ -55,6 +56,11 @@ namespace Commoners
             if (CasteUtility.IsCasteEligible(pawn))
             {
                 yield return StationGizmo(pawn);
+            }
+            Gizmo investiture = LandedTitles.InvestitureGizmo(pawn);
+            if (investiture != null)
+            {
+                yield return investiture;
             }
             else if (pawn.IsPrisonerOfColony && pawn.guest.Recruitable)
             {
@@ -133,6 +139,15 @@ namespace Commoners
             else
             {
                 options.Add(new FloatMenuOption(CasteUtility.Label(Caste.Noble).CapitalizeFirst() + " (" + "CM_CannotMustBuy".Translate() + ")", null));
+            }
+            // Giving up a landed title (and its prestige) is how a noble becomes free to take Empire honor.
+            if (LandedTitles.HoldsTitle(pawn) || LandedTitles.Prestige(pawn) > 0)
+            {
+                LandedTitleDef title = LandedTitles.Title(pawn) ?? LandedTitles.Landless;
+                options.Add(new FloatMenuOption("CM_MenuRenounceLanded".Translate(title.LabelFor(pawn)), () =>
+                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                        "CM_RenounceLandedConfirm".Translate(pawn.Named("PAWN"), title.LabelFor(pawn).Named("TITLE"), LandedTitles.Prestige(pawn).Named("PRESTIGE")),
+                        () => LandedTitles.Renounce(pawn), destructive: true))));
             }
             return options;
         }

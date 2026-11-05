@@ -101,6 +101,7 @@ namespace GuardPosts
                         if (!assignment.militiaCalled)
                         {
                             DutyUtility.PutOnDuty(pawn, assignment);
+                            MusterSteps.DropUnneededInventory(pawn);
                         }
                     }
                     enrolled.Add(pawn);

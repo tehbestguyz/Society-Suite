@@ -183,7 +183,7 @@ namespace CommonersWages
         private static int BaseRentFor(Pawn pawn, Building_Bed bed)
         {
             int rent = RentOf(bed);
-            if (rent <= 0 || CasteUtility.IsNoble(pawn))
+            if (rent <= 0 || CasteUtility.IsNoble(pawn) || WageUtility.IsRetired(pawn))
             {
                 return 0;
             }

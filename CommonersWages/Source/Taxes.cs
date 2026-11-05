@@ -65,7 +65,7 @@ namespace CommonersWages
     {
         public static int TaxFor(Pawn pawn)
         {
-            if (!CasteUtility.IsColonyMember(pawn) || !pawn.DevelopmentalStage.Adult())
+            if (!CasteUtility.IsColonyMember(pawn) || !pawn.DevelopmentalStage.Adult() || WageUtility.IsRetired(pawn))
             {
                 return 0;
             }

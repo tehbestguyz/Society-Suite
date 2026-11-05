@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace GuardPosts
 {
@@ -19,10 +21,31 @@ namespace GuardPosts
             }
             comp.dutyMode = mode;
             UpdateAll(announce: true);
+            if (mode == DutyMode.Scheduled)
+            {
+                // Guards off shift stop guarding now rather than when their guard job next re-checks.
+                foreach (KeyValuePair<Pawn, GuardAssignment> entry in comp.AllAssignments.ToList())
+                {
+                    Pawn pawn = entry.Key;
+                    if (pawn != null && pawn.Spawned && !pawn.Drafted && IsOffScheduledDuty(pawn, entry.Value)
+                        && (pawn.CurJobDef == GuardDefOf.GP_GuardPost || pawn.CurJobDef == GuardDefOf.GP_Patrol))
+                    {
+                        pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+                    }
+                }
+            }
+        }
+
+        // In scheduled duty, guards only guard during their shifts (or when mustered); the rest of the time Guard work is skipped.
+        public static bool IsOffScheduledDuty(Pawn pawn, GuardAssignment assignment)
+        {
+            GameComponent_Guards comp = GameComponent_Guards.Instance;
+            return comp != null && comp.dutyMode == DutyMode.Scheduled && !assignment.onShift && !assignment.guardMustered;
         }
 
         // Whether this guard should be off duty now; null leaves them as they are.
         // Auto: on duty in work and "anything" hours, off duty in recreation (or meditation, or modded) hours, unchanged while asleep.
+        // Scheduled: off duty except during their guard shifts (UpdateAll puts guards on shift on duty before asking).
         public static bool? WantsOffDuty(Pawn pawn, DutyMode mode)
         {
             switch (mode)
@@ -30,6 +53,7 @@ namespace GuardPosts
                 case DutyMode.OnDuty:
                     return false;
                 case DutyMode.OffDuty:
+                case DutyMode.Scheduled:
                     return true;
             }
             TimeAssignmentDef current = pawn.timetable?.CurrentAssignment;

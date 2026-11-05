@@ -93,6 +93,18 @@ namespace SocietyHomes
             public bool[] closedCells;
         }
 
+        // The pantry grids are map-sized, so allocating them on every rebuild (every 250 ticks) filled the large
+        // object heap. Each map keeps two sets and rebuilds into the one not currently published, so readers on
+        // other threads always see a whole grid.
+        private class GridBuffers
+        {
+            public readonly Zone_Lot[][] lots = new Zone_Lot[2][];
+            public readonly bool[][] closed = new bool[2][];
+            public int next;
+        }
+
+        private static Dictionary<Map, GridBuffers> buffers = new Dictionary<Map, GridBuffers>();
+
         private static Dictionary<Map, MapHomes> maps = new Dictionary<Map, MapHomes>();
         private static Dictionary<Pawn, HomeData> homeOf = new Dictionary<Pawn, HomeData>();
         private static Dictionary<Zone_Lot, HomeData> homes = new Dictionary<Zone_Lot, HomeData>();
@@ -111,6 +123,7 @@ namespace SocietyHomes
         public static void Clear()
         {
             maps = new Dictionary<Map, MapHomes>();
+            buffers = new Dictionary<Map, GridBuffers>();
             homeOf = new Dictionary<Pawn, HomeData>();
             homes = new Dictionary<Zone_Lot, HomeData>();
             AnyPantries = false;
@@ -193,6 +206,10 @@ namespace SocietyHomes
                 map.GetComponent<HomesMapComponent>()?.PruneBills();
             }
             maps = newMaps;
+            if (buffers.Count > newMaps.Count)
+            {
+                buffers.RemoveAll(kv => !newMaps.ContainsKey(kv.Key));
+            }
             homeOf = newHomeOf;
             homes = newHomes;
             AnyPantries = any;
@@ -228,6 +245,12 @@ namespace SocietyHomes
         private static void FindPantries(Map map, Dictionary<Zone_Lot, HomeData> lotHomes, MapHomes mh)
         {
             HomesMapComponent comp = map.GetComponent<HomesMapComponent>();
+            if (!buffers.TryGetValue(map, out GridBuffers buf))
+            {
+                buf = buffers[map] = new GridBuffers();
+            }
+            int slot = buf.next;
+            int cellCount = map.cellIndices.NumGridCells;
             foreach (SlotGroup group in map.haulDestinationManager.AllGroupsListForReading)
             {
                 if (!Pantry.IsMarked(group.parent, comp) || group.CellsList.Count == 0)
@@ -236,7 +259,7 @@ namespace SocietyHomes
                 }
                 // A household doesn't pay for its own food, and nobody else may buy it.
                 Pantry.ClearForSale(group.parent, map);
-                mh.closedCells ??= new bool[map.cellIndices.NumGridCells];
+                mh.closedCells ??= Rent(buf.closed, slot, cellCount);
                 foreach (IntVec3 c in group.CellsList)
                 {
                     mh.closedCells[map.cellIndices.CellToIndex(c)] = true;
@@ -246,7 +269,7 @@ namespace SocietyHomes
                     {
                         continue;
                     }
-                    mh.pantryCells ??= new Zone_Lot[map.cellIndices.NumGridCells];
+                    mh.pantryCells ??= Rent(buf.lots, slot, cellCount);
                     mh.pantryCells[map.cellIndices.CellToIndex(c)] = lot;
                     if (!home.pantries.Contains(group))
                     {
@@ -254,6 +277,19 @@ namespace SocietyHomes
                     }
                 }
             }
+            // The next rebuild writes into the other set; this one stays published until then.
+            buf.next = 1 - slot;
+        }
+
+        private static T[] Rent<T>(T[][] sets, int slot, int length)
+        {
+            T[] grid = sets[slot];
+            if (grid == null || grid.Length != length)
+            {
+                return sets[slot] = new T[length];
+            }
+            System.Array.Clear(grid, 0, grid.Length);
+            return grid;
         }
 
         private static void FindStoves(Map map, Dictionary<Zone_Lot, HomeData> lotHomes)

@@ -19,6 +19,11 @@
 {PAWN_nameDef} must own or rent a lot first. (Enlisting as a soldier doesn't need one.)</CW_BuyCitizenshipDesc>
   <CW_BuyNobility>Buy a noble seat</CW_BuyNobility>
   <CW_BuyNobilityDesc>{PAWN_nameDef} pays {PRICE} at a payroll register to join the colony's nobility. The colony has one noble seat for every {2} colonists, and one has to be free.\n\nNobles aren't paid wages: any savings left over and any unpaid wages go back to the colony.</CW_BuyNobilityDesc>
+  <CW_BuyPension>Buy a pension</CW_BuyPension>
+  <CW_BuyPensionDesc>{PAWN_nameDef} pays {PRICE} at a payroll register for a soldier's pension. {PAWN_nameDef} can buy it any time and keeps working and earning as before; once it's paid for, this button becomes "Retire", for whenever you choose.\n\nA retired soldier is no longer paid, but pays no rent, no tax and nothing for goods for sale, for as long as {PAWN_pronoun} stays a soldier. {PAWN_nameDef} keeps {PAWN_possessive} savings, can still fight and still sleeps in soldiers' beds.\n\nIf {PAWN_nameDef} is ever moved to another caste, the pension ends, used or not, and isn't refunded.</CW_BuyPensionDesc>
+  <CW_Retire>Retire</CW_Retire>
+  <CW_RetireDesc>{PAWN_nameDef} has paid for a pension and can retire now. From then on {PAWN_pronoun} is no longer paid, but pays no rent, no tax and nothing for goods for sale, for as long as {PAWN_pronoun} stays a soldier. Any wages still owed can be collected as usual.</CW_RetireDesc>
+  <CW_RetireConfirm>Retire {PAWN_nameDef} on {PAWN_possessive} pension? No more wages, but no rent, tax or shop prices either. This can't be undone.</CW_RetireConfirm>
   <CW_BuyNeedMore>Needs {0} more silver (has {1})</CW_BuyNeedMore>
   <CW_NoPayrollRegister>No reachable payroll register</CW_NoPayrollRegister>
 
@@ -29,6 +34,9 @@
 
   <!-- Castes tab payroll view -->
   <CW_ColWage>Wage</CW_ColWage>
+  <CW_ColWageRetired>Retired</CW_ColWageRetired>
+  <CW_ColWageRetiredTip>{PAWN_nameDef} bought a pension: no wages, and no rent, tax or shop prices.</CW_ColWageRetiredTip>
+  <CW_ColWagePensionTip>{PAWN_nameDef} has bought a pension and can retire any time.</CW_ColWagePensionTip>
   <CW_ColRent>Rent</CW_ColRent>
   <CW_ColOwed>Owed</CW_ColOwed>
   <CW_ColOwedTip>Unpaid for {0} days</CW_ColOwedTip>
@@ -134,11 +142,15 @@ While the lot is vacant and for sale, nobody sleeps in its rent-free beds. Beds 
   <CW_MessageEvicted>{PAWN_nameDef} couldn't pay rent and has been evicted.</CW_MessageEvicted>
   <CW_MessageBoughtCitizenship>{PAWN_nameDef} has bought citizenship.</CW_MessageBoughtCitizenship>
   <CW_MessageBoughtNobility>{PAWN_nameDef} has bought a noble seat and joined the nobility.</CW_MessageBoughtNobility>
+  <CW_MessageBoughtPension>{PAWN_nameDef} has bought a pension and can retire whenever you choose.</CW_MessageBoughtPension>
+  <CW_MessageRetired>{PAWN_nameDef} has retired on {PAWN_possessive} pension.</CW_MessageRetired>
   <CW_MessageNoSeat>{PAWN_nameDef} couldn't buy a noble seat: {REASON}.</CW_MessageNoSeat>
   <CW_LetterCanBuyLabel>Citizenship affordable</CW_LetterCanBuyLabel>
   <CW_LetterCanBuyText>{PAWN_nameDef} has saved {PRICE} and can now buy citizenship.\n\nSelect {PAWN_objective} and use "Buy citizenship" when you're ready. As a citizen, {PAWN_nameDef} will lose the commoner expectations bonus but can do any work and hold any position.</CW_LetterCanBuyText>
   <CW_LetterCanBuyNobilityLabel>Noble seat affordable</CW_LetterCanBuyNobilityLabel>
   <CW_LetterCanBuyNobilityText>{PAWN_nameDef} has saved {PRICE}, enough to buy a noble seat.\n\nSelect {PAWN_objective} and use "Buy a noble seat" when you're ready. As a noble, {PAWN_nameDef} will trade and negotiate better and lift the mood of lower castes nearby, but will expect much more, need a fine private bedroom, refuse menial work, and stop earning wages.</CW_LetterCanBuyNobilityText>
+  <CW_LetterCanBuyPensionLabel>Pension affordable</CW_LetterCanBuyPensionLabel>
+  <CW_LetterCanBuyPensionText>{PAWN_nameDef} has saved {PRICE}, enough to buy a soldier's pension.\n\nSelect {PAWN_objective} and use "Buy a pension" whenever you're ready. {PAWN_nameDef} keeps working and earning until you retire {PAWN_objective}; a retired soldier is no longer paid, but lives free of rent, tax and shop prices.</CW_LetterCanBuyPensionText>
   <CW_LetterNoSeat>There's no free noble seat right now. The colony has one for every {0} colonists.</CW_LetterNoSeat>
 
   <!-- Renting out lots -->
@@ -202,10 +214,21 @@ Rent is due every {1} days. If {PAWN_nameDef} is {2} days late, {PAWN_pronoun} i
 
   <!-- Goods for sale -->
   <CW_ForSale>For sale</CW_ForSale>
-  <CW_ForSaleDesc>Sell what's kept here. Colonists buy items stored here when they take them for themselves: food and drink, drugs from their drug policy, and clothes their outfit policy wants. Each costs {0}% of its market value (set in the mod settings), paid from their savings into a payroll register when they eat it or put it on.
+  <CW_ForSaleDesc>Sell what's kept here. Colonists buy items stored here when they take them for themselves: food and drink, drugs from their drug policy, and clothes their outfit policy wants. Each costs {0}% of its market value (set in the mod settings), or the price you set for it (right-click this button and choose "Prices"), paid from their savings into a payroll register when they eat it or put it on.
 
 Commoners, soldiers, citizens, artisans and scholars pay. Nobles and the colony's children take things free. Slaves, prisoners, guests and animals can't take anything. A colonist who can't afford something goes without, except that a starving colonist still eats. Pawns won't pack food or fill CE loadouts from here. Hauling, cooking and crafting still use what's stored here as usual.</CW_ForSaleDesc>
   <CW_ForSaleInspect>For sale at {0}% of market value</CW_ForSaleInspect>
+  <CW_PricesOption>Prices...</CW_PricesOption>
+  <CW_PricesTitle>Prices: {0}</CW_PricesTitle>
+  <CW_PricesHelp>What's stored here, and what each costs. Type a number to set your own price; it applies to that item (same material and quality) everywhere it's for sale. Items without one cost {0}% of market value.</CW_PricesHelp>
+  <CW_PricesColItem>Item</CW_PricesColItem>
+  <CW_PricesColHere>Here</CW_PricesColHere>
+  <CW_PricesColNormal>Normal price</CW_PricesColNormal>
+  <CW_PricesColNormalTip>Market value times the markup in the mod settings ({0}%). Damaged items are worth less, so this is for the first one of its kind here.</CW_PricesColNormalTip>
+  <CW_PricesColPrice>Price</CW_PricesColPrice>
+  <CW_PricesColPriceTip>What one costs. Type a new number to set your own price (0 makes it free). Outlined prices are your own.</CW_PricesColPriceTip>
+  <CW_PricesReset>Go back to the normal price ({0}).</CW_PricesReset>
+  <CW_PricesEmpty>Nothing is stored here right now.</CW_PricesEmpty>
 
   <!-- Taxes -->
   <CW_MessageTaxDay>Tax day: {0} collected from {1} colonists.</CW_MessageTaxDay>
@@ -250,6 +273,13 @@ Commoners, soldiers, citizens, artisans and scholars pay. Nobles and the colony'
   <CW_Log_LotBoughtBack>{0} {1} bought back by the colony</CW_Log_LotBoughtBack>
   <CW_Log_StrongboxReturned>strongbox removed: {0} added to wages owed</CW_Log_StrongboxReturned>
   <CW_Log_Dev>{0} (dev tool)</CW_Log_Dev>
+  <CW_Log_Patronage>{0} patronage</CW_Log_Patronage>
+  <CW_Log_Pension>{0} pension</CW_Log_Pension>
+  <CW_Patronage>Patronage</CW_Patronage>
+  <CW_PatronageTip>Spend {COST} of {PAWN_nameDef}'s savings on the colony for 1 landed-title prestige. Each point costs more than the last.\n\nSpendable savings: {SAVINGS}.</CW_PatronageTip>
+  <CW_PatronageCantAfford>{PAWN_nameDef} can't afford patronage: it costs {COST}.</CW_PatronageCantAfford>
+  <CW_PatronageNoRegister>Patronage needs a payroll cash register on {PAWN_nameDef}'s map to receive the silver.</CW_PatronageNoRegister>
+  <CW_PrestigePatronage>patronage ({0})</CW_PrestigePatronage>
   <CW_ColSavingsRecent>Recent payments:</CW_ColSavingsRecent>
 
   <!-- Economy summary -->
@@ -262,7 +292,7 @@ Commoners, soldiers, citizens, artisans and scholars pay. Nobles and the colony'
   <CW_ReportLotRent>Lot rent: {0}</CW_ReportLotRent>
   <CW_ReportTax>Taxes: {0}</CW_ReportTax>
   <CW_ReportSales>Goods for sale: {0}</CW_ReportSales>
-  <CW_ReportPurchases>Citizenship, noble seats and lots: {0}</CW_ReportPurchases>
+  <CW_ReportPurchases>Citizenship, noble seats, pensions and lots: {0}</CW_ReportPurchases>
   <CW_ReportOut>Money out: {0}</CW_ReportOut>
   <CW_ReportWages>Wages and commissions: {0}</CW_ReportWages>
   <CW_ReportBuyBack>Lots bought back: {0}</CW_ReportBuyBack>
@@ -294,6 +324,7 @@ Commoners, soldiers, citizens, artisans and scholars pay. Nobles and the colony'
   <CW_SettingsDefaultTarget>Default payroll target for new payroll registers: {0}</CW_SettingsDefaultTarget>
   <CW_SettingsCitizenship>Citizenship price: {0}</CW_SettingsCitizenship>
   <CW_SettingsNobility>Noble seat price: {0}</CW_SettingsNobility>
+  <CW_SettingsPension>Soldier pension price: {0}</CW_SettingsPension>
   <CW_SettingsRentBuffer>Days of rent a colonist wants saved before moving into a rented room: {0}</CW_SettingsRentBuffer>
   <CW_SettingsPocketMoney>Pocket money kept out of the strongbox: {0}</CW_SettingsPocketMoney>
   <CW_SettingsLandPrice>Land price per cell, for appraising lots: {0}</CW_SettingsLandPrice>

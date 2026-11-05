@@ -13,7 +13,7 @@ namespace GuardPosts
 
     public enum GuardMode { AnyPost, Post, Patrol }
 
-    public enum DutyMode { OnDuty, OffDuty, Auto }
+    public enum DutyMode { OnDuty, OffDuty, Auto, Scheduled }
 
     [DefOf]
     public static class GuardDefOf
@@ -21,6 +21,7 @@ namespace GuardPosts
         public static WorkTypeDef GP_Guarding;
         public static JobDef GP_GuardPost;
         public static JobDef GP_Patrol;
+        public static JobDef GP_MusterWait;
         public static PawnTableDef GP_Guards;
         public static PawnColumnDef GP_CombatSkill;
         public static PawnColumnDef GP_OffDutyLoadout;

@@ -131,7 +131,7 @@ namespace CommonersWages
     {
         public override float GetPriority(Pawn pawn)
         {
-            if (!pawn.Spawned || pawn.Drafted || !WageUtility.EarnsWages(pawn))
+            if (!pawn.Spawned || pawn.Drafted || !WageUtility.CanCollectWages(pawn))
             {
                 return 0f;
             }
@@ -159,7 +159,7 @@ namespace CommonersWages
         protected override Job TryGiveJob(Pawn pawn)
         {
             CompWages comp = WageUtility.WagesComp(pawn);
-            if (comp == null || comp.owed <= 0 || !WageUtility.EarnsWages(pawn))
+            if (comp == null || comp.owed <= 0 || !WageUtility.CanCollectWages(pawn))
             {
                 return null;
             }
@@ -226,6 +226,45 @@ namespace CommonersWages
                 // Citizens are paid too, so leftover savings stay in their pocket.
                 WageUtility.PlayKaching(Register);
                 Messages.Message("CW_MessageBoughtCitizenship".Translate(pawn.Named("PAWN")), pawn, MessageTypeDefOf.PositiveEvent);
+            };
+            yield return buy;
+        }
+    }
+
+    // A soldier buys a pension at a payroll register. They keep working and earning until the player
+    // retires them (WageUtility.Retire), after which there are no more wages, and no rent, tax or shop prices.
+    public class JobDriver_BuyPension : JobDriver
+    {
+        private Building_CashRegister Register => (Building_CashRegister)job.GetTarget(TargetIndex.A).Thing;
+
+        public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+
+        protected override IEnumerable<Toil> MakeNewToils()
+        {
+            this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
+            this.FailOn(() => !WageUtility.IsPayroll(Register) || CasteUtility.GetCaste(pawn) != Caste.Soldier || (WageUtility.WagesComp(pawn)?.pensionBought ?? true));
+            yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            yield return Toils_General.Wait(240).WithProgressBarToilDelay(TargetIndex.A);
+            Toil buy = ToilMaker.MakeToil("BuyPension");
+            buy.initAction = () =>
+            {
+                int price = WagesMod.Settings.pensionPrice;
+                CompWages comp = WageUtility.WagesComp(pawn);
+                if (comp == null)
+                {
+                    return;
+                }
+                // They're standing at payroll anyway, so they collect their pay first.
+                WageUtility.CollectWages(pawn, Register);
+                if (WageUtility.TotalSavings(pawn) < price)
+                {
+                    return;
+                }
+                MoneyLog.Note(pawn, MoneyKind.Pension, -WageUtility.PaySavings(pawn, Register.GetDirectlyHeldThings(), price));
+                comp.pensionBought = true;
+                pawn.needs?.mood?.thoughts.memories.TryGainMemory(CW_DefOf.CW_BoughtPension);
+                WageUtility.PlayKaching(Register);
+                Messages.Message("CW_MessageBoughtPension".Translate(pawn.Named("PAWN")), pawn, MessageTypeDefOf.PositiveEvent);
             };
             yield return buy;
         }

@@ -23,6 +23,12 @@
   </JobDef>
 
   <JobDef>
+    <defName>CW_BuyPension</defName>
+    <driverClass>CommonersWages.JobDriver_BuyPension</driverClass>
+    <reportString>buying a pension at TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
     <defName>CW_DepositSavings</defName>
     <driverClass>CommonersWages.JobDriver_TendSavings</driverClass>
     <reportString>putting savings in TargetA.</reportString>
@@ -160,6 +166,32 @@
         <label>bought my noble seat</label>
         <description>Years of wages, saved coin by coin, and now I sit among the nobility.</description>
         <baseMoodEffect>15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_BoughtPension</defName>
+    <durationDays>10</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>bought my pension</label>
+        <description>My pension's paid for. Whenever I hang up my sword, I'll want for nothing.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>CW_Retired</defName>
+    <durationDays>15</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>retired on a pension</label>
+        <description>I served, I saved, and I've bought my pension. No more rent, no more taxes, no more paying for my supper.</description>
+        <baseMoodEffect>12</baseMoodEffect>
       </li>
     </stages>
   </ThoughtDef>

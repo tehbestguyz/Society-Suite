@@ -90,6 +90,56 @@
   <CM_SettingsBarIcon>Show caste icons on the colonist bar</CM_SettingsBarIcon>
   <CM_SettingsReset>Reset to defaults</CM_SettingsReset>
 
+  <!-- Landed titles -->
+  <CM_LandedTitleInspect>{0} of {1}</CM_LandedTitleInspect>
+  <CM_LandedLadderHeader>Landed titles:</CM_LandedLadderHeader>
+  <CM_LandedLadderFirst>{0}: no prestige</CM_LandedLadderFirst>
+  <CM_LandedLadderLine>{0}: {1} prestige ({2} total)</CM_LandedLadderLine>
+  <CM_LandedLadderUnique>From {0} up, each title has only one holder at a time.</CM_LandedLadderUnique>
+  <CM_LandedLadderIndependence>From {0} up, the title defies the Empire, which stays hostile while such a ruler lives.</CM_LandedLadderIndependence>
+  <CM_LandedTipPrestige>Prestige: {0}</CM_LandedTipPrestige>
+  <CM_LandedTipNext>Next title: {0} at {1} prestige ({2} more).</CM_LandedTipNext>
+  <CM_LandedTipTop>The highest title has been reached.</CM_LandedTipTop>
+  <CM_LandedTipPending>Earned: {0}. Hold an investiture to make it official.</CM_LandedTipPending>
+  <CM_LandedTipTaken>{0} is held by {HOLDER_nameDef}.</CM_LandedTipTaken>
+  <CM_ColTitle>Title</CM_ColTitle>
+  <CM_ColPrestige>Prestige</CM_ColPrestige>
+  <CM_LetterTitleEarnedLabel>Title earned: {TITLE}</CM_LetterTitleEarnedLabel>
+  <CM_LetterTitleEarned>{PAWN_nameDef} has earned the title of {TITLE}.\n\nHold an investiture to make it official. Select {PAWN_objective} and use the investiture button.</CM_LetterTitleEarned>
+  <CM_LetterInvestedLabel>{TITLE} {PAWN_nameDef}</CM_LetterInvestedLabel>
+  <CM_LetterInvested>{PAWN_nameDef} has been invested as {TITLE} of {REALM}.</CM_LetterInvested>
+  <CM_LetterIndependenceLabel>A rival crown</CM_LetterIndependenceLabel>
+  <CM_LetterIndependence>By crowning {PAWN_nameDef} {TITLE}, {REALM} has defied {EMPIRE_name}.\n\n{EMPIRE_name} is now hostile, and won't make peace while a crowned ruler lives in the colony.</CM_LetterIndependence>
+  <CM_HoldInvestiture>Investiture: {0}</CM_HoldInvestiture>
+  <CM_HoldInvestitureDesc>Hold an investiture to make {PAWN_nameDef} {TITLE} of the realm.</CM_HoldInvestitureDesc>
+  <CM_InvestitureNeedsSpot>An investiture needs a ritual spot, altar or ideogram.</CM_InvestitureNeedsSpot>
+  <CM_InvestitureNoRitual>The colony's ideoligion has no investiture ritual.</CM_InvestitureNoRitual>
+  <CM_InvestitureEgalitarian>{IDEO_name} is egalitarian and won't raise anyone above the rest.</CM_InvestitureEgalitarian>
+  <CM_InvesteeNoPendingTitle>{PAWN_nameDef} has no title waiting to be invested.</CM_InvesteeNoPendingTitle>
+  <CM_NoInvestor>Nobody here can invest {PAWN_nameDef}. It takes the leader, a titled noble or the moral guide, free and on this map.</CM_NoInvestor>
+  <CM_OnlyInvestor>Only {INVESTOR_nameDef} can invest {PAWN_nameDef}.</CM_OnlyInvestor>
+  <CM_InvestitureExplanation>{PAWN_nameDef} will be invested as {TITLE} of {REALM}.</CM_InvestitureExplanation>
+  <CM_InvestitureIndependenceWarning>A crown defies {EMPIRE_name}. Once {PAWN_nameDef} is crowned, {EMPIRE_name} becomes hostile and stays hostile while a crowned ruler lives.</CM_InvestitureIndependenceWarning>
+  <CM_InvestitureIndependenceConfirm>Crowning {PAWN_nameDef} {TITLE} defies {EMPIRE_name}.\n\n{EMPIRE_name} will become hostile, and goodwill won't rise again while a crowned ruler lives in the colony.\n\nHold the investiture?</CM_InvestitureIndependenceConfirm>
+  <CM_RefusesEmpireHonor>{PAWN_nameDef} holds a landed title and refuses honor from {FACTION_name}. Renounce the landed title first.</CM_RefusesEmpireHonor>
+  <CM_MessagePrestigeGained>{PAWN_nameDef} gained {AMOUNT} prestige: {REASON}.</CM_MessagePrestigeGained>
+  <CM_MessagePrestigeLost>{PAWN_nameDef} lost {AMOUNT} prestige: {REASON}.</CM_MessagePrestigeLost>
+  <CM_PrestigeRitual>led a {0} {1}</CM_PrestigeRitual>
+  <CM_PrestigeQuest>took part in "{0}"</CM_PrestigeQuest>
+  <CM_PrestigeHosted>hosted visitors from {0} who left happy</CM_PrestigeHosted>
+  <CM_PrestigeDefended>helped beat off an attack</CM_PrestigeDefended>
+  <CM_PrestigeDefendedWithSoldiers>helped beat off an attack alongside the colony's soldiers</CM_PrestigeDefendedWithSoldiers>
+  <CM_PrestigeStayedOut>stayed out of a battle in which {0} colonists died</CM_PrestigeStayedOut>
+  <CM_PrestigeRealm>a quadrum of upheld standing</CM_PrestigeRealm>
+  <CM_PrestigeRealmGrew>a quadrum of upheld standing while the colony grew richer</CM_PrestigeRealmGrew>
+  <CM_PrestigeKilledLeader>killed {0}, leader of {1}</CM_PrestigeKilledLeader>
+  <CM_PrestigeBreak>an extreme mental break ({0})</CM_PrestigeBreak>
+  <CM_PrestigeKidnapped>carried off by enemies</CM_PrestigeKidnapped>
+  <CM_PrestigeImprisoned>imprisoned</CM_PrestigeImprisoned>
+  <CM_MenuRenounceLanded>Renounce landed title ({0})</CM_MenuRenounceLanded>
+  <CM_RenounceLandedConfirm>{PAWN_nameDef} will give up the title of {TITLE} and all {PRESTIGE} prestige. This can't be undone.</CM_RenounceLandedConfirm>
+  <CM_MessageRenouncedLanded>{PAWN_nameDef} renounced the title of {TITLE}.</CM_MessageRenouncedLanded>
+
   <!-- Day off -->
   <CM_DayOff>Day off</CM_DayOff>
   <CM_DayOffEnd>End day off</CM_DayOffEnd>

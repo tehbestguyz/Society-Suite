@@ -51,6 +51,15 @@ namespace Commoners
         public static JobDef CM_ElevateSlave;
 
         [MayRequireIdeology]
+        public static PreceptDef CM_Investiture;
+
+        [MayRequireIdeology]
+        public static ThoughtDef CM_InvestedWithTitle;
+
+        [MayRequireIdeology]
+        public static PreceptDef CM_Castes_Egalitarian;
+
+        [MayRequireIdeology]
         public static ThingDef CM_ParadeStart;
 
         [MayRequireIdeology]
@@ -138,8 +147,52 @@ namespace Commoners
     {
     }
 
+    // Also holds the noble's landed title (Ideology only, see LandedTitles.cs), so losing nobility
+    // loses the title with it.
     public class Hediff_Noble : Hediff_CasteMark
     {
+        public int prestige;
+
+        // The title made official by investiture. Null means landless.
+        public LandedTitleDef title;
+
+        // The highest pending title the player has had a letter about, so each one is announced once.
+        public LandedTitleDef notifiedTitle;
+
+        // Prestige sources' bookkeeping (Prestige.cs): whether standing fell below half this quadrum, how
+        // many points of prestige were bought (Wages patronage), when visitors were last hosted, and when
+        // each kind of ritual last gave prestige.
+        public bool standingDipped;
+        public int patronage;
+        public int lastHostTick = -99999999;
+        public Dictionary<string, int> ritualPrestigeTicks = new Dictionary<string, int>();
+
+        public void CopyLandedFrom(Hediff_Noble other)
+        {
+            prestige = other.prestige;
+            title = other.title;
+            notifiedTitle = other.notifiedTitle;
+            standingDipped = other.standingDipped;
+            patronage = other.patronage;
+            lastHostTick = other.lastHostTick;
+            ritualPrestigeTicks = new Dictionary<string, int>(other.ritualPrestigeTicks);
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref prestige, "prestige", 0);
+            Scribe_Defs.Look(ref title, "landedTitle");
+            Scribe_Defs.Look(ref notifiedTitle, "notifiedLandedTitle");
+            Scribe_Values.Look(ref standingDipped, "standingDipped", false);
+            Scribe_Values.Look(ref patronage, "patronage", 0);
+            Scribe_Values.Look(ref lastHostTick, "lastHostTick", -99999999);
+            Scribe_Collections.Look(ref ritualPrestigeTicks, "ritualPrestigeTicks", LookMode.Value, LookMode.Value);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                ritualPrestigeTicks ??= new Dictionary<string, int>();
+            }
+        }
     }
 
     public class RoleRequirement_NotCommoner : RoleRequirement
@@ -350,6 +403,54 @@ namespace Commoners
             return PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_FreeColonists.Where(IsColonyMember);
         }
 
+        // The precept thoughts ask the same colony-wide questions once per pawn, and each ask walked every
+        // colonist. The answers are kept for a second of game time so the colony is scanned once, not per pawn.
+        private const int ColonyFlagsInterval = 60;
+        private static int colonyFlagsTick = -1;
+        private static bool colonyHasNoble;
+        private static bool colonyHasRankedCaste;
+
+        // Any noble (colony or Empire) among the colony's members.
+        public static bool ColonyHasNoble()
+        {
+            RefreshColonyFlags();
+            return colonyHasNoble;
+        }
+
+        // Any member marked with a caste other than citizen.
+        public static bool ColonyHasRankedCaste()
+        {
+            RefreshColonyFlags();
+            return colonyHasRankedCaste;
+        }
+
+        private static void RefreshColonyFlags()
+        {
+            int now = Find.TickManager.TicksGame;
+            if (colonyFlagsTick >= 0 && now >= colonyFlagsTick && now - colonyFlagsTick < ColonyFlagsInterval)
+            {
+                return;
+            }
+            colonyFlagsTick = now;
+            colonyHasNoble = false;
+            colonyHasRankedCaste = false;
+            foreach (Pawn m in ColonyMembers())
+            {
+                if (!colonyHasNoble && IsNoble(m))
+                {
+                    colonyHasNoble = true;
+                }
+                if (!colonyHasRankedCaste && (HasCommonerMark(m) || HasArtisanMark(m) || HasScholarMark(m) || HasSoldierMark(m) || IsColonyNoble(m)))
+                {
+                    colonyHasRankedCaste = true;
+                }
+                if (colonyHasNoble && colonyHasRankedCaste)
+                {
+                    break;
+                }
+            }
+        }
+
         public static int NobleSeats()
         {
             int per = Math.Max(1, Settings.colonistsPerNobleSeat);
@@ -446,6 +547,8 @@ namespace Commoners
         public static void SetCaste(Pawn p, Caste target, CM_SpecialtyDef specialty = null, bool thoughts = true)
         {
             Caste from = GetCaste(p);
+            // A noble moved to noble again (re-ennobled, coming of age) keeps their landed title.
+            Hediff_Noble oldNoble = p.health.hediffSet.GetFirstHediffOfDef(CM_DefOf.CM_Noble) as Hediff_Noble;
             RemoveMark(p, CM_DefOf.CM_Commoner);
             RemoveMark(p, CM_DefOf.CM_Artisan);
             RemoveMark(p, CM_DefOf.CM_Scholar);
@@ -466,7 +569,12 @@ namespace Commoners
                     p.health.AddHediff(CM_DefOf.CM_Soldier);
                     break;
                 case Caste.Noble:
-                    p.health.AddHediff(CM_DefOf.CM_Noble);
+                    Hediff_Noble noble = (Hediff_Noble)HediffMaker.MakeHediff(CM_DefOf.CM_Noble, p);
+                    if (oldNoble != null)
+                    {
+                        noble.CopyLandedFrom(oldNoble);
+                    }
+                    p.health.AddHediff(noble);
                     break;
             }
             p.needs?.AddOrRemoveNeedsAsAppropriate();

@@ -32,7 +32,9 @@ namespace CommonersWages
         LotBought,
         LotBoughtBack,
         StrongboxReturned,
-        Dev
+        Dev,
+        Patronage,
+        Pension
     }
 
     // The colony-wide totals the economy summary adds up. Saved by position in EconomyDay, so new
@@ -121,6 +123,8 @@ namespace CommonersWages
                 case MoneyKind.Citizenship:
                 case MoneyKind.Nobility:
                 case MoneyKind.LotBought:
+                case MoneyKind.Patronage:
+                case MoneyKind.Pension:
                     return ColonyFlow.PurchasesIn;
                 case MoneyKind.LotBoughtBack:
                     return ColonyFlow.BuyBackOut;

@@ -200,3 +200,75 @@ The user's calls: placeable route markers (`CM_ParadeStart`, `CM_ParadeEnd`, fre
 `Source/DayOff.cs`. A "Day off" button in a new second row of Castes tab title buttons (`CastesTabExtensions.TopButtonsBelow`, right-aligned under Estates' "Colony management"). It sets every colony member's 24 timetable hours to Anything and saves the old ones in the `DayOff` GameComponent. Each pawn's schedule goes back at that pawn's next local midnight (`GenLocalDate.DayPercent(pawn)`). While a day off is active the button reads "End day off" and restores everything at once. Restoring only touches hours that are still Anything, so the player's edits during the day survive. Pressing it twice keeps the first saved schedule.
 
 Performance: the schedule is written twice (click, midnight). `GameComponentTick` is one comparison against the earliest restore tick. A Harmony patch on `Pawn_TimetableTracker.CurrentAssignment` was rejected: that getter runs constantly. Custom Schedules only swaps allowed areas and never writes `times`, so it doesn't conflict. With Sleep On Schedule's default, Anything counts as sleep time, so pawns on a day off can nap whenever they're tired.
+
+## Landed titles (designed 2026-10-28; phase 1 built, not tested in-game)
+
+The user's design: colony nobles earn titles of their own, separate from the Empire. Only active with Ideology. Built as its own system, not on Royalty (vanilla titles always belong to another faction, and the code assumes that faction isn't the player), so Royalty isn't needed.
+
+**Ladder (running totals, never spent):** Landless 0, Chief 1, High-Chief 7, Local-Lord 14, Duke 20, Grand-Duke 26, Petty-King 31, King 37, High-King 43, Grand-Regent 49, Lord-Emperor 55. Female forms: Local-Lady, Duchess, Grand-Duchess, Petty-Queen, Queen, High-Queen, Lady-Empress (Chief, High-Chief, Grand-Regent unchanged). Only colony nobles earn prestige; Landless = a noble below 1.
+
+**Prestige sources (all approved):**
+- Ritual speaker/organizer by outcome: worst −1, poor 0, good +1, best +2. Cooldown per ritual type.
+- Defence: +1 for nobles who fought when a raid is beaten off; +1 for killing an enemy leader; +1 for commanding soldier-caste pawns who fought.
+- Prosperous realm: per quadrum, +1 if standing stayed above half, +1 more if colony wealth grew.
+- Patronage: spend the noble's savings (Wages), rising cost per point.
+- Diplomacy: +1 per completed quest the noble took part in, or happy departing visitors.
+- Losses: extreme mental breaks, capture or imprisonment, colonists dying in a raid the noble fled, disastrous rituals.
+
+**Investiture:** crossing a threshold makes the title pending; an investiture ritual makes it real, with a grander coronation for the king-tier titles. The leader invests; when the leader is the one being invested, the highest-titled other noble does it, or the moral guide.
+
+**Empire:** mutually exclusive. A pawn with an Empire title can't earn prestige; a pawn with a landed title can't gain Empire honor or titles; renounce to switch. Reaching Petty-King makes the Empire hostile, and goodwill can't rise above hostile while any Petty-King or higher lives in the colony. The investiture dialog warns first.
+
+**UI:** an inspect-pane line "<Title> of <player faction>" in faction colour (a comp's inspect string, like Wages' savings); a character-card title badge "Duke (23)" that opens a rank card listing every title with "X prestige (Y total)", with a progress tooltip; title and prestige columns on noble rows in the Castes tab.
+
+**Perks (agreed 2026-10-28).** Bands: chieftains (Chief, High-Chief), lords (Local-Lord, Duke, Grand-Duke), kings (Petty-King, King, High-King), imperial (Grand-Regent, Lord-Emperor). Baseline noble: aura 15 cells (setting), +6% trade.
+
+| Title | Aura radius / mood | Trade | Extra noble seats |
+|---|---|---|---|
+| Landless | 15 / base | +6% | — |
+| Chief, High-Chief | 17 / base | +7%, +8% | — |
+| Local-Lord, Duke, Grand-Duke | 19 / positive stages +1, sour −4 | +9%, +10%, +11% | Duke +1, Grand-Duke +1 |
+| Petty-King, King, High-King | 21 / +2, sour −5 | +12%, +13%, +14% | +2 each |
+| Grand-Regent, Lord-Emperor | 23 / +3, sour −6 | +15%, +16% | +3 each |
+
+Radii are offsets on the lordship-radius setting. Signature perks: lords' "Banner" (drafted soldier-caste pawns inside the aura +10% shooting accuracy and melee hit); kings' "The realm" (ideoligion members on the map +2 mood while the king is content, conversion power +20%); imperial realm mood +4. Later idea: a seasonal decree (feast day, levy, tax holiday).
+
+**Demands (agreed).**
+
+| Title | Bedroom | Great hall | Standing lasts | Meals | Also refuses |
+|---|---|---|---|---|---|
+| Landless, chieftains | 50 | — | 6 days | any | (menial, as now) |
+| Lords | 65, 75, 85 | 40, 60, 80 | 5 days | any | — |
+| Kings | 100, 110, 120 | 100, 110, 120 | 4 days | fine or better | construction, growing, mining |
+| Imperial | 140, 160 | 140, 160 | 3 days | lavish | crafting, cooking, hunting |
+
+Bedroom values assume the 50 setting (scale as offsets). Meals: a bad thought for eating beneath their station, like Royalty. **Great hall = a Royalty throne room with a meditation throne** (`Throne` or `GrandThrone`, Royalty only, so no new art); nobles hold court on it in free time to fill standing (look at reusing vanilla `JobDriver_Reign` and `CompAssignableToPawn_Throne`, which may only accept Empire-titled pawns). **Without Royalty there's no hall requirement and no holding court.**
+
+**Unique titles (agreed):** any number of Petty-Kings and below; King, High-King, Grand-Regent and Lord-Emperor have one holder each. A noble who qualifies for a taken title stays pending until it frees up through death or abdication.
+
+**Egalitarian (default, user didn't object):** under the egalitarian castes precept, investitures can't happen. Prestige still accrues, and existing titles stay but upset egalitarian believers.
+
+**Build phases:** 1. titles, prestige storage, investiture ritual, UI, Empire rules. 2. prestige sources. 3. perks and demands. Still open: exact cooldowns and patronage costs.
+
+### Phase 1 as built (2026-10-28, deployed, not tested in-game)
+
+- `Source/LandedTitles.cs`, `Defs/LandedTitles.xml` (`Commoners.LandedTitleDef`, always loaded; the system checks `ModsConfig.IdeologyActive`), `Defs/Ritual_Investiture.xml`, icon `UI/Commoners/Investiture`.
+- **Storage:** `Hediff_Noble.prestige`, `.title` (null = Landless) and `.notifiedTitle`. `SetCaste` copies them when a noble is set to noble again. `LandedTitles.Data` returns them only for `IsColonyNoble` pawns, which already excludes Empire-titled pawns.
+- **Pending:** the highest earned title above the held one whose unique holder (a living colony member) isn't someone else. A letter announces each newly earned pending title once. Prestige never drops below 0, and losing prestige never removes a held title.
+- **Investiture:** hidden ritual precept (visible false, countsTowardsPreceptLimit false, classic), so every ideoligion gets it, and `Ideo` adds missing hidden rituals on load. It's started from the noble's "Investiture: <title>" gizmo with `GetRitualBeginWindow(..., forcedForRole {investee: pawn})`, like vanilla role change. Investor = the leader, or (if the leader is being invested or away) the highest-titled other noble on the map, or the moral guide. `RitualRole_Investor` enforces it when the dialog knows the investee and is permissive otherwise. Blocked under the egalitarian precept. The dialog explanation names the title. The first crown (Petty-King+) shows a red warning in the dialog and a confirmation on Begin. Outcome: quality mood for attendees (−3/+1/+4/+8), `CM_InvestedWithTitle` +8 for the noble, and the title.
+- **Empire:** Petty-King or higher drops Empire goodwill by 200 with a letter. A `Faction.TryAffectGoodwillWith` prefix blocks positive Empire-player changes while a sovereign lives. `Pawn_RoyaltyTracker.GainFavor`/`SetTitle` prefixes refuse honor and titles for pawns holding a landed title, with a message (an honor reward meant for them is lost). Renouncing (caste menu) clears title and prestige.
+- **UI:** a `Pawn.GetInspectString` postfix inserts "<Title> of <faction>" after the first line (titled nobles only). A `CharacterCardUtility.DoTopStack` transpiler calls `AddBadge(pawn)` just before the last `GenUI.DrawElementStack` call: "Duke (23)", tooltip with progress, click opens `Dialog_InfoCard(def)`. Each title's description gets the ladder and `descriptionHyperlinks` appended the first time a card opens. Castes tab gets Title and Prestige columns.
+- **Dev tools:** Debug actions > Commoners: add 1 / add 5 / remove 5 prestige, invest pending title now, renounce.
+- **Checked:** compiles; all 5 Harmony patches (including the transpiler) apply against the real Assembly-CSharp in a console smoke test; all XML parses and def references resolve.
+
+### Phase 2 as built (2026-10-28, deployed, not tested in-game)
+
+`Source/Prestige.cs`, plus `Source/Patronage.cs` in Wages. Every source calls `LandedTitles.AddPrestige(pawn, amount, reason)`, which only affects colony nobles and posts "X gained/lost N prestige: reason."
+
+- **Rituals:** postfix on `RitualOutcomeEffectWorker_FromQuality.GetOutcome` (only reached from `Apply`, so only for finished rituals). Leaders = the lord job's private `organizer` plus anyone in a role with id speaker, leader, moralist, investor or organizer. Outcome positivity −2 → −1, −1 → 0, +1 → +1, +2 → +2. One award per noble per ritual precept def every 5 days (`Hediff_Noble.ritualPrestigeTicks`).
+- **Defence:** `MapComponent_RealmDefence`. A battle starts at the first colonist hit on a hostile pawn (`Pawn.PostApplyDamage` postfix) or when `GenHostility.AnyHostileActiveThreatToPlayer` turns true (checked every 250 ticks), and ends when it turns false. Awards only if a hostile faction's pawn was hit, so animal attacks don't count: noble fighters +1, or +2 if soldier-caste pawns also fought. If colonists died (`Pawn.Kill` prefix), nobles on the map who could fight but didn't lose 1. Killing an enemy faction's leader (`faction.leader` or a `kindDef.factionLeader` pawn) gives the killer +1 immediately.
+- **Realm:** `GameComponent_RealmPrestige`. Hourly, any colony noble with standing below 0.5 is marked `standingDipped`. At each calendar quadrum (`TicksAbs / TicksPerQuadrum`), unmarked nobles get +1, or +2 if total home-map wealth grew since the last quadrum; marks reset. The first quadrum after loading only records the baseline.
+- **Diplomacy:** `Quest.End` postfix on success (only when the quest was ongoing): +1 to the accepter, pawns among the quest's look targets, and nobles on a quest site's map or in a caravan on its tile. Visitors: `TransitionAction_CheckGiveGift.DoAction` postfix (a normal departure): if nobody was lost violently and average visitor mood ≥ 50%, the highest-titled colony noble on the map gets +1, at most once per 3 days.
+- **Losses:** a mood-caused extreme break −1 (`MentalStateHandler.TryStartMentalState` postfix; extreme = the state of any Extreme `MentalBreakDef`); kidnapped −2 (`KidnappedPawnsTracker.Kidnap` prefix); imprisoned −2 (`Pawn_GuestTracker.SetGuestStatus` prefix, before they stop counting as a colony noble).
+- **Patronage (Wages):** a "Patronage" row button on colony nobles who keep savings. Costs 500 × (points bought + 1) from spendable savings, paid into a payroll register via `PayFromSavings`, logged as `MoneyKind.Patronage` (appended to the enum, counted as PurchasesIn). `Hediff_Noble.patronage` counts points bought; renouncing resets it.
+- **Checked:** both mods compile; all 13 landed-title patches apply against the real Assembly-CSharp in the console smoke test.

@@ -155,6 +155,7 @@ namespace GuardPosts
             assignment.musterGathering = false;
             assignment.musterStartTick = Find.TickManager.TicksGame;
             assignment.musterJob = null;
+            MusterSteps.DropUnneededInventory(pawn);
         }
 
         private static void Release(Pawn pawn, GuardAssignment assignment)

@@ -81,7 +81,7 @@ namespace GuardPosts
                 }
                 if (assignment.shiftGearing)
                 {
-                    if (!MusterSteps.Step(pawn, ref assignment.shiftGathering, ref assignment.shiftStartTick, ref assignment.shiftJob, gather: false))
+                    if (!MusterSteps.Step(pawn, ref assignment.shiftGathering, ref assignment.shiftStartTick, ref assignment.shiftJob, gather: false, reportMissing: false))
                     {
                         continue;
                     }

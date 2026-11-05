@@ -15,7 +15,11 @@ namespace CommonersWages
     // Only touched when Gastronomy is loaded (the JIT doesn't need Gastronomy until Explain runs).
     public static class DiningCheck
     {
-        public static bool GastronomyLoaded => AccessTools.TypeByName("Gastronomy.Dining.DiningUtility") != null;
+        // Asked from the food-search prefix on every meal search, so the type lookup (a scan of every loaded
+        // assembly) runs once.
+        private static bool? gastronomyLoaded;
+
+        public static bool GastronomyLoaded => gastronomyLoaded ??= AccessTools.TypeByName("Gastronomy.Dining.DiningUtility") != null;
 
         public static void Show(Pawn pawn)
         {

@@ -52,7 +52,7 @@ namespace GuardPosts
             if (Widgets.ButtonText(dutyRect, DutyLabel(comp.dutyMode)))
             {
                 List<FloatMenuOption> options = new List<FloatMenuOption>();
-                foreach (DutyMode mode in new[] { DutyMode.OnDuty, DutyMode.OffDuty, DutyMode.Auto })
+                foreach (DutyMode mode in new[] { DutyMode.OnDuty, DutyMode.OffDuty, DutyMode.Auto, DutyMode.Scheduled })
                 {
                     DutyMode m = mode;
                     options.Add(new FloatMenuOption(DutyLabel(mode), () => DutyUtility.SetMode(m)));
@@ -153,6 +153,8 @@ namespace GuardPosts
                     return "GP_OffDuty".Translate();
                 case DutyMode.Auto:
                     return "GP_AutoDuty".Translate();
+                case DutyMode.Scheduled:
+                    return "GP_ScheduledDuty".Translate();
                 default:
                     return "GP_OnDuty".Translate();
             }
@@ -166,6 +168,8 @@ namespace GuardPosts
                     return new Color(0.6f, 0.85f, 1f);
                 case DutyMode.Auto:
                     return new Color(1f, 0.9f, 0.55f);
+                case DutyMode.Scheduled:
+                    return new Color(0.8f, 0.7f, 1f);
                 default:
                     return new Color(1f, 0.6f, 0.55f);
             }

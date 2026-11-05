@@ -31,6 +31,12 @@ namespace CommonersWages
         public bool notifiedCanBuyCitizenship;
         public bool notifiedCanBuyNobility;
         public bool notifiedCanBuyLot;
+        public bool notifiedCanBuyPension;
+        // A soldier who has paid for a pension. They keep working and earning until they retire.
+        public bool pensionBought;
+        // A soldier who has retired on their pension: no more wages, and no rent, tax or shop prices
+        // (see WageUtility.IsRetired).
+        public bool retired;
         // Savings kept in a strongbox rather than the pocket.
         public int stashed;
         public Building_Strongbox stashBox;
@@ -148,7 +154,17 @@ namespace CommonersWages
                     "CW_LetterCanBuyText".Translate(pawn.Named("PAWN"), Settings.citizenshipPrice.ToStringMoney().Named("PRICE")),
                     LetterDefOf.PositiveEvent, pawn);
             }
-            if (!notifiedCanBuyNobility && savings >= Settings.nobilityPrice)
+            if (CasteUtility.GetCaste(pawn) == Caste.Soldier)
+            {
+                if (!notifiedCanBuyPension && !pensionBought && savings >= Settings.pensionPrice)
+                {
+                    notifiedCanBuyPension = true;
+                    Find.LetterStack.ReceiveLetter("CW_LetterCanBuyPensionLabel".Translate(),
+                        "CW_LetterCanBuyPensionText".Translate(pawn.Named("PAWN"), Settings.pensionPrice.ToStringMoney().Named("PRICE")),
+                        LetterDefOf.PositiveEvent, pawn);
+                }
+            }
+            else if (!notifiedCanBuyNobility && savings >= Settings.nobilityPrice)
             {
                 notifiedCanBuyNobility = true;
                 string text = "CW_LetterCanBuyNobilityText".Translate(pawn.Named("PAWN"), Settings.nobilityPrice.ToStringMoney().Named("PRICE"));
@@ -298,6 +314,34 @@ namespace CommonersWages
                 }
                 yield return citizenship;
             }
+            // Soldiers save for a pension rather than a noble seat. They can buy it any time and keep
+            // working; once it's paid for, the button becomes "Retire", for whenever the player chooses.
+            if (CasteUtility.GetCaste(pawn) == Caste.Soldier)
+            {
+                if (pensionBought)
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "CW_Retire".Translate(),
+                        defaultDesc = "CW_RetireDesc".Translate(pawn.Named("PAWN")),
+                        icon = WagesTextures.Pension,
+                        action = () => Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                            "CW_RetireConfirm".Translate(pawn.Named("PAWN")), () => WageUtility.Retire(pawn), destructive: false))
+                    };
+                    yield break;
+                }
+                int pensionPrice = Settings.pensionPrice;
+                Command_Action buyPension = new Command_Action
+                {
+                    defaultLabel = "CW_BuyPension".Translate() + " (" + pensionPrice.ToStringMoney() + ")",
+                    defaultDesc = "CW_BuyPensionDesc".Translate(pawn.Named("PAWN"), pensionPrice.ToStringMoney().Named("PRICE")),
+                    icon = WagesTextures.Pension,
+                    action = () => StartPurchase(CW_DefOf.CW_BuyPension)
+                };
+                DisableIfCantBuy(buyPension, savings, pensionPrice);
+                yield return buyPension;
+                yield break;
+            }
             int noblePrice = Settings.nobilityPrice;
             Command_Action nobility = new Command_Action
             {
@@ -348,6 +392,9 @@ namespace CommonersWages
             Scribe_Values.Look(ref notifiedCanBuyCitizenship, "cwNotifiedCanBuy", false);
             Scribe_Values.Look(ref notifiedCanBuyNobility, "cwNotifiedCanBuyNobility", false);
             Scribe_Values.Look(ref notifiedCanBuyLot, "cwNotifiedCanBuyLot", false);
+            Scribe_Values.Look(ref notifiedCanBuyPension, "cwNotifiedCanBuyPension", false);
+            Scribe_Values.Look(ref pensionBought, "cwPensionBought", false);
+            Scribe_Values.Look(ref retired, "cwRetired", false);
             Scribe_Values.Look(ref stashed, "cwStashed", 0);
             Scribe_References.Look(ref stashBox, "cwStashBox");
             Scribe_Values.Look(ref lastCollectedTick, "cwLastCollectedTick", -1);
@@ -444,6 +491,13 @@ namespace CommonersWages
                 {
                     legacy.MigrateTo(comp);
                 }
+                // A pension ends when its holder leaves the Soldier caste, used or not, so it doesn't
+                // come back if they re-enlist.
+                if ((comp.retired || comp.pensionBought) && CasteUtility.GetCaste(pawn) != Caste.Soldier)
+                {
+                    comp.retired = false;
+                    comp.pensionBought = false;
+                }
                 comp.CheckPayday();
             }
             LotUtility.CheckOwners();
@@ -467,13 +521,43 @@ namespace CommonersWages
             {
                 return false;
             }
-            return IsPaidCaste(CasteUtility.GetCaste(pawn));
+            return IsPaidCaste(CasteUtility.GetCaste(pawn)) && !IsRetired(pawn);
         }
 
-        // Who keeps protected savings: everyone paid, plus nobles and landowners, who collect rent.
+        // A soldier who bought a pension. They're no longer paid, and pay no rent, tax or shop prices.
+        // The pension belongs to the Soldier caste: moved to another caste, they're back to normal.
+        public static bool IsRetired(Pawn pawn)
+        {
+            return (WagesComp(pawn)?.retired ?? false) && CasteUtility.IsColonyMember(pawn) && CasteUtility.GetCaste(pawn) == Caste.Soldier;
+        }
+
+        // Retires a soldier who has paid for a pension. Anything held back toward tax is theirs again;
+        // wages they're still owed stay owed, and they can collect them.
+        public static void Retire(Pawn pawn)
+        {
+            CompWages comp = WagesComp(pawn);
+            if (comp == null || !comp.pensionBought || comp.retired || CasteUtility.GetCaste(pawn) != Caste.Soldier)
+            {
+                return;
+            }
+            if (comp.taxSaved > 0)
+            {
+                comp.AddOwed(comp.taxSaved, capped: false);
+                MoneyLog.Note(pawn, MoneyKind.TaxHeldReturned, comp.taxSaved);
+                comp.taxSaved = 0;
+            }
+            comp.retired = true;
+            pawn.needs?.mood?.thoughts.memories.TryGainMemory(CW_DefOf.CW_Retired);
+            Messages.Message("CW_MessageRetired".Translate(pawn.Named("PAWN")), pawn, MessageTypeDefOf.PositiveEvent);
+        }
+
+        // Who can still collect wages owed: anyone paid, and retirees with pay left over from before.
+        public static bool CanCollectWages(Pawn pawn) => EarnsWages(pawn) || IsRetired(pawn);
+
+        // Who keeps protected savings: everyone paid, retirees, and nobles and landowners, who collect rent.
         public static bool KeepsSavings(Pawn pawn)
         {
-            if (EarnsWages(pawn))
+            if (EarnsWages(pawn) || IsRetired(pawn))
             {
                 return true;
             }
@@ -956,6 +1040,7 @@ namespace CommonersWages
     {
         public static readonly Texture2D BuyCitizenship = ContentFinder<Texture2D>.Get("UI/CommonersWages/BuyCitizenship");
         public static readonly Texture2D BuyNobility = ContentFinder<Texture2D>.Get("UI/Commoners/Noble");
+        public static readonly Texture2D Pension = ContentFinder<Texture2D>.Get("UI/CommonersWages/Pension", reportFailure: false) ?? BuyNobility;
         public static readonly Texture2D Payroll = ContentFinder<Texture2D>.Get("UI/CommonersWages/Payroll");
         public static readonly Texture2D PayrollTarget = ContentFinder<Texture2D>.Get("UI/CommonersWages/PayrollTarget");
         public static readonly Texture2D Rent = ContentFinder<Texture2D>.Get("UI/CommonersWages/Rent");
